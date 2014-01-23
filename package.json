@@ -8,8 +8,6 @@
     "grunt": "~0.4.2",
     "grunt-cli": "~0.1.12",
     "grunt-contrib-jshint": "~0.8.0",
-    "mocha": "~1.17.1",
-    "grunt-mocha": "~0.4.10",
     "grunt-mocha-test": "~0.8.2"
   },
   "scripts": {
