@@ -1,0 +1,15 @@
+marketing stories:
+* see results of a preset team
+- create / update a team
+- see real results
+
+user stories:
+* I want to see the results of Emeline P and Emeline L
+- I want to see the results of a team (either Emeline L or both Emeline)
+- I want to create a team
+- I want to update a team
+- I want to see real data
+
+engineering stories:
+-
+-
