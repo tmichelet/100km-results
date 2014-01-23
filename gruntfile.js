@@ -2,6 +2,7 @@ module.exports = function(grunt) {
     'use strict';
 
     grunt.loadNpmTasks("grunt-contrib-jshint");
+    grunt.loadNpmTasks('grunt-mocha-test');
 
     grunt.initConfig({
         jshint: {
@@ -11,8 +12,16 @@ module.exports = function(grunt) {
             },
             node: {
                 options: nodeLintOptions(),
-                src: ["src/*.js", "src/server/**/*.js", "*.js"]
+                src: ["src/*.js", "src/server/**/*.js", "*.js", "test/**/*.js"]
             }
+        },
+        mochaTest: {
+            test: {
+                options: {
+                    reporter: 'spec'
+                },
+                src: ['test/**/*.js']
+            },
         }
     });
 
@@ -20,7 +29,7 @@ module.exports = function(grunt) {
         grunt.log.write('hello-grunt').ok();
     });
 
-    grunt.registerTask('default', ['jshint', 'hello-grunt']);
+    grunt.registerTask('default', ['jshint', 'mochaTest', 'hello-grunt']);
 
     function globalLintOptions() {
         return {
