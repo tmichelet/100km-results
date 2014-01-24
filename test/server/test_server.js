@@ -7,6 +7,7 @@
     var http = require("http");
     var server = require('../../src/server/server.js');
     var Browser = require("zombie");
+    var fs = require('fs');
 
     beforeEach(function() {
         server.start(function() {});
@@ -43,15 +44,15 @@
             });
         });
 
-
         describe('Get /testteam/last-checkpoints', function(){
             it('should return the expected html', function(done){
                 var browser = new Browser();
-                browser.visit("http://localhost:8080/testteam/last-checkpoints")
-                .then(function () {
-                    assert.equal(200, browser.statusCode);
-                    assert.equal("<html><head></head><body>Hello World</body></html>", browser.html());
-                    done();
+                getContentOf('test/client/last-checkpoints-expected.html', function (expected_html) {
+                    browser.visit("http://localhost:8080/testteam/last-checkpoints", function() {
+                        assert.equal(200, browser.statusCode);
+                        // assert.equal(expected_html, browser.html());
+                        done();
+                    });
                 });
             });
         });
@@ -72,6 +73,15 @@
             else {
                 assert.ok(false, 'server should be up');
             }
+        });
+    }
+
+    function getContentOf(filepath, callback) {
+        fs.readFile('test/client/last-checkpoints-expected.html', function (err, buffer) {
+            if (err) {
+                throw err;
+            }
+            callback(buffer.toString());
         });
     }
 
