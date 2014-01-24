@@ -6,6 +6,7 @@
     var assert = require("assert");
     var http = require("http");
     var server = require('../../src/server/server.js');
+    var Browser = require("zombie");
 
     beforeEach(function() {
         server.start(function() {});
@@ -43,10 +44,13 @@
         });
 
 
-        describe('Get res/teamname', function(){
-            it('should return 200 status code', function(done){
-                var req = http.get("http://localhost:8080/res/telecom", function(res) {
-                    assert.equal(200, res.statusCode);
+        describe('Get /testteam/last-checkpoints', function(){
+            it('should return the expected html', function(done){
+                var browser = new Browser();
+                browser.visit("http://localhost:8080/testteam/last-checkpoints")
+                .then(function () {
+                    assert.equal(200, browser.statusCode);
+                    assert.equal("<html><head></head><body>Hello World</body></html>", browser.html());
                     done();
                 });
             });
@@ -70,4 +74,5 @@
             }
         });
     }
+
 }());

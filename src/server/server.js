@@ -11,7 +11,7 @@
         app.get('/', function(req, res){
             res.send('Hello World');
         });
-        app.get('/res/telecom', function(req, res){
+        app.get('/testteam/last-checkpoints', function(req, res){
             res.send('Hello World');
         });
         callback();
