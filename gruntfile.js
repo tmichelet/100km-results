@@ -25,11 +25,7 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('hello-grunt', 'Log some stuff.', function() {
-        grunt.log.write('hello-grunt').ok();
-    });
-
-    grunt.registerTask('default', ['jshint', 'mochaTest', 'hello-grunt']);
+    grunt.registerTask('default', ['jshint', 'mochaTest']);
 
     function globalLintOptions() {
         return {
