@@ -13,18 +13,35 @@
         return mockedData.getAllPersons();
     }
 
+    var generateCheckpointsHtml = function(callback) {
+        generateTemplatedHtml('src/client/last-checkpoint-template.html', retrieveData(), callback);
+    };
     exports.generateCheckpointsHtml = function(callback) {
-        generateTemplatedHtml('src/client/last-checkpoint-template.html', callback);
+        generateCheckpointsHtml(callback);
     };
 
+    var generateResultsHtml = function(callback) {
+        generateTemplatedHtml('src/client/individual-results-template.html', retrieveData(), callback);
+    };
     exports.generateResultsHtml = function(callback) {
-        generateTemplatedHtml('src/client/individual-results-template.html', callback);
+        generateResultsHtml(callback);
     };
 
-    function generateTemplatedHtml(templatePath, callback) {
+    exports.generateIndexHtml = function(callback) {
+        generateResultsHtml(function(generatedResultsHtml) {
+            generateCheckpointsHtml(function(generatedCheckpointsHtml) {
+                var indexData = {
+                    'last-checkpoints': generatedCheckpointsHtml,
+                    'individual-results': generatedResultsHtml
+                };
+                generateTemplatedHtml('src/client/index-template.html', indexData, callback);
+            });
+        });
+    };
+
+    function generateTemplatedHtml(templatePath, data, callback) {
         utils.getContentOf(templatePath, function (source) {
             var template = Handlebars.compile(source);
-            var data = retrieveData();
             var result = template(data);
             callback(result);
         });

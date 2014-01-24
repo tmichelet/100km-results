@@ -30,6 +30,15 @@
                 });
             });
         });
+
+        it('generateIndexHtml should generate appropriate html', function(done) {
+            utils.getContentOf('test/client/index-expected.html', function (expected_html) {
+                backend.generateIndexHtml(function(content) {
+                    assert.equal(content, expected_html);
+                    done();
+                });
+            });
+        });
     });
 
 }());

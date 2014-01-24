@@ -17,7 +17,7 @@
             res.send('Hello World');
         });
         app.get('/testteam', function(req, res){
-            backend.generateCheckpointsHtml(function (data) {
+            backend.generateIndexHtml(function (data) {
                 res.send(data);
             });
         });
