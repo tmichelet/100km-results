@@ -27,6 +27,14 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['jshint', 'mochaTest']);
 
+    grunt.registerTask('watch', 'starts the server', function() {
+        var done = this.async();
+        var server = require('./src/server/server.js');
+        server.start(function() {
+            grunt.log.write('server started');            
+        });
+    });
+
     function globalLintOptions() {
         return {
             bitwise: true,
