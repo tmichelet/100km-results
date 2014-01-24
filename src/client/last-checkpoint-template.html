@@ -1,0 +1,23 @@
+<h2>Derniers checkpoints</h2>
+    <table>
+        <tbody>
+            <tr>
+                <th>Qui</th>
+                <th>Temps</th>
+                <th>kms</th>
+                <th>Tour</th>
+                <th>Lieu</th>
+            </tr>
+{{#each persons}}
+{{#last checkpoints}}
+            <tr>
+                <td>{{../name}}</td>
+                <td>{{time}}</td>
+                <td>{{distance}}</td>
+                <td>{{lap}}</td>
+                <td>{{name}}</td>
+            </tr>
+{{/last}}
+{{/each}}
+        </tbody>
+    </table>

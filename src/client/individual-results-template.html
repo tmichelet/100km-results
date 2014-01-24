@@ -1,0 +1,21 @@
+{{#each persons}}
+<h2>{{name}} (dossard {{bib}})</h2>
+<table>
+    <tbody>
+        <tr>
+            <th>Tour</th>
+            <th>Lieu</th>
+            <th>kms</th>
+            <th>Temps</th>
+        </tr>
+{{#each checkpoints}}
+        <tr>
+            <td>{{lap}}</td>
+            <td>{{name}}</td>
+            <td>{{distance}}</td>
+            <td>{{time}}</td>
+        </tr>
+{{/each}}
+    </tbody>
+</table>
+{{/each}}

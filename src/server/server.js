@@ -7,14 +7,19 @@
     var app = express();
     var Handlebars = require('Handlebars');
     var server;
+
+    var utils = require('./utils.js');
+    var backend = require('./backend.js');
     
 
     function serveFiles(callback) {
         app.get('/', function(req, res){
             res.send('Hello World');
         });
-        app.get('/testteam/last-checkpoints', function(req, res){
-            res.send(generateCheckpointsHtml());
+        app.get('/testteam', function(req, res){
+            backend.generateCheckpointsHtml(function (data) {
+                res.send(data);
+            });
         });
         callback();
     }
@@ -28,23 +33,5 @@
         server.close();
         callback();
     };
-
-    // function retrieveData() {
-    //     var mockedData = require('../../test/client/mocked-data.js');
-    //     return mockedData.getAllPersons();
-    // }
-
-    function generateCheckpointsHtml() {
-        var source = "<p>Hello, my name is {{name}}. I am from {{hometown}}. I have " +
-             "{{kids.length}} kids:</p>" +
-             "<ul>{{#kids}}<li>{{name}} is {{age}}</li>{{/kids}}</ul>";
-        var template = Handlebars.compile(source);
-
-        var data = { "name": "Alan", "hometown": "Somewhere, TX",
-                     "kids": [{"name": "Jimmy", "age": "12"}, {"name": "Sally", "age": "4"}]};
-        var result = template(data);
-
-        return result;
-    }
 
 }());

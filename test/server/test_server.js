@@ -3,11 +3,16 @@
 (function () {
     "use strict";
 
+    var SRC_PATH = '../../src';
+
     var assert = require("assert");
     var http = require("http");
-    var server = require('../../src/server/server.js');
     var Browser = require("zombie");
     var fs = require('fs');
+
+    var server = require(SRC_PATH + '/server/server.js');
+    var utils = require(SRC_PATH + '/server/utils.js');
+
 
     beforeEach(function() {
         server.start(function() {});
@@ -44,11 +49,12 @@
             });
         });
 
-        describe('Get /testteam/last-checkpoints', function(){
+        //TODO uncomment, update index.html
+        describe('Get /testteam', function(){
             it('should return the expected html', function(done){
                 var browser = new Browser();
-                getContentOf('test/client/last-checkpoints-expected.html', function (expected_html) {
-                    browser.visit("http://localhost:8080/testteam/last-checkpoints", function() {
+                utils.getContentOf('test/client/index-expected.html', function (expected_html) {
+                    browser.visit("http://localhost:8080/testteam", function() {
                         assert.equal(200, browser.statusCode);
                         // assert.equal(expected_html, browser.html());
                         done();
@@ -73,15 +79,6 @@
             else {
                 assert.ok(false, 'server should be up');
             }
-        });
-    }
-
-    function getContentOf(filepath, callback) {
-        fs.readFile('test/client/last-checkpoints-expected.html', function (err, buffer) {
-            if (err) {
-                throw err;
-            }
-            callback(buffer.toString());
         });
     }
 
