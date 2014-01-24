@@ -1,5 +1,1 @@
-To use:
-clone project
-cd appsample
-npm install all depedencies
-rename folder
+Each year, there's a 100km walk race in steenwerck (http://100kmsteenwerck.fr). This project provides a website to check in real time where your friends are in the race. It relies on 100kmsteenwerck.fr API to retrieve the data.
