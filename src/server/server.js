@@ -23,7 +23,7 @@
         });
 
         app.get('/:name/edit', function(req, res){
-            resultsViewsGenerator.generateIndexHtml(req.params.name, function (data) {
+            resultsViewsGenerator.generateHtml('teamEdit', req.params.name, function (data) {
                 res.send(data);
             });
         });

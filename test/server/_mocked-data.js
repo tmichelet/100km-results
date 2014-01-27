@@ -30,7 +30,7 @@
                 ]
             };
         }
-        else return {"persons": []};
+        else return {"teamname": teamname, "persons": []};
     };
 
     exports.getPerson = function(bib) {
