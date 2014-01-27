@@ -38,17 +38,33 @@
                     });
                 });
             });
-            it('insert, retrieve and update', function(done) {
+        });
+
+        describe('Save and get', function(){
+            it('should save correctly', function(done) {
                 database.saveTeam("_testteam", "[4,100]", function() {
                     database.getTeam("_testteam", function(data) {
                         test_utils.assertJsonEqual(data, { name: '_testteam', bibs: '[4,100]' });
-                        database.saveTeam("_testteam", "[40,100]", function() {
-                            database.getTeam("_testteam", function(data) {
-                                assert.equal("[40,100]", data.bibs);
-                                done();
-                            });
+                        done();
+                    });
+                });
+            });
+
+            it('should update correctly', function(done) {
+                database.saveTeam("_testteam", "[4,100]", function() {
+                    database.saveTeam("_testteam", "[40,100]", function() {
+                        database.getTeam("_testteam", function(data) {
+                            assert.equal("[40,100]", data.bibs);
+                            done();
                         });
                     });
+                });
+            });
+
+            it('should retrieve correctly', function(done) {
+                database.getTeam("_testteam", function(data) {
+                    test_utils.assertJsonEqual(data, {});
+                    done();
                 });
             });
         });
