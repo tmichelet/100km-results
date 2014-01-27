@@ -1,0 +1,30 @@
+http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B100%2Cnull%5D&endkey=%5B100%2C4%5D&inclusive_end=false
+
+{"total_rows":4,"offset":0,"rows":[
+{"id":"checkpoints-1-100","key":[100,1,1],"value":1390337566986},
+{"id":"checkpoints-2-100","key":[100,1,2],"value":1390338757392},
+{"id":"checkpoints-1-100","key":[100,2,1],"value":1390337584343}
+]}
+
+
+
+
+http://localhost:5984/steenwerck100km/_design/search/_list/intersect-search/contestants-search?my_limit=10&startkey=%22emel%22&endkey=%22emel%EF%BF%B0%22
+{"rows":[{"id":"contestant-100","key":"Emeline","value":{"match":"first_name","first_name":"Emeline","name":"PARIZEL","race":1,"bib":100}},{"id":"contestant-49","key":"Emeline","value":{"match":"first_name","first_name":"Emeline","name":"LANDEMAINE","race":1,"bib":49}}]}
+
+
+
+
+$checkpoints = array(
+  array("Lieu"=>"Le froid nid", "kms"=>"12.25"),
+  array("Lieu"=>"La Croix du Bac", "kms"=>"17.28"),
+  array("Lieu"=>"La salle des sports, boucle 1", "kms"=>"21.41"),
+  array("Lieu"=>"La menegatte", "kms"=>"25.57"),
+  array("Lieu"=>"La gare", "kms"=>"28.18"),
+  array("Lieu"=>"La blanche", "kms"=>"33.04"),
+  array("Lieu"=>"La salle des sports, boucle 2", "kms"=>"37.12"),
+); 
+$kms_lap = 31.44;
+
+
+"kms" => $checkpoints[$cp_id]['kms'] + ($_lap->{'key'}[1] - 1) * $kms_lap,

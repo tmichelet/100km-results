@@ -24,26 +24,28 @@
 
 
     describe('Server', function(){
-        it('should start and stop properly', function(done) {
-            checkServerIs('up', function() {
-                server.stop(function() {
-                    checkServerIs('down', function() {
-                        server.start(function() {
-                            checkServerIs('up', done);
+        describe('Lifecycle', function(){
+            it('should start and stop properly', function(done) {
+                checkServerIs('up', function() {
+                    server.stop(function() {
+                        checkServerIs('down', function() {
+                            server.start(function() {
+                                checkServerIs('up', done);
+                            });
                         });
                     });
                 });
             });
-        });
 
-        it('should return CONNREFUSED when not started', function(done){
-            server.stop(function() {
-                http.get("http://localhost:8080/", function(res) {
-                    assert.ok(false, 'get should retrieve an error');
-                }).on('error', function(e) {
-                    assert.equal("connect ECONNREFUSED", e.message);
-                    server.start(function() {
-                        done();
+            it('should return CONNREFUSED when not started', function(done){
+                server.stop(function() {
+                    http.get("http://localhost:8080/", function(res) {
+                        assert.ok(false, 'get should retrieve an error');
+                    }).on('error', function(e) {
+                        assert.equal("connect ECONNREFUSED", e.message);
+                        server.start(function() {
+                            done();
+                        });
                     });
                 });
             });
