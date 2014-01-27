@@ -35,6 +35,16 @@ module.exports = function(grunt) {
         });
     });
 
+    grunt.registerTask('create-database', 'creates the database. WARNING: will drop all the data', function() {
+        var done = this.async();
+        var database = require('./src/server/database.js');
+        database.dropDB(database.DEFAULT_DB_PATH, function() {});
+        database.createDB(database.DEFAULT_DB_PATH, function() {
+            grunt.log.write('database created');
+            done();
+        });
+    });
+
     function globalLintOptions() {
         return {
             bitwise: true,
