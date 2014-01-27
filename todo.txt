@@ -5,6 +5,7 @@ user stories:
 - I want to see real data
 - I want to reload on touch
 - I want to reload each 5 minutes as a desktop user
+- count distinct users
 
 engineering stories:
 -

@@ -14,12 +14,12 @@
     var utils = require(SRC_PATH + '/server/utils.js');
 
 
-    beforeEach(function() {
-        server.start(function() {});
+    beforeEach(function(done) {
+        server.start(function() {done();});
     });
 
-    afterEach(function() {
-        server.stop(function() {});
+    afterEach(function(done) {
+        server.stop(function() {done();});
     });
 
 

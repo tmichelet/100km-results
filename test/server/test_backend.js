@@ -11,6 +11,7 @@
     var utils = require(SRC_PATH + '/server/utils.js');
     var backend = require(SRC_PATH + '/server/backend.js');
     var mockedData = require('./_mocked-data.js');
+    var test_utils = require('./test_utils.js');
 
     describe('Backend', function() {
         describe('HTML - _testteam', function() {
@@ -63,18 +64,14 @@
 
         describe('Retrieve Data', function(){
             it('should retrieve two persons for _testteam', function(done) {
-                assertJsonEqual(mockedData.getAllPersons(), backend.retrieveData("_testteam"));
+                test_utils.assertJsonEqual(mockedData.getAllPersons(), backend.retrieveData("_testteam"));
                 done();
             });
             it('should retrieve one person for _testalone', function(done) {
-                assertJsonEqual(mockedData.getEmelineL(), backend.retrieveData("_testalone"));
+                test_utils.assertJsonEqual(mockedData.getEmelineL(), backend.retrieveData("_testalone"));
                 done();
             });
         });
     });
-
-    function assertJsonEqual(j1, j2) {
-        return assert.equal(JSON.stringify(j1), JSON.stringify(j2));
-    }
 
 }());
