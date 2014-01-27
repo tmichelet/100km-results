@@ -25,7 +25,7 @@
         },
         'teamEdit': {
             'template': 'team-edit-template.html',
-            'data': function(teamname) {return {'teamname': teamname, 'bibs': '[4,40]'};}
+            'data': backend.retrieveTeam
         }
     };
 

@@ -6,6 +6,7 @@
     exports.getTeam = function(teamname) {
         if(teamname === "_testteam") {
             return {
+                    "teamname": "_testteam",
                     "persons": [
                     {
                         "bib": 4,
@@ -20,6 +21,7 @@
         }
         else if(teamname === "_testalone") {
             return {
+                    "teamname": "_testalone",
                     "persons": [
                     {
                         "bib": 4,
@@ -38,6 +40,7 @@
 
 
     var all = {
+            "teamname": "_testteam",
             "persons": [
                 {
                     "bib": 4,
@@ -91,6 +94,7 @@
     };
     exports.getEmelineL = function(bib) {
         return {
+            "teamname": "_testalone",
             "persons": [
                 {
                     "bib": 4,
