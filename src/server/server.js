@@ -9,7 +9,7 @@
     var server;
 
     var utils = require('./utils.js');
-    var backend = require('./backend.js');
+    var viewsGenerator = require('./views_generator.js');
     
 
     function serveFiles(callback) {
@@ -18,7 +18,7 @@
         });
         app.get('/:name', function(req, res){
             try {
-                backend.generateIndexHtml(req.params.name, function (data) {
+                viewsGenerator.generateIndexHtml(req.params.name, function (data) {
                     res.send(data);
                 });
             }
