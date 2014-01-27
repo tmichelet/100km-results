@@ -9,24 +9,26 @@
     var utils = require('./utils.js');
     var backend = require('./backend.js');
 
-    var generateCheckpointsHtml = function(teamname, callback) {
-        generateTemplatedHtml('src/client/last-checkpoint-template.html', backend.retrieveData(teamname), callback);
-    };
-    exports.generateCheckpointsHtml = generateCheckpointsHtml;
-
-    var generateResultsHtml = function(teamname, callback) {
-        generateTemplatedHtml('src/client/individual-results-template.html', backend.retrieveData(teamname), callback);
-    };
-    exports.generateResultsHtml = generateResultsHtml;
-
-    var generateTeamNotFoundHtml = function(teamname, callback) {
-        generateTemplatedHtml('src/client/team-not-found-template.html', {'teamname': teamname}, callback);
+    var TEMPLATES_DIR = 'src/client/';
+    var MAPPING = {
+        'checkpoints': {
+            'template': 'last-checkpoint-template.html',
+            'data': backend.retrieveData
+        },
+        'results': {
+            'template': 'individual-results-template.html',
+            'data': backend.retrieveData
+        },
+        'teamNotFound': {
+            'template': 'team-not-found-template.html',
+            'data': function(teamname) {return {'teamname': teamname};}
+        }
     };
 
     exports.generateIndexHtml = function(teamname, callback) {
         try {
-            generateResultsHtml(teamname, function(generatedResultsHtml) {
-                generateCheckpointsHtml(teamname, function(generatedCheckpointsHtml) {
+            generateHtml('results', teamname, function(generatedResultsHtml) {
+                generateHtml('checkpoints', teamname, function(generatedCheckpointsHtml) {
                     var indexData = {
                         'last-checkpoints': generatedCheckpointsHtml,
                         'individual-results': generatedResultsHtml
@@ -36,12 +38,21 @@
             });
         }
         catch(err) {
-            // team doesn't exist, render the team creation interface
-            generateTeamNotFoundHtml(teamname, function(generatedHtml) {
+            // team doesn't exist, render the team edition interface
+            generateHtml('teamNotFound', teamname, function(generatedHtml) {
                 callback(generatedHtml);
             });
         }
     };
+
+    var generateHtml = function(templateName, teamname, callback) {
+        generateTemplatedHtml(
+            TEMPLATES_DIR + MAPPING[templateName].template,
+            MAPPING[templateName].data(teamname),
+            callback
+        );
+    };
+    exports.generateHtml = generateHtml;
 
     function generateTemplatedHtml(templatePath, data, callback) {
         utils.getContentOf(templatePath, function (source) {

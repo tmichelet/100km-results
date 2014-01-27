@@ -4,6 +4,7 @@
     "use strict";
 
     var SRC_PATH = '../../src';
+    var TEST_DATABASE = './100km-tests.sqlite';
 
     var assert = require("assert");
     var http = require("http");
@@ -12,6 +13,7 @@
 
     var server = require(SRC_PATH + '/server/server.js');
     var utils = require(SRC_PATH + '/server/utils.js');
+    var database = require(SRC_PATH + '/server/database.js');
 
 
     beforeEach(function(done) {
@@ -51,7 +53,7 @@
             });
         });
 
-        describe('Get', function(){
+        describe('Get main view', function(){
             it('/_testteam should return a 200', function(done){
                 var browser = new Browser();
                 browser.visit("http://localhost:8080/_testteam", function() {
@@ -66,15 +68,39 @@
                     done();
                 });
             });
-            it('/testwrong should link to team creation', function(done){
+            it('/_testwrong should link to team creation', function(done){
                 var browser = new Browser();
-                browser.visit("http://localhost:8080/testwrong", function() {
+                browser.visit("http://localhost:8080/_testwrong", function() {
                     assert.equal(200, browser.statusCode);
-                    assert.equal('http://localhost:8080/testwrong/create', browser.document.querySelector("a").href);
+                    assert.equal('http://localhost:8080/_testwrong/edit', browser.document.querySelector("a").href);
                     done();
                 });
             });
         });
+
+        describe('Edit team', function(){
+            it('/_testteam/edit should return a 200', function(done){
+                var browser = new Browser();
+                browser.visit("http://localhost:8080/_testteam/edit", function() {
+                    assert.equal(200, browser.statusCode);
+                    done();
+                });
+            });
+            // it('/_testteam/edit/[4] should update the team bibs', function(done){
+            //     database.createDB(TEST_DATABASE, function() {
+            //         database.saveTeam("_testteam", "[4,100]", function() {
+            //             var browser = new Browser();
+            //             browser.visit("http://localhost:8080/_testteam/edit/[4]", function() {
+            //                 database.getTeam("_testteam", function(data) {
+            //                     console.log(data);
+            //                     database.dropDB(TEST_DATABASE, function() {done();});
+            //                 });
+            //             });
+            //         });
+            //     });
+            // });
+        });
+
     });
 
     function checkServerIs(status, callback) {

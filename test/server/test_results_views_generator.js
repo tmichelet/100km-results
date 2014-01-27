@@ -14,7 +14,7 @@
         describe('_testteam', function() {
             it('generateCheckpointsHtml should generate appropriate html', function(done) {
                 utils.getContentOf('test/client/last-checkpoints-expected.html', function (expected_html) {
-                    viewsGenerator.generateCheckpointsHtml("_testteam", function(content) {
+                    viewsGenerator.generateHtml('checkpoints', "_testteam", function(content) {
                         assert.equal(content, expected_html);
                         done();
                     });
@@ -23,7 +23,7 @@
 
             it('generateResultsHtml should generate appropriate html', function(done) {
                 utils.getContentOf('test/client/individual-results-expected.html', function (expected_html) {
-                    viewsGenerator.generateResultsHtml("_testteam", function(content) {
+                    viewsGenerator.generateHtml('results', "_testteam", function(content) {
                         assert.equal(content, expected_html);
                         done();
                     });
@@ -43,7 +43,7 @@
         describe('_testalone', function(){
             it('generateResultsHtml should generate appropriate html', function(done) {
                 utils.getContentOf('test/client/individual-results-expected-alone.html', function (expected_html) {
-                    viewsGenerator.generateResultsHtml("_testalone", function(content) {
+                    viewsGenerator.generateHtml('results', "_testalone", function(content) {
                         assert.equal(content, expected_html);
                         done();
                     });

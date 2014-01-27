@@ -21,7 +21,20 @@
     </head>
 
     <body>
-        <p>Il n'y a pas encore d'équipe <i><b>{{{teamname}}}</b></i>.</p>
-        <p><a href="/{{{teamname}}}/edit">La créer</a></p>
+        <p>Equipe <i><b>{{{teamname}}}</b></i>.</p>
+        <p>
+            <form>
+                dossards: <input type="text" name="bibs" value="{{{bibs}}}"><br>
+                <a id="submit" href="#">submit</a>
+            </form>
+        </p>
+        <script type="text/javascript" >
+            (function() {
+                document.getElementById("submit").onclick = function() {
+                    console.log('do the ajax request here');
+                    console.log('on success window.location = "../.../...";');
+                };
+            })();
+        </script>
     </body>
 </html>

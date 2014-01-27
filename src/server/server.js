@@ -9,7 +9,8 @@
     var server;
 
     var utils = require('./utils.js');
-    var viewsGenerator = require('./results_views_generator.js');
+    var resultsViewsGenerator = require('./results_views_generator.js');
+    // var teamsViewsGenerator = require('./teams_views_generator.js');
     
 
     function serveFiles(callback) {
@@ -17,7 +18,13 @@
             res.send('Hello World');
         });
         app.get('/:name', function(req, res){
-            viewsGenerator.generateIndexHtml(req.params.name, function (data) {
+            resultsViewsGenerator.generateIndexHtml(req.params.name, function (data) {
+                res.send(data);
+            });
+        });
+
+        app.get('/:name/edit', function(req, res){
+            resultsViewsGenerator.generateIndexHtml(req.params.name, function (data) {
                 res.send(data);
             });
         });

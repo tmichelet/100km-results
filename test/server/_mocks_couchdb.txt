@@ -16,13 +16,13 @@ http://localhost:5984/steenwerck100km/_design/search/_list/intersect-search/cont
 
 
 $checkpoints = array(
-  array("Lieu"=>"Le froid nid", "kms"=>"12.25"),
-  array("Lieu"=>"La Croix du Bac", "kms"=>"17.28"),
-  array("Lieu"=>"La salle des sports, boucle 1", "kms"=>"21.41"),
-  array("Lieu"=>"La menegatte", "kms"=>"25.57"),
-  array("Lieu"=>"La gare", "kms"=>"28.18"),
-  array("Lieu"=>"La blanche", "kms"=>"33.04"),
-  array("Lieu"=>"La salle des sports, boucle 2", "kms"=>"37.12"),
+array("Lieu"=>"Le froid nid", "kms"=>"12.25"),
+array("Lieu"=>"La Croix du Bac", "kms"=>"17.28"),
+array("Lieu"=>"La salle des sports, boucle 1", "kms"=>"21.41"),
+array("Lieu"=>"La menegatte", "kms"=>"25.57"),
+array("Lieu"=>"La gare", "kms"=>"28.18"),
+array("Lieu"=>"La blanche", "kms"=>"33.04"),
+array("Lieu"=>"La salle des sports, boucle 2", "kms"=>"37.12"),
 ); 
 $kms_lap = 31.44;
 
