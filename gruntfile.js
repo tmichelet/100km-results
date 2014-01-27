@@ -31,7 +31,7 @@ module.exports = function(grunt) {
         var done = this.async();
         var server = require('./src/server/server.js');
         server.start(function() {
-            grunt.log.write('server started');            
+            grunt.log.write('server started');
         });
     });
 

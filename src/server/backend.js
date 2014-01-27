@@ -7,29 +7,31 @@
     initHandlebars();
 
     var utils = require('./utils.js');
+    var data = require('../../test/server/_mocked-data.js'); //TODO mocked data here
     
-    function retrieveData() {
-        var mockedData = require('../../test/server/_mocked-data.js');
-        return mockedData.getAllPersons();
-    }
+    var retrieveData = function(teamname) {
+        var team = data.getTeam(teamname);
+        var teamSize = team.persons.length;
+        for(var i=0; i<teamSize; i++) {
+            team.persons[i].checkpoints = data.getPerson(team.persons[i].bib);
+        }
+        return team;
+    };
+    exports.retrieveData = retrieveData;
 
-    var generateCheckpointsHtml = function(callback) {
-        generateTemplatedHtml('src/client/last-checkpoint-template.html', retrieveData(), callback);
+    var generateCheckpointsHtml = function(teamname, callback) {
+        generateTemplatedHtml('src/client/last-checkpoint-template.html', retrieveData(teamname), callback);
     };
-    exports.generateCheckpointsHtml = function(callback) {
-        generateCheckpointsHtml(callback);
-    };
+    exports.generateCheckpointsHtml = generateCheckpointsHtml;
 
-    var generateResultsHtml = function(callback) {
-        generateTemplatedHtml('src/client/individual-results-template.html', retrieveData(), callback);
+    var generateResultsHtml = function(teamname, callback) {
+        generateTemplatedHtml('src/client/individual-results-template.html', retrieveData(teamname), callback);
     };
-    exports.generateResultsHtml = function(callback) {
-        generateResultsHtml(callback);
-    };
+    exports.generateResultsHtml = generateResultsHtml;
 
-    exports.generateIndexHtml = function(callback) {
-        generateResultsHtml(function(generatedResultsHtml) {
-            generateCheckpointsHtml(function(generatedCheckpointsHtml) {
+    exports.generateIndexHtml = function(teamname, callback) {
+        generateResultsHtml(teamname, function(generatedResultsHtml) {
+            generateCheckpointsHtml(teamname, function(generatedCheckpointsHtml) {
                 var indexData = {
                     'last-checkpoints': generatedCheckpointsHtml,
                     'individual-results': generatedResultsHtml

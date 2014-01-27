@@ -17,7 +17,7 @@
             res.send('Hello World');
         });
         app.get('/testteam', function(req, res){
-            backend.generateIndexHtml(function (data) {
+            backend.generateIndexHtml("testteam", function (data) { //TODO dynamic
                 res.send(data);
             });
         });
