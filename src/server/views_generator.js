@@ -13,15 +13,19 @@
     var MAPPING = {
         'checkpoints': {
             'template': 'last-checkpoint-template.html',
-            'data': backend.retrieveData
+            'data': backend.retrieveTeamCheckpoints
         },
         'results': {
             'template': 'individual-results-template.html',
-            'data': backend.retrieveData
+            'data': backend.retrieveTeamCheckpoints
         },
         'teamNotFound': {
             'template': 'team-not-found-template.html',
             'data': function(teamname) {return {'teamname': teamname};}
+        },
+        'teamEdit': {
+            'template': 'team-edit-template.html',
+            'data': function(teamname) {return {'teamname': teamname, 'bibs': '[4,40]'};}
         }
     };
 

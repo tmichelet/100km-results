@@ -9,8 +9,7 @@
     var server;
 
     var utils = require('./utils.js');
-    var resultsViewsGenerator = require('./results_views_generator.js');
-    // var teamsViewsGenerator = require('./teams_views_generator.js');
+    var resultsViewsGenerator = require('./views_generator.js');
     
 
     function serveFiles(callback) {

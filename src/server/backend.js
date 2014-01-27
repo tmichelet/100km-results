@@ -6,7 +6,7 @@
     var utils = require('./utils.js');
     var data = require('../../test/server/_mocked-data.js'); //TODO mocked data here
     
-    var retrieveData = function(teamname) {
+    var retrieveTeamCheckpoints = function(teamname) {
         var team = data.getTeam(teamname);
         var teamSize = team.persons.length;
         if(teamSize === 0) {
@@ -17,6 +17,6 @@
         }
         return team;
     };
-    exports.retrieveData = retrieveData;
+    exports.retrieveTeamCheckpoints = retrieveTeamCheckpoints;
 
 }());

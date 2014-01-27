@@ -14,11 +14,11 @@
     describe('Backend', function() {
         describe('Retrieve Data', function(){
             it('should retrieve two persons for _testteam', function(done) {
-                test_utils.assertJsonEqual(mockedData.getAllPersons(), backend.retrieveData("_testteam"));
+                test_utils.assertJsonEqual(mockedData.getAllPersons(), backend.retrieveTeamCheckpoints("_testteam"));
                 done();
             });
             it('should retrieve one person for _testalone', function(done) {
-                test_utils.assertJsonEqual(mockedData.getEmelineL(), backend.retrieveData("_testalone"));
+                test_utils.assertJsonEqual(mockedData.getEmelineL(), backend.retrieveTeamCheckpoints("_testalone"));
                 done();
             });
         });
