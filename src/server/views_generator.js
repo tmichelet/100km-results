@@ -21,15 +21,21 @@
     exports.generateResultsHtml = generateResultsHtml;
 
     exports.generateIndexHtml = function(teamname, callback) {
-        generateResultsHtml(teamname, function(generatedResultsHtml) {
-            generateCheckpointsHtml(teamname, function(generatedCheckpointsHtml) {
-                var indexData = {
-                    'last-checkpoints': generatedCheckpointsHtml,
-                    'individual-results': generatedResultsHtml
-                };
-                generateTemplatedHtml('src/client/index-template.html', indexData, callback);
+        try {
+            generateResultsHtml(teamname, function(generatedResultsHtml) {
+                generateCheckpointsHtml(teamname, function(generatedCheckpointsHtml) {
+                    var indexData = {
+                        'last-checkpoints': generatedCheckpointsHtml,
+                        'individual-results': generatedResultsHtml
+                    };
+                    generateTemplatedHtml('src/client/index-template.html', indexData, callback);
+                });
             });
-        });
+        }
+        catch(err) {
+            // team doesn't exist, render the team creation interface
+            callback('link to create a team');
+        }
     };
 
     function generateTemplatedHtml(templatePath, data, callback) {

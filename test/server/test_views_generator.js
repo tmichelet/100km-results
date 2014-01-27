@@ -11,7 +11,7 @@
     var viewsGenerator = require(SRC_PATH + '/server/views_generator.js');
 
     describe('Views Generator', function() {
-        describe('HTML - _testteam', function() {
+        describe('_testteam', function() {
             it('generateCheckpointsHtml should generate appropriate html', function(done) {
                 utils.getContentOf('test/client/last-checkpoints-expected.html', function (expected_html) {
                     viewsGenerator.generateCheckpointsHtml("_testteam", function(content) {
@@ -40,7 +40,7 @@
             });
         });
 
-        describe('HTML - _testalone', function(){
+        describe('_testalone', function(){
             it('generateResultsHtml should generate appropriate html', function(done) {
                 utils.getContentOf('test/client/individual-results-expected-alone.html', function (expected_html) {
                     viewsGenerator.generateResultsHtml("_testalone", function(content) {
@@ -55,6 +55,15 @@
                         assert.equal(content, expected_html);
                         done();
                     });
+                });
+            });
+        });
+
+        describe('_testwrong', function(){
+            it('generateIndexHtml should generate link to team creation html', function(done) {
+                viewsGenerator.generateIndexHtml("_testwrong", function(content) {
+                    assert.equal(content, "link to create a team");
+                    done();
                 });
             });
         });

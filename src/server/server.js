@@ -17,14 +17,9 @@
             res.send('Hello World');
         });
         app.get('/:name', function(req, res){
-            try {
-                viewsGenerator.generateIndexHtml(req.params.name, function (data) {
-                    res.send(data);
-                });
-            }
-            catch(error) {
-                res.send('link to create a team');
-            }
+            viewsGenerator.generateIndexHtml(req.params.name, function (data) {
+                res.send(data);
+            });
         });
         callback();
     }
