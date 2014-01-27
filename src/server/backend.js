@@ -7,7 +7,7 @@
     var data = require('../../test/server/_mocked-data.js'); //TODO mocked data here
     
     var retrieveTeamCheckpoints = function(teamname) {
-        var team = data.getTeam(teamname);
+        var team = retrieveTeam(teamname);
         var teamSize = team.persons.length;
         if(teamSize === 0) {
             throw "Team not created yet";
@@ -18,5 +18,10 @@
         return team;
     };
     exports.retrieveTeamCheckpoints = retrieveTeamCheckpoints;
+
+    var retrieveTeam = function(teamname) {
+        return data.getTeam(teamname);
+    };
+    exports.retrieveTeam = retrieveTeam;
 
 }());
