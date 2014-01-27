@@ -42,16 +42,24 @@
         });
     });
 
-    // describe('Backend - emeline L', function(){
-    //     it('generateResultsHtml should generate appropriate html', function(done) {
-    //         utils.getContentOf('test/client/individual-results-expected-one.html', function (expected_html) {
-    //             backend.generateResultsHtml(function(content) {
-    //                 assert.equal(content, expected_html);
-    //                 done();
-    //             });
-    //         });
-    //     });
-    // });
+    describe('Backend - emeline L', function(){
+        it('generateResultsHtml should generate appropriate html', function(done) {
+            utils.getContentOf('test/client/individual-results-expected-alone.html', function (expected_html) {
+                backend.generateResultsHtml("testalone", function(content) {
+                    assert.equal(content, expected_html);
+                    done();
+                });
+            });
+        });
+        it('generateIndexHtml should generate appropriate html', function(done) {
+            utils.getContentOf('test/client/index-expected-alone.html', function (expected_html) {
+                backend.generateIndexHtml("testalone", function(content) {
+                    assert.equal(content, expected_html);
+                    done();
+                });
+            });
+        });
+    });
 
     describe('Backend - Retrieve Data', function(){
         it('should retrieve two persons for testteam', function(done) {

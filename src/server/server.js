@@ -21,6 +21,11 @@
                 res.send(data);
             });
         });
+        app.get('/testalone', function(req, res){
+            backend.generateIndexHtml("testalone", function (data) { //TODO dynamic
+                res.send(data);
+            });
+        });
         callback();
     }
 
