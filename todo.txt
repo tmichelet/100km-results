@@ -3,6 +3,7 @@ user stories:
 - I want to update a team
 - 404 should redirect to team creation
 - I want to see real data
+- better create / edit page
 - I want to reload on touch
 - I want to reload each 5 minutes as a desktop user
 - count distinct users

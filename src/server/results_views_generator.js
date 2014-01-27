@@ -9,7 +9,6 @@
     var utils = require('./utils.js');
     var backend = require('./backend.js');
 
-
     var generateCheckpointsHtml = function(teamname, callback) {
         generateTemplatedHtml('src/client/last-checkpoint-template.html', backend.retrieveData(teamname), callback);
     };
@@ -19,6 +18,10 @@
         generateTemplatedHtml('src/client/individual-results-template.html', backend.retrieveData(teamname), callback);
     };
     exports.generateResultsHtml = generateResultsHtml;
+
+    var generateTeamNotFoundHtml = function(teamname, callback) {
+        generateTemplatedHtml('src/client/team-not-found-template.html', {'teamname': teamname}, callback);
+    };
 
     exports.generateIndexHtml = function(teamname, callback) {
         try {
@@ -34,7 +37,9 @@
         }
         catch(err) {
             // team doesn't exist, render the team creation interface
-            callback('link to create a team');
+            generateTeamNotFoundHtml(teamname, function(generatedHtml) {
+                callback(generatedHtml);
+            });
         }
     };
 

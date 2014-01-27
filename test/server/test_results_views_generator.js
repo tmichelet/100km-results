@@ -8,7 +8,7 @@
     var assert = require("assert");
 
     var utils = require(SRC_PATH + '/server/utils.js');
-    var viewsGenerator = require(SRC_PATH + '/server/views_generator.js');
+    var viewsGenerator = require(SRC_PATH + '/server/results_views_generator.js');
 
     describe('Views Generator', function() {
         describe('_testteam', function() {
@@ -61,9 +61,11 @@
 
         describe('_testwrong', function(){
             it('generateIndexHtml should generate link to team creation html', function(done) {
-                viewsGenerator.generateIndexHtml("_testwrong", function(content) {
-                    assert.equal(content, "link to create a team");
-                    done();
+                utils.getContentOf('test/client/team-not-found-expected.html', function (expected_html) {
+                    viewsGenerator.generateIndexHtml("_testwrong", function(content) {
+                        assert.equal(content, expected_html);
+                        done();
+                    });
                 });
             });
         });
