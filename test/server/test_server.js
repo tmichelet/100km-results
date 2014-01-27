@@ -70,7 +70,7 @@
                 var browser = new Browser();
                 browser.visit("http://localhost:8080/testwrong", function() {
                     assert.equal(200, browser.statusCode);
-                    // assert.equal("link to create a team", browser.text("body")); //TODO user actions
+                    assert.equal('http://localhost:8080/testwrong/create', browser.document.querySelector("a").href);
                     done();
                 });
             });
