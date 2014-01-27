@@ -49,16 +49,27 @@
             });
         });
 
-        //TODO uncomment, update index.html
-        describe('Get /testteam', function(){
-            it('should return the expected html', function(done){
+        describe('Get', function(){
+            it('/testteam should return a 200', function(done){
                 var browser = new Browser();
-                utils.getContentOf('test/client/index-expected.html', function (expected_html) {
-                    browser.visit("http://localhost:8080/testteam", function() {
-                        assert.equal(200, browser.statusCode);
-                        // assert.equal(expected_html, browser.html());
-                        done();
-                    });
+                browser.visit("http://localhost:8080/testteam", function() {
+                    assert.equal(200, browser.statusCode);
+                    done();
+                });
+            });
+            it('/testalone should return a 200', function(done){
+                var browser = new Browser();
+                browser.visit("http://localhost:8080/testalone", function() {
+                    assert.equal(200, browser.statusCode);
+                    done();
+                });
+            });
+            it('/testwrong should link to team creation', function(done){
+                var browser = new Browser();
+                browser.visit("http://localhost:8080/testwrong", function() {
+                    assert.equal(200, browser.statusCode);
+                    assert.equal("link to create a team", browser.text("body"));
+                    done();
                 });
             });
         });

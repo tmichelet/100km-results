@@ -13,7 +13,7 @@
     var mockedData = require('./_mocked-data.js');
 
 
-    describe('Backend - testteam', function(){
+    describe('Backend - HTML - testteam', function(){
         it('generateCheckpointsHtml should generate appropriate html', function(done) {
             utils.getContentOf('test/client/last-checkpoints-expected.html', function (expected_html) {
                 backend.generateCheckpointsHtml("testteam", function(content) {
@@ -42,7 +42,7 @@
         });
     });
 
-    describe('Backend - emeline L', function(){
+    describe('Backend - HTML - emeline L', function(){
         it('generateResultsHtml should generate appropriate html', function(done) {
             utils.getContentOf('test/client/individual-results-expected-alone.html', function (expected_html) {
                 backend.generateResultsHtml("testalone", function(content) {

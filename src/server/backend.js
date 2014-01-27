@@ -12,6 +12,9 @@
     var retrieveData = function(teamname) {
         var team = data.getTeam(teamname);
         var teamSize = team.persons.length;
+        if(teamSize === 0) {
+            throw "Team not created yet";
+        }
         for(var i=0; i<teamSize; i++) {
             team.persons[i].checkpoints = data.getPerson(team.persons[i].bib);
         }
@@ -19,6 +22,7 @@
     };
     exports.retrieveData = retrieveData;
 
+    /*  HTML */
     var generateCheckpointsHtml = function(teamname, callback) {
         generateTemplatedHtml('src/client/last-checkpoint-template.html', retrieveData(teamname), callback);
     };

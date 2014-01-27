@@ -16,15 +16,15 @@
         app.get('/', function(req, res){
             res.send('Hello World');
         });
-        app.get('/testteam', function(req, res){
-            backend.generateIndexHtml("testteam", function (data) { //TODO dynamic
-                res.send(data);
-            });
-        });
-        app.get('/testalone', function(req, res){
-            backend.generateIndexHtml("testalone", function (data) { //TODO dynamic
-                res.send(data);
-            });
+        app.get('/:name', function(req, res){
+            try {
+                backend.generateIndexHtml(req.params.name, function (data) {
+                    res.send(data);
+                });
+            }
+            catch(error) {
+                res.send('link to create a team');
+            }
         });
         callback();
     }

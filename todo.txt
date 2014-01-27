@@ -2,6 +2,7 @@ user stories:
 - I want to see the results of a team (either Emeline L or both Emeline)
 - I want to create a team
 - I want to update a team
+- 404 should redirect to team creation
 - I want to see real data
 - I want to reload on touch
 - I want to reload each 5 minutes as a desktop user

@@ -28,6 +28,7 @@
                 ]
             };
         }
+        else return {"persons": []};
     };
 
     exports.getPerson = function(bib) {
