@@ -50,16 +50,16 @@
         });
 
         describe('Get', function(){
-            it('/testteam should return a 200', function(done){
+            it('/_testteam should return a 200', function(done){
                 var browser = new Browser();
-                browser.visit("http://localhost:8080/testteam", function() {
+                browser.visit("http://localhost:8080/_testteam", function() {
                     assert.equal(200, browser.statusCode);
                     done();
                 });
             });
-            it('/testalone should return a 200', function(done){
+            it('/_testalone should return a 200', function(done){
                 var browser = new Browser();
-                browser.visit("http://localhost:8080/testalone", function() {
+                browser.visit("http://localhost:8080/_testalone", function() {
                     assert.equal(200, browser.statusCode);
                     done();
                 });

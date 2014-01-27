@@ -4,7 +4,7 @@
 
 // mocked data
     exports.getTeam = function(teamname) {
-        if(teamname === "testteam") {
+        if(teamname === "_testteam") {
             return {
                     "persons": [
                     {
@@ -18,7 +18,7 @@
                 ]
             };
         }
-        else if(teamname === "testalone") {
+        else if(teamname === "_testalone") {
             return {
                     "persons": [
                     {
