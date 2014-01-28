@@ -1,9 +1,11 @@
 user stories:
-- I want to create / update a team via /teamname/edit
+- get /teamname/edit/[4,40] -> updates or creates
 - update team: all bibs in memory -> search
-- root = create a team and list all teams
+- I want to create / update a team via /teamname/edit
 
+- root = create a team and list all teams
 - I want to see real data
 
 - I want to reload each 5 minutes as a desktop user
 - analytics
+- refactoring

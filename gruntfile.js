@@ -30,7 +30,7 @@ module.exports = function(grunt) {
     grunt.registerTask('watch', 'starts the server', function() {
         var done = this.async();
         var server = require('./src/server/server.js');
-        server.start(function() {
+        server.start(DEFAULT_DB_PATH, function() {
             grunt.log.write('server started');
         });
     });
@@ -38,8 +38,8 @@ module.exports = function(grunt) {
     grunt.registerTask('create-database', 'creates the database. WARNING: will drop all the data', function() {
         var done = this.async();
         var database = require('./src/server/database.js');
-        database.dropDB(database.DEFAULT_DB_PATH, function() {});
-        database.createDB(database.DEFAULT_DB_PATH, function() {
+        database.dropDB(DEFAULT_DB_PATH, function() {});
+        database.createDB(DEFAULT_DB_PATH, function() {
             grunt.log.write('database created');
             done();
         });
@@ -75,4 +75,6 @@ module.exports = function(grunt) {
         options.browser = true;
         return options;
     }
+
+    var DEFAULT_DB_PATH = './100km.sqlite';
 };

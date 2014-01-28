@@ -10,6 +10,7 @@
 
     var utils = require('./utils.js');
     var resultsViewsGenerator = require('./views_generator.js');
+    var database = require('./database.js');
     
 
     function serveFiles(callback) {
@@ -27,12 +28,24 @@
                 res.send(data);
             });
         });
+
+        app.get('/:name/edit/:bibs', function(req, res){
+            database.saveTeam(req.params.name, req.params.bibs, function() {
+                res.send('OK');
+            });
+        });
         callback();
     }
 
-    exports.start = function(callback) {
+    exports.start = function(databasePath, callback) {
+        if(arguments.length === 1) { //TODO test this
+            callback = arguments[0];
+            databasePath = null;
+        }
         server = app.listen(8080);
-        serveFiles(callback);
+        database.initDB(databasePath, function() {
+            serveFiles(callback);
+        });
     };
 
     exports.stop = function(callback) {

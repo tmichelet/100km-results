@@ -6,12 +6,14 @@
     var Knex = require('knex');
     var fs = require('fs');
 
-    exports.DEFAULT_DB_PATH = './100km.sqlite';
+    exports.DEFAULT_DB_PATH = './100km-tests.sqlite';
 
     exports.createDB = function(path, callback) {
         fs.writeFile(path, "", function(err) {
             if (err) throw err;
-            initDB(path, callback);
+            initDB(path, function() {
+                createTables(callback);
+            });
         });
     };
 
@@ -24,23 +26,27 @@
     };
 
     var initDB = function(path, callback) {
-        var DB = Knex.initialize({
+        if(path === undefined || path === null) path = exports.DEFAULT_DB_PATH;
+        exports.DB = Knex.initialize({
             client: 'sqlite3',
             connection: {
                 filename: path
             }
         });
+        callback();
+    };
+    exports.initDB = initDB;
+
+    var createTables = function(callback) {
         var table = function (table) {
             table.string('name').primary();
             table.string('bibs');
             table.timestamps();
         };
-        DB.schema.createTable('teams', table).then(function () {
-            exports.DB = DB;
+        exports.DB.schema.createTable('teams', table).then(function () {
             callback();
         });
     };
-    exports.initDB = initDB;
 
     exports.saveTeam = function(name, bibs, callback) {
         exports.DB('teams').insert({name: name, bibs: bibs })

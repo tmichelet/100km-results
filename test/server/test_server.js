@@ -4,7 +4,7 @@
     "use strict";
 
     var SRC_PATH = '../../src';
-    var TEST_DATABASE = './100km-tests.sqlite';
+    var TEST_DATABASE = './100km-server-tests.sqlite';
 
     var assert = require("assert");
     var http = require("http");
@@ -14,18 +14,18 @@
     var server = require(SRC_PATH + '/server/server.js');
     var utils = require(SRC_PATH + '/server/utils.js');
     var database = require(SRC_PATH + '/server/database.js');
-
-
-    beforeEach(function(done) {
-        server.start(function() {done();});
-    });
-
-    afterEach(function(done) {
-        server.stop(function() {done();});
-    });
-
+    var test_utils = require('./test_utils.js');
 
     describe('Server', function(){
+
+        beforeEach(function(done) {
+            server.start(function() {done();});
+        });
+
+        afterEach(function(done) {
+            server.stop(function() {done();});
+        });
+
         describe('Lifecycle', function(){
             it('should start and stop properly', function(done) {
                 checkServerIs('up', function() {
@@ -86,19 +86,19 @@
                     done();
                 });
             });
-            // it('/_testteam/edit/[4] should update the team bibs', function(done){
-            //     database.createDB(TEST_DATABASE, function() {
-            //         database.saveTeam("_testteam", "[4,100]", function() {
-            //             var browser = new Browser();
-            //             browser.visit("http://localhost:8080/_testteam/edit/[4]", function() {
-            //                 database.getTeam("_testteam", function(data) {
-            //                     console.log(data);
-            //                     database.dropDB(TEST_DATABASE, function() {done();});
-            //                 });
-            //             });
-            //         });
-            //     });
-            // });
+            it('/_testteam/edit/[4] should update the team bibs', function(done){
+                database.createDB(TEST_DATABASE, function() {
+                    database.saveTeam("_testteam", "[4,100]", function() {
+                        var browser = new Browser();
+                        browser.visit("http://localhost:8080/_testteam/edit/[4]", function() {
+                            database.getTeam("_testteam", function(data) {
+                                test_utils.assertJsonEqual({ name: '_testteam', bibs: '[4]' }, data);
+                                database.dropDB(TEST_DATABASE, function() {done();});
+                            });
+                        });
+                    });
+                });
+            });
         });
 
     });
