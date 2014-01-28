@@ -11,19 +11,19 @@
 
     var MAPPING = {
         'checkpoints': {
-            'template': 'last-checkpoint-template.html',
+            'template': '/last-checkpoint-template.html',
             'data': backend.retrieveTeamCheckpoints
         },
         'results': {
-            'template': 'individual-results-template.html',
+            'template': '/individual-results-template.html',
             'data': backend.retrieveTeamCheckpoints
         },
         'teamNotFound': {
-            'template': 'team-not-found-template.html',
+            'template': '/team-not-found-template.html',
             'data': function(teamname, callback) {callback({'teamname': teamname});}
         },
         'teamEdit': {
-            'template': 'team-edit-template.html',
+            'template': '/team-edit-template.html',
             'data': backend.retrieveTeam
         }
     };
@@ -37,7 +37,7 @@
                             'last-checkpoints': generatedCheckpointsHtml,
                             'individual-results': generatedResultsHtml
                         };
-                        generateTemplatedHtml('src/client/index-template.html', indexData, callback);
+                        generateTemplatedHtml(utils.TEMPLATES_DIR  + '/index-template.html', indexData, callback);
                     });
                 });
             }

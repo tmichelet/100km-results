@@ -12,6 +12,6 @@
         });
     };
 
-    exports.TEMPLATES_DIR = 'src/client/';
+    exports.TEMPLATES_DIR = 'src/client/templates';
 
 }());

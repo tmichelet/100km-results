@@ -49,6 +49,8 @@
     exports.SRC_PATH = SRC_PATH;
     var TEST_DATABASE = './100km-db-tests.sqlite';
     exports.TEST_DATABASE = TEST_DATABASE;
+    var TEMPLATES_PATH = 'test/client/templates';
+    exports.TEMPLATES_PATH = TEMPLATES_PATH;
 
     exports.initAndFillDatabase = function(done) {
         database.createDB(TEST_DATABASE, function() {

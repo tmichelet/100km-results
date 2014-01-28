@@ -71,7 +71,7 @@ module.exports = function(grunt) {
     }
 
     function browserLintOptions() {
-        var options = globalLintOptions();
+        var options = nodeLintOptions();
         options.browser = true;
         return options;
     }
