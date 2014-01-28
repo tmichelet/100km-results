@@ -17,24 +17,45 @@
                 padding-right: 25px;
                 text-align: center;
             }
+            #bibs td {
+              padding-bottom: 5em;
+            }
+            .x {
+                color: #ff388d;
+            }
         </style>
     </head>
 
     <body>
         <p>Equipe <i><b>{{{teamname}}}</b></i>.</p>
-        <p>
-            <form>
-                dossards: <input type="text" name="bibs" value=""><br>
-                <a id="submit" href="#">submit</a>
-            </form>
-        </p>
+        <table id="bibs">
+            <tbody>
+                <tr>
+                    <td>4</td><td>Emeline Landemaine</td><td class="x">x</td>
+                </tr>
+                <tr>
+                    <td>100</td><td>Emeline Parizel</td><td class="x">x</td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            Ajouter un dossard ou un nom: <input type="text" list="runners" value="">
+            <datalist id="runners">
+                <option value="4 -- Emeline Landemaine">
+                <option value="100 -- Emeline Parizel">
+            </datalist>
+        </div>
+        <div>
+            </br>
+            <a id="submit" href="#">enregistrer</a> la nouvelle composition de l'équipe
+        </div>
         <script type="text/javascript" >
-            (function() {
-                document.getElementById("submit").onclick = function() {
-                    console.log('do the ajax request here');
-                    console.log('on success window.location = "../.../...";');
-                };
-            })();
+            // (function() {
+            //     document.getElementById("submit").onclick = function() {
+            //         console.log('do the ajax request here');
+            //         console.log('on success window.location = "../.../...";');
+            //     };
+            // })();
         </script>
     </body>
 </html>
