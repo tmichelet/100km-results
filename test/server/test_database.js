@@ -103,6 +103,12 @@
                     });
                 });
             });
+            it('initDB should use the default DB', function(done) {
+                database.initDB(undefined, function() {
+                    test_utils.assertJsonEqual({ filename: './100km-tests.sqlite' }, database.DB.client.connectionSettings);
+                    done();
+                });
+            });
         });
     });
 }());
