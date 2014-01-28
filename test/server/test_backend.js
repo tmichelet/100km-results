@@ -78,14 +78,12 @@
                     done();
                 });
             });
-            // it('should raise for _testwrong', function(done) {
-            //     try{
-            //         backend.retrieveTeamCheckpoints("_testwrong", function() {});
-            //     }
-            //     catch(err) {
-            //         done();
-            //     }
-            // });
+            it('should raise for _testwrong', function(done) {
+                backend.retrieveTeamCheckpoints("_testwrong", function(data) {
+                    test_utils.assertJsonEqual(data, { teamname: '_testwrong', persons: [] });
+                    done();
+                });
+            });
         });
     });
 

@@ -9,7 +9,6 @@
     var utils = require('./utils.js');
     var backend = require('./backend.js');
 
-    var TEMPLATES_DIR = 'src/client/';
     var MAPPING = {
         'checkpoints': {
             'template': 'last-checkpoint-template.html',
@@ -30,29 +29,31 @@
     };
 
     exports.generateIndexHtml = function(teamname, callback) {
-        try {
-            generateHtml('results', teamname, function(generatedResultsHtml) {
-                generateHtml('checkpoints', teamname, function(generatedCheckpointsHtml) {
-                    var indexData = {
-                        'last-checkpoints': generatedCheckpointsHtml,
-                        'individual-results': generatedResultsHtml
-                    };
-                    generateTemplatedHtml('src/client/index-template.html', indexData, callback);
+        backend.retrieveTeam(teamname, function(team) {
+            if(team.persons.length !== 0) {
+                generateHtml('results', teamname, function(generatedResultsHtml) {
+                    generateHtml('checkpoints', teamname, function(generatedCheckpointsHtml) {
+                        var indexData = {
+                            'last-checkpoints': generatedCheckpointsHtml,
+                            'individual-results': generatedResultsHtml
+                        };
+                        generateTemplatedHtml('src/client/index-template.html', indexData, callback);
+                    });
                 });
-            });
-        }
-        catch(err) {
+            }
+            else {
             // team doesn't exist, render the team edition interface
-            generateHtml('teamNotFound', teamname, function(generatedHtml) {
-                callback(generatedHtml);
-            });
-        }
+                generateHtml('teamNotFound', teamname, function(generatedHtml) {
+                    callback(generatedHtml);
+                });
+            }
+        });
     };
 
     var generateHtml = function(templateName, teamname, callback) {
         MAPPING[templateName].data(teamname, function(data) {
             generateTemplatedHtml(
-                TEMPLATES_DIR + MAPPING[templateName].template,
+                utils.TEMPLATES_DIR + MAPPING[templateName].template,
                 data,
                 callback
             );
