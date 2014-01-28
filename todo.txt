@@ -8,4 +8,5 @@ user stories:
 
 - I want to reload each 5 minutes as a desktop user
 - analytics
-- refactoring
+- deploy
+- CI
