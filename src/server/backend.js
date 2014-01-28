@@ -8,7 +8,7 @@
     var database = require('./database.js');
     
     var retrieveTeamCheckpoints = function(teamname, callback) {
-        retrieveTeam(teamname, function(team) {
+        oldretrieveTeam(teamname, function(team) {
             var teamSize = team.persons.length;
             if(teamSize === 0) {
                 throw "Team not created yet";
@@ -22,8 +22,16 @@
     exports.retrieveTeamCheckpoints = retrieveTeamCheckpoints;
 
     var retrieveTeam = function(teamname, callback) {
-        callback(data.getTeam(teamname));
+        database.getTeam(teamname, function(data) {
+            console.log('retrieveteam');
+            callback(data);
+        });
     };
     exports.retrieveTeam = retrieveTeam;
+
+    var oldretrieveTeam = function(teamname, callback) {
+        callback(data.getTeam(teamname));
+    };
+    exports.oldretrieveTeam = oldretrieveTeam;
 
 }());

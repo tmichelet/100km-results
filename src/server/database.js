@@ -39,8 +39,9 @@
 
     var createTables = function(callback) {
         var table = function (table) {
-            table.string('name').primary();
+            table.string('teamname').primary();
             table.string('bibs');
+            table.string('names');
             table.timestamps();
         };
         exports.DB.schema.createTable('teams', table).then(function () {
@@ -48,11 +49,11 @@
         });
     };
 
-    exports.saveTeam = function(name, bibs, callback) {
-        exports.DB('teams').insert({name: name, bibs: bibs })
+    exports.saveTeam = function(teamname, bibs, names, callback) {
+        exports.DB('teams').insert({teamname: teamname, bibs: bibs, names: names })
         .exec(function(err, reps) {
             if(err) { // already exists -> update
-                exports.DB('teams').where('name', '=', name).update({'bibs': bibs})
+                exports.DB('teams').where('teamname', '=', teamname).update({'bibs': bibs, 'names': names})
                 .exec(function(err, reps) {
                     callback();
                 });
@@ -64,7 +65,7 @@
     };
 
     exports.getTeam = function(name, callback) {
-        exports.DB('teams').select('name', 'bibs').where('name', '=', name)
+        exports.DB('teams').select('teamname', 'bibs', 'names').where('teamname', '=', name)
         .exec(function(err, resp) {
             callback(resp[0] || {});
         });

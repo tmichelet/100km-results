@@ -17,20 +17,20 @@
         app.get('/', function(req, res){
             res.send('Hello World');
         });
-        app.get('/:name', function(req, res){
-            resultsViewsGenerator.generateIndexHtml(req.params.name, function (data) {
+        app.get('/:teamname', function(req, res){
+            resultsViewsGenerator.generateIndexHtml(req.params.teamname, function (data) {
                 res.send(data);
             });
         });
 
-        app.get('/:name/edit', function(req, res){
-            resultsViewsGenerator.generateHtml('teamEdit', req.params.name, function (data) {
+        app.get('/:teamname/edit', function(req, res){
+            resultsViewsGenerator.generateHtml('teamEdit', req.params.teamname, function (data) {
                 res.send(data);
             });
         });
 
-        app.get('/:name/edit/:bibs', function(req, res){
-            database.saveTeam(req.params.name, req.params.bibs, function() {
+        app.get('/:teamname/edit/:bibs/:names', function(req, res){
+            database.saveTeam(req.params.teamname, req.params.bibs, req.params.names, function() {
                 res.send('OK');
             });
         });

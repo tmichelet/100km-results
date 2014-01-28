@@ -86,13 +86,13 @@
                     done();
                 });
             });
-            it('/_testteam/edit/[4] should update the team bibs', function(done){
+            it('/_testteam/edit/[4]/[name one] should update the team bibs', function(done){
                 database.createDB(TEST_DATABASE, function() {
-                    database.saveTeam("_testteam", "[4,100]", function() {
+                    database.saveTeam("_testteam", "[4,100]", '[name one, name two]', function() {
                         var browser = new Browser();
-                        browser.visit("http://localhost:8080/_testteam/edit/[4]", function() {
+                        browser.visit("http://localhost:8080/_testteam/edit/[4]/[name one]", function() {
                             database.getTeam("_testteam", function(data) {
-                                test_utils.assertJsonEqual({ name: '_testteam', bibs: '[4]' }, data);
+                                test_utils.assertJsonEqual({ teamname: '_testteam', bibs: '[4]', names: '[name one]' }, data);
                                 database.dropDB(TEST_DATABASE, function() {done();});
                             });
                         });

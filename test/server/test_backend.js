@@ -17,8 +17,8 @@
 
         before(function(done) {
             database.createDB(TEST_DATABASE, function() {
-                database.saveTeam('_testteam', '[4,40]', function() {
-                    database.saveTeam('_testalone', '[4]', function() {
+                database.saveTeam('_testteam', '[4,40]', '[name one, name two]', function() {
+                    database.saveTeam('_testalone', '[4]', '[name one]', function() {
                         done();
                     });
                 });
@@ -31,19 +31,19 @@
 
         describe('retrieveTeam', function(){
             it('should retrieve two persons for _testteam', function(done) {
-                backend.retrieveTeam("_testteam", function(data) {
+                backend.oldretrieveTeam("_testteam", function(data) {
                     test_utils.assertJsonEqual(mockedData.getTeam("_testteam"), data);
                     done();
                 });
             });
             it('should retrieve one person for _testalone', function(done) {
-                backend.retrieveTeam("_testalone", function(data) {
+                backend.oldretrieveTeam("_testalone", function(data) {
                     test_utils.assertJsonEqual(mockedData.getTeam("_testalone"), data);
                     done();
                 });
             });
             it('should retrieve 0 person for _testwrong', function(done) {
-                backend.retrieveTeam("_testwrong", function(data) {
+                backend.oldretrieveTeam("_testwrong", function(data) {
                     test_utils.assertJsonEqual(mockedData.getTeam("_testwrong"), data);
                     done();
                 });

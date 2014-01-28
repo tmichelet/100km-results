@@ -49,19 +49,21 @@
 
         describe('Save and get', function(){
             it('should save correctly', function(done) {
-                database.saveTeam("_testteam", "[4,100]", function() {
+                database.saveTeam("_testteam", "[4,100]", "[name one, name two]", function() {
                     database.getTeam("_testteam", function(data) {
-                        test_utils.assertJsonEqual(data, { name: '_testteam', bibs: '[4,100]' });
+                        test_utils.assertJsonEqual(data,
+                            { teamname: '_testteam', bibs: '[4,100]', names: "[name one, name two]" });
                         done();
                     });
                 });
             });
 
             it('should update correctly', function(done) {
-                database.saveTeam("_testteam", "[4,100]", function() {
-                    database.saveTeam("_testteam", "[40]", function() {
+                database.saveTeam("_testteam", "[4,100]", "[name one, name two]", function() {
+                    database.saveTeam("_testteam", "[40]", "[name one]", function() {
                         database.getTeam("_testteam", function(data) {
                             assert.equal("[40]", data.bibs);
+                            assert.equal("[name one]", data.names);
                             done();
                         });
                     });

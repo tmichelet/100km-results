@@ -25,7 +25,7 @@
         },
         'teamEdit': {
             'template': 'team-edit-template.html',
-            'data': backend.retrieveTeam
+            'data': backend.oldretrieveTeam
         }
     };
 
