@@ -1,5 +1,5 @@
 user stories:
-- get /teamname/edit/[4,40] -> updates or creates
+- get teams uses real data
 - update team: all bibs in memory -> search
 - I want to create / update a team via /teamname/edit
 

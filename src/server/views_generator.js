@@ -21,7 +21,7 @@
         },
         'teamNotFound': {
             'template': 'team-not-found-template.html',
-            'data': function(teamname) {return {'teamname': teamname};}
+            'data': function(teamname, callback) {callback({'teamname': teamname});}
         },
         'teamEdit': {
             'template': 'team-edit-template.html',
@@ -50,11 +50,13 @@
     };
 
     var generateHtml = function(templateName, teamname, callback) {
-        generateTemplatedHtml(
-            TEMPLATES_DIR + MAPPING[templateName].template,
-            MAPPING[templateName].data(teamname),
-            callback
-        );
+        MAPPING[templateName].data(teamname, function(data) {
+            generateTemplatedHtml(
+                TEMPLATES_DIR + MAPPING[templateName].template,
+                data,
+                callback
+            );
+        });
     };
     exports.generateHtml = generateHtml;
 
