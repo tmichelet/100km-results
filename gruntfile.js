@@ -3,6 +3,7 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks('grunt-mocha-test');
+    grunt.loadNpmTasks('grunt-browserify');
 
     grunt.initConfig({
         jshint: {
@@ -22,10 +23,17 @@ module.exports = function(grunt) {
                 },
                 src: ['test/**/*.js']
             },
+        },
+        browserify: {
+            dist: {
+                files: {
+                    'src/client/build/module.js': ['src/client/main-edit-team.js']
+                }
+            }
         }
     });
 
-    grunt.registerTask('default', ['jshint', 'mochaTest']);
+    grunt.registerTask('default', ['jshint', 'mochaTest', 'browserify']);
 
     grunt.registerTask('watch', 'starts the server', function() {
         var done = this.async();
@@ -73,6 +81,7 @@ module.exports = function(grunt) {
     function browserLintOptions() {
         var options = nodeLintOptions();
         options.browser = true;
+        options.ignores = "src/client/build/**/*.js";
         return options;
     }
 
