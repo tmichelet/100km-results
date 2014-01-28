@@ -23,8 +23,17 @@
 
     var retrieveTeam = function(teamname, callback) {
         database.getTeam(teamname, function(data) {
-            console.log('retrieveteam');
-            callback(data);
+            var response = {'teamname': teamname, "persons": []};
+            if(data.bibs === undefined || data.bibs === '[]') callback(response);
+            else {
+                var bibs = data.bibs.substring(1, data.bibs.length - 1).split(',');
+                var names = data.names.substring(1, data.names.length - 1).split(',');
+                var teamSize = bibs.length;
+                for(var i=0; i<teamSize; i++) {
+                    response.persons.push({'bib': parseInt(bibs[i]), 'name': names[i]});
+                }
+                callback(response);
+            }
         });
     };
     exports.retrieveTeam = retrieveTeam;

@@ -67,6 +67,7 @@
     exports.getTeam = function(name, callback) {
         exports.DB('teams').select('teamname', 'bibs', 'names').where('teamname', '=', name)
         .exec(function(err, resp) {
+            if(err) console.log(err);
             callback(resp[0] || {});
         });
     };
