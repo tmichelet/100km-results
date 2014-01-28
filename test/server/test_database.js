@@ -92,7 +92,7 @@
                 });
             });
             it('initializing a database should set the connection parameters without droping the data', function(done) {
-                database.initDB("./100km-test-init.sqlite", function() {
+                database.initDB("./test/server/100km-test-init.sqlite", function() {
                     database.getTeam("_testteam", function(data) {
                         test_utils.assertJsonEqual(data,
                             { teamname: '_testteam', bibs: '[4,100]', names: '[name one, name two]' });
