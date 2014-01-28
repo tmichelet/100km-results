@@ -42,4 +42,7 @@
         return assert.equal(JSON.stringify(j1), JSON.stringify(j2));
     };
 
+    exports.SRC_PATH = '../../src';
+    exports.TEST_DATABASE = './100km-db-tests.sqlite';
+
 }());

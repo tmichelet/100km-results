@@ -8,7 +8,7 @@
 
     exports.DEFAULT_DB_PATH = './100km-tests.sqlite';
 
-    exports.createDB = function(path, callback) {
+    var createDB = function(path, callback) {
         fs.writeFile(path, "", function(err) {
             if (err) throw err;
             initDB(path, function() {
@@ -16,6 +16,7 @@
             });
         });
     };
+    exports.createDB = createDB;
 
     exports.dropDB = function(path, callback) {
         fs.unlink(path, function(err) {
@@ -50,26 +51,31 @@
     };
 
     exports.saveTeam = function(teamname, bibs, names, callback) {
-        exports.DB('teams').insert({teamname: teamname, bibs: bibs, names: names })
-        .exec(function(err, reps) {
-            if(err) { // already exists -> update
-                exports.DB('teams').where('teamname', '=', teamname).update({'bibs': bibs, 'names': names})
+        getTeam(teamname, function(data) {
+            if(Object.keys(data).length === 0) {
+                exports.DB('teams').insert({teamname: teamname, bibs: bibs, names: names })
                 .exec(function(err, reps) {
-                    callback();
+                    if (err) throw err;
+                    callback(reps);
                 });
             }
-            else if(reps) {
-                callback();
+            else {
+                exports.DB('teams').where('teamname', '=', teamname).update({'bibs': bibs, 'names': names})
+                .exec(function(err, reps) {
+                    if (err) throw err;
+                    callback();
+                });
             }
         });
     };
 
-    exports.getTeam = function(name, callback) {
+    var getTeam = function(name, callback) {
         exports.DB('teams').select('teamname', 'bibs', 'names').where('teamname', '=', name)
         .exec(function(err, resp) {
-            if(err) console.log(err);
+            if (err) throw err;
             callback(resp[0] || {});
         });
     };
+    exports.getTeam = getTeam;
 
 }());
