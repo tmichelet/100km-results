@@ -38,7 +38,7 @@
     }
 
     exports.start = function(databasePath, callback) {
-        if(arguments.length === 1) { //TODO test this
+        if(arguments.length === 1) { //TODO test this with a mock
             callback = arguments[0];
             databasePath = null;
         }
