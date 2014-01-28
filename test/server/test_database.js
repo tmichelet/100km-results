@@ -96,7 +96,10 @@
                     database.getTeam("_testteam", function(data) {
                         test_utils.assertJsonEqual(data,
                             { teamname: '_testteam', bibs: '[4,100]', names: '[name one, name two]' });
-                        done();
+                        // use former database
+                        database.initDB(TEST_DB, function() {
+                            done();
+                        });
                     });
                 });
             });

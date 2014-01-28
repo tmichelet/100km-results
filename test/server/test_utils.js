@@ -5,7 +5,10 @@
 
     var assert = require("assert");
     var fs = require('fs');
-    var utils = require('../../src/server/utils.js');
+
+    var SRC_PATH = '../../src';
+    var utils = require(SRC_PATH + '/server/utils.js');
+    var database = require(SRC_PATH + '/server/database.js');
 
     describe('Utils', function(){
         it('getContentOf should return the content of a file', function(done) {
@@ -42,7 +45,23 @@
         return assert.equal(JSON.stringify(j1), JSON.stringify(j2));
     };
 
-    exports.SRC_PATH = '../../src';
-    exports.TEST_DATABASE = './100km-db-tests.sqlite';
+    
+    exports.SRC_PATH = SRC_PATH;
+    var TEST_DATABASE = './100km-db-tests.sqlite';
+    exports.TEST_DATABASE = TEST_DATABASE;
+
+    exports.initAndFillDatabase = function(done) {
+        database.createDB(TEST_DATABASE, function() {
+            database.saveTeam('_testteam', '[4,100]', '[Emeline Landemaine,Emeline Parizel]', function() {
+                database.saveTeam('_testalone', '[4]', '[Emeline Landemaine]', function() {
+                    done();
+                });
+            });
+        });
+    };
+
+    exports.dropDatabase = function(done) {
+        database.dropDB(TEST_DATABASE, function() {done();});
+    };
 
 }());

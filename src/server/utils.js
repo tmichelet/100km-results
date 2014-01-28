@@ -12,4 +12,6 @@
         });
     };
 
+    exports.TEMPLATES_DIR = 'src/client/';
+
 }());

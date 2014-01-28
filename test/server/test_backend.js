@@ -9,22 +9,15 @@
     var backend = require(test_utils.SRC_PATH + '/server/backend.js');
     var database = require(test_utils.SRC_PATH + '/server/database.js');
     var mockedData = require('./_mocked-data.js');
-    var TEST_DB = test_utils.TEST_DATABASE;
 
     describe('test_backend', function() {
 
         before(function(done) {
-            database.createDB(TEST_DB, function() {
-                database.saveTeam('_testteam', '[4,100]', '[Emeline Landemaine,Emeline Parizel]', function() {
-                    database.saveTeam('_testalone', '[4]', '[Emeline Landemaine]', function() {
-                        done();
-                    });
-                });
-            });
+            test_utils.initAndFillDatabase(done);
         });
 
         after(function(done) {
-            database.dropDB(TEST_DB, function() {done();});
+            test_utils.dropDatabase(done);
         });
 
         describe('retrieveTeam', function(){
