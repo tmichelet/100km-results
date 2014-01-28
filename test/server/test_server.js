@@ -3,25 +3,23 @@
 (function () {
     "use strict";
 
-    var SRC_PATH = '../../src';
-    var TEST_DATABASE = './100km-server-tests.sqlite';
-
     var assert = require("assert");
     var http = require("http");
     var Browser = require("zombie");
     var fs = require('fs');
 
-    var server = require(SRC_PATH + '/server/server.js');
-    var utils = require(SRC_PATH + '/server/utils.js');
-    var database = require(SRC_PATH + '/server/database.js');
     var test_utils = require('./test_utils.js');
+    var server = require(test_utils.SRC_PATH + '/server/server.js');
+    var utils = require(test_utils.SRC_PATH + '/server/utils.js');
+    var database = require(test_utils.SRC_PATH + '/server/database.js');
 
     describe('Server', function(){
 
         describe('Lifecycle', function(){
-            it('should start and stop properly', function(done) {
+            it('should start and stop properly, linked to the right database', function(done) {
                 checkServerIs('down', function() {
                     server.start(function() {
+                        test_utils.assertJsonEqual(database.DEFAULT_DB_PATH, database.DB.client.connectionSettings.filename);
                         checkServerIs('up', function() {
                             server.stop(function() {
                                 checkServerIs('down', done);
@@ -36,19 +34,23 @@
                     assert.ok(false, 'get should retrieve an error');
                 }).on('error', function(e) {
                     assert.equal("connect ECONNREFUSED", e.message);
-                    server.start(function() {
-                        done();
-                    });
+                    done();
                 });
             });
         });
 
         describe('Serving', function() {
             before(function(done) {
-                server.start(TEST_DATABASE, function() {done();});
+                server.start(function() {
+                    test_utils.initAndFillDatabase(function() {done();});
+                });
             });
             after(function(done) {
-                server.stop(function() {done();});
+                test_utils.dropDatabase(function() {
+                    server.stop(function() {
+                        done();
+                    });
+                });
             });
 
             describe('Get main view', function(){
@@ -76,28 +78,24 @@
                 });
             });
 
-            // describe('Edit team', function(){
-            //     it('/_testteam/edit should return a 200', function(done){
-            //         var browser = new Browser();
-            //         browser.visit("http://localhost:8080/_testteam/edit", function() {
-            //             assert.equal(200, browser.statusCode);
-            //             done();
-            //         });
-            //     });
-            //     it('/_testteam/edit/[4]/[name one] should update the team bibs', function(done){
-            //         database.createDB(TEST_DATABASE, function() {
-            //             database.saveTeam("_testteam", "[4,100]", '[name one, name two]', function() {
-            //                 var browser = new Browser();
-            //                 browser.visit("http://localhost:8080/_testteam/edit/[4]/[name one]", function() {
-            //                     database.getTeam("_testteam", function(data) {
-            //                         test_utils.assertJsonEqual({ teamname: '_testteam', bibs: '[4]', names: '[name one]' }, data);
-            //                         database.dropDB(TEST_DATABASE, function() {done();});
-            //                     });
-            //                 });
-            //             });
-            //         });
-            //     });
-            // });
+            describe('Edit team', function(){
+                it('/_testteam/edit should return a 200', function(done){
+                    var browser = new Browser();
+                    browser.visit("http://localhost:8080/_testteam/edit", function() {
+                        assert.equal(200, browser.statusCode);
+                        done();
+                    });
+                });
+                it('/_testteam/edit/[4]/[name one] should update the team bibs', function(done){
+                    var browser = new Browser();
+                    browser.visit("http://localhost:8080/_testteam/edit/[4]/[name one]", function() {
+                        database.getTeam("_testteam", function(data) {
+                            test_utils.assertJsonEqual({ teamname: '_testteam', bibs: '[4]', names: '[name one]' }, data);
+                            done();
+                        });
+                    });
+                });
+            });
         });
     });
 

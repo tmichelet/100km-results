@@ -10,3 +10,4 @@ user stories:
 - analytics
 - deploy
 - CI
+- on desktop : map of my friends
