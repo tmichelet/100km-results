@@ -68,7 +68,8 @@ module.exports = function(grunt) {
             regexp: true,
             undef: true,
             strict: true,
-            trailing: true
+            trailing: true,
+            multistr: true
         };
     }
 

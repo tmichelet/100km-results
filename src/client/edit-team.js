@@ -3,11 +3,17 @@
 (function() {
     "use strict";
 
-    exports.helloworld = function() {
-        console.log('helloworld');
-        // var txt = document.createTextNode("obladi");
-        // document.body.appendChild(txt);
-        return 1;
+    var $ = require('jquery-browserify');
+
+    var removeLineOf = function(element) {
+        $(element).closest('tr').remove();
+    };
+    exports.removeLineOf = removeLineOf;
+
+    exports.initPersonsDeletion = function(element) {
+        $(element).find('td.deleteLine').click(function(event) {
+            removeLineOf(event.target);
+        });
     };
 
 }());

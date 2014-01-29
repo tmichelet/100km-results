@@ -82,9 +82,8 @@
 
             describe('Edit team', function(){
                 it('/_testteam/edit should return a 200', function(done){
-                    var browser = new Browser();
-                    browser.visit("http://localhost:8080/_testteam/edit", function() {
-                        assert.equal(200, browser.statusCode);
+                    http.get("http://localhost:8080/_testteam/edit", function(res) {
+                        assert.equal(200, res.statusCode);
                         //TODO some user actions here
                         done();
                     });

@@ -8,7 +8,9 @@
     "handlebars": "~1.3.0",
     "sqlite3": "~2.2.0",
     "knex": "~0.5.4",
-    "browserify": "~3.24.1"
+    "browserify": "~3.24.1",
+    "jquery-browserify": "~1.8.1",
+    "jsdom": "~0.8.11"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
