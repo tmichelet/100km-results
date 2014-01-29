@@ -1,7 +1,7 @@
 user stories:
-- update team: all bibs in memory -> search
+- root create team / edit update team: make it work + all bibs in memory -> search
 
-- root = create a team and list all teams
+- investigate test bug
 - I want to see real data
 - better design
 
