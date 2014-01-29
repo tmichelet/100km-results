@@ -32,7 +32,7 @@
             done();
         });
 
-        it('initPersonsDeletion should add onClickListener to all &times;', function(done) {
+        it('initPersonsDeletion should add onClickListener to all td.deleteLine children, which triggers removeLineOf', function(done) {
             $("#content").html(
                 "<table><tbody>\
                     <tr id='notatarget'>    <td></td>               <td id='metoo' class='deleteLine'>x</td>    </tr>\
