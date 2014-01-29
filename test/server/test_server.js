@@ -103,6 +103,7 @@
                 it('/_build/module.js should return a 200', function(done){
                     http.get("http://localhost:8080/_build/module.js", function(res) {
                         assert.equal(200, res.statusCode);
+                        assert.equal('application/json', res.headers['content-type']);
                         done();
                     });
                 });

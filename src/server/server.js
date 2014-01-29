@@ -38,6 +38,7 @@
 
         app.get('/_build/module.js', function(req, res){
             utils.getContentOf('src/client/build/module.js', function(data) {
+                res.type('application/json');
                 res.send(data);
             });
         });
