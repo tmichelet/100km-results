@@ -7,7 +7,6 @@
 
     var test_utils = require('./test_utils.js');
     var backend = require(test_utils.SRC_PATH + '/server/backend.js');
-    var database = require(test_utils.SRC_PATH + '/server/database.js');
     var mockedData = require('./_mocked-data.js');
 
     describe('test_backend', function() {

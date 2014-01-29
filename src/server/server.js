@@ -17,6 +17,7 @@
         app.get('/', function(req, res){
             res.send('Hello World');
         });
+
         app.get('/:teamname', function(req, res){
             resultsViewsGenerator.generateIndexHtml(req.params.teamname, function (data) {
                 res.send(data);
@@ -34,6 +35,13 @@
                 res.send('OK');
             });
         });
+
+        app.get('/_build/module.js', function(req, res){
+            utils.getContentOf('src/client/build/module.js', function(data) {
+                res.send(data);
+            });
+        });
+
         callback();
     }
 

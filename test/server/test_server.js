@@ -58,6 +58,7 @@
                     var browser = new Browser();
                     browser.visit("http://localhost:8080/_testteam", function() {
                         assert.equal(200, browser.statusCode);
+                        //TODO assert.equal('http://localhost:8080/_testteam/edit', browser.document.querySelector("a").href);
                         done();
                     });
                 });
@@ -65,6 +66,7 @@
                     var browser = new Browser();
                     browser.visit("http://localhost:8080/_testalone", function() {
                         assert.equal(200, browser.statusCode);
+                        //TODO assert.equal('http://localhost:8080/_testalone/edit', browser.document.querySelector("a").href);
                         done();
                     });
                 });
@@ -83,16 +85,25 @@
                     var browser = new Browser();
                     browser.visit("http://localhost:8080/_testteam/edit", function() {
                         assert.equal(200, browser.statusCode);
+                        //TODO some user actions here
                         done();
                     });
                 });
                 it('/_testteam/edit/[4]/[name one] should update the team bibs', function(done){
-                    var browser = new Browser();
-                    browser.visit("http://localhost:8080/_testteam/edit/[4]/[name one]", function() {
+                    http.get("http://localhost:8080/_testteam/edit/[4]/[name one]", function(res) {
                         database.getTeam("_testteam", function(data) {
                             test_utils.assertJsonEqual({ teamname: '_testteam', bibs: '[4]', names: '[name one]' }, data);
                             done();
                         });
+                    });
+                });
+            });
+
+            describe('Get _build', function(){
+                it('/_build/module.js should return a 200', function(done){
+                    http.get("http://localhost:8080/_build/module.js", function(res) {
+                        assert.equal(200, res.statusCode);
+                        done();
                     });
                 });
             });
