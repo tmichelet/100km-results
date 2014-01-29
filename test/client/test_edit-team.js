@@ -55,7 +55,7 @@
 
         it('extractTeamData should generate appropriate url for an empty table', function(done) {
             $("#content").html("<table><tbody></tbody></table>");
-            assert.equal(editTeam.extractTeamData('table'), './[]/[]');
+            assert.equal(editTeam.extractTeamData('table'), './edit/[]/[]');
             done();
         });
         it('extractTeamData should generate appropriate url for a normal table', function(done) {
@@ -65,7 +65,7 @@
                     <tr>    <td>10</td> <td>second</td>     <td>x</td>  </tr>\
                 </tbody></table>"
             );
-            assert.equal(editTeam.extractTeamData('table'), './[1,10]/[name one,second]');
+            assert.equal(editTeam.extractTeamData('table'), './edit/[1,10]/[name one,second]');
             done();
         });
 
@@ -85,7 +85,7 @@
             );
             editTeam.initSubmitNewTeam('#submit');
             var data = mock($, 'get', function() { $("#submit").click(); });
-            assert.equal(data.args, './[1,10]/[name one,second]');
+            assert.equal(data.args, './edit/[1,10]/[name one,second]');
             done();
         });
     });

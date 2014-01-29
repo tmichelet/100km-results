@@ -51,6 +51,14 @@
             callback = arguments[0];
             databasePath = null;
         }
+        app.use(function(req, res, next) {
+            if(req.url.substr(-1) === '/' && req.url.length > 1) {
+                res.redirect(301, req.url.slice(0, -1));
+            }
+            else {
+                next();
+            }
+        });
         server = app.listen(8080);
         database.initDB(databasePath, function() {
             serveFiles(callback);

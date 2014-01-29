@@ -54,6 +54,12 @@
             });
 
             describe('Get main view', function(){
+                it("/_testteam/ with a trailing '/' should return a 301", function(done){
+                    http.get("http://localhost:8080/_testteam/", function(res) {
+                        assert.equal(301, res.statusCode);
+                        done();
+                    });
+                });
                 it('/_testteam should return a 200', function(done){
                     var browser = new Browser();
                     browser.visit("http://localhost:8080/_testteam", function() {

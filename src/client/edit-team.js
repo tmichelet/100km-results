@@ -32,7 +32,7 @@
         });
         bibs = '[' + bibs.slice(0, bibs.length-1) + ']';
         names = '[' + names.slice(0, names.length-1) + ']';
-        return './' + bibs + '/' + names;
+        return './edit/' + bibs + '/' + names;
     };
     exports.extractTeamData = extractTeamData;
 
