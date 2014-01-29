@@ -35,7 +35,8 @@
                     generateHtml('checkpoints', teamname, function(generatedCheckpointsHtml) {
                         var indexData = {
                             'last-checkpoints': generatedCheckpointsHtml,
-                            'individual-results': generatedResultsHtml
+                            'individual-results': generatedResultsHtml,
+                            'teamname': teamname
                         };
                         generateTemplatedHtml(utils.TEMPLATES_DIR  + '/index-template.html', indexData, callback);
                     });

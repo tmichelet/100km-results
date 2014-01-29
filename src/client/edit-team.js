@@ -49,8 +49,8 @@
 
     exports.initSubmitNewTeam = function(element) {
         $(element).click(function(event) {
-            $.get(extractTeamData("#bibs"), function(data) {
-                console.log(data);
+            $.get(extractTeamData("#bibs"), function() {
+                window.location.replace('./');
             });
         });
     };

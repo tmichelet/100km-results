@@ -84,20 +84,28 @@
                 <a id='submit'></a>"
             );
             editTeam.initSubmitNewTeam('#submit');
+            assert(endsWith(window.location.href, '/test/client/test_edit-team.js'));
             var data = mock($, 'get', function() { $("#submit").click(); });
             assert.equal(data.args, './edit/[1,10]/[name one,second]');
+            assert(endsWith(window.location.href, '/test/client/'));
             done();
         });
     });
 
+    var endsWith = function(string, suffix) {
+        return string.indexOf(suffix, string.length - suffix.length) !== -1;
+    };
+
     var mock = function(object, func, action) {
         var formerFunction = object[func];
         var data = {};
-        var newFunction = function(args) {
+        var newFunction = function(args, callback) {
             data.args = args;
+            data.callback = callback;
         };
         object[func] = newFunction;
         action();
+        data.callback();
         object[func] = formerFunction;
         return data;
     };
