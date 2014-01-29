@@ -52,7 +52,53 @@
             assert($('#notatarget').length === 0);
             done();
         });
+
+        it('extractTeamData should generate appropriate url for an empty table', function(done) {
+            $("#content").html("<table><tbody></tbody></table>");
+            assert.equal(editTeam.extractTeamData('table'), './[]/[]');
+            done();
+        });
+        it('extractTeamData should generate appropriate url for a normal table', function(done) {
+            $("#content").html(
+                "<table><tbody>\
+                    <tr>    <td>1</td>  <td>name one</td>   <td>x</td>  </tr>\
+                    <tr>    <td>10</td> <td>second</td>     <td>x</td>  </tr>\
+                </tbody></table>"
+            );
+            assert.equal(editTeam.extractTeamData('table'), './[1,10]/[name one,second]');
+            done();
+        });
+
+        it("extractPersonData should drop '[', ']', '_' and ',' characters", function(done) {
+            $("#content").html("<tr>    <td>1</td>  <td>n[a]m,e_ one</td>   <td>x</td>  </tr>");
+            test_utils.assertJsonEqual(editTeam.extractPersonData('tr'), {bib:'1', name:'name one'});
+            done();
+        });
+
+        it('initSubmitNewTeam should add onClickListener to the submit element, which triggers a get request', function(done) {
+            $("#content").html(
+                "<table id='bibs'><tbody>\
+                    <tr>    <td>1</td>  <td>name one</td>   <td>x</td>  </tr>\
+                    <tr>    <td>10</td> <td>second</td>     <td>x</td>  </tr>\
+                </tbody></table>\
+                <a id='submit'></a>"
+            );
+            editTeam.initSubmitNewTeam('#submit');
+            var data = mock($, 'get', function() { $("#submit").click(); });
+            assert.equal(data.args, './[1,10]/[name one,second]');
+            done();
+        });
     });
 
-
+    var mock = function(object, func, action) {
+        var formerFunction = object[func];
+        var data = {};
+        var newFunction = function(args) {
+            data.args = args;
+        };
+        object[func] = newFunction;
+        action();
+        object[func] = formerFunction;
+        return data;
+    };
 }());
