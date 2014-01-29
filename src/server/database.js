@@ -78,4 +78,11 @@
     };
     exports.getTeam = getTeam;
 
+    exports.getTeamsNames = function (callback) {
+        exports.DB('teams').select('teamname').exec(function(err, resp) {
+            if (err) throw err;
+            callback({'teams': resp || []});
+        });
+    };
+
 }());

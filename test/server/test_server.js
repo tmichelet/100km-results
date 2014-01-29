@@ -30,7 +30,7 @@
             });
 
             it('should return CONNREFUSED when not started', function(done){
-                http.get("http://localhost:8080/", function(res) {
+                http.get("http://localhost:8080/_status", function(res) {
                     assert.ok(false, 'get should retrieve an error');
                 }).on('error', function(e) {
                     assert.equal("connect ECONNREFUSED", e.message);
@@ -86,7 +86,7 @@
                 });
             });
 
-            describe('Edit team', function(){
+            describe('Get sub views', function() {
                 it('/_testteam/edit should return a 200', function(done){
                     http.get("http://localhost:8080/_testteam/edit", function(res) {
                         assert.equal(200, res.statusCode);
@@ -102,13 +102,17 @@
                         });
                     });
                 });
-            });
 
-            describe('Get _build', function(){
                 it('/_build/module.js should return a 200', function(done){
                     http.get("http://localhost:8080/_build/module.js", function(res) {
                         assert.equal(200, res.statusCode);
                         assert.equal('application/json', res.headers['content-type']);
+                        done();
+                    });
+                });
+
+                it('/ should return a 200', function(done){
+                    http.get("http://localhost:8080", function(res) {
                         done();
                     });
                 });
@@ -117,7 +121,7 @@
     });
 
     function checkServerIs(status, callback) {
-        http.get("http://localhost:8080/", function(res) {
+        http.get("http://localhost:8080/_status", function(res) {
             if(status === 'up') {
                 callback();
             }

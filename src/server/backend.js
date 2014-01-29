@@ -107,4 +107,10 @@
     };
     exports.retrieveCheckpoints = retrieveCheckpoints;
 
+    exports.retrieveAllTeams = function(_, callback) {
+        database.getTeamsNames(function(data) {
+            callback(data);
+        });
+    };
+
 }());

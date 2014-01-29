@@ -14,8 +14,21 @@
     
 
     function serveFiles(callback) {
+        app.get('/_status', function(req, res){
+            res.send('OK');
+        });
+
         app.get('/', function(req, res){
-            res.send('Hello World');
+            resultsViewsGenerator.generateHtml('root', null, function (data) {
+                res.send(data);
+            });
+        });
+
+        app.get('/_build/module.js', function(req, res){
+            utils.getContentOf('src/client/build/module.js', function(data) {
+                res.type('application/json');
+                res.send(data);
+            });
         });
 
         app.get('/:teamname', function(req, res){
@@ -33,13 +46,6 @@
         app.get('/:teamname/edit/:bibs/:names', function(req, res){
             database.saveTeam(req.params.teamname, req.params.bibs, req.params.names, function() {
                 res.send('OK');
-            });
-        });
-
-        app.get('/_build/module.js', function(req, res){
-            utils.getContentOf('src/client/build/module.js', function(data) {
-                res.type('application/json');
-                res.send(data);
             });
         });
 

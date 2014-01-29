@@ -25,6 +25,10 @@
         'teamEdit': {
             'template': '/team-edit-template.html',
             'data': backend.retrieveTeam
+        },
+        'root': {
+            'template': '/all-teams-template.html',
+            'data': backend.retrieveAllTeams
         }
     };
 

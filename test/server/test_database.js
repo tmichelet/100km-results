@@ -74,6 +74,20 @@
                     });
                 });
             });
+            it('getTeamsNames should retrieve all the teams', function(done) {
+                database.getTeamsNames(function(emptyData) {
+                    test_utils.assertJsonEqual(emptyData, {teams: []});
+                    database.saveTeam("_testteam", "[4,100]", "[name one, name two]", function() {
+                        database.saveTeam("_testalone", "[40]", "[name one]", function() {
+                            database.getTeamsNames(function(data) {
+                                test_utils.assertJsonEqual(data,
+                                    {teams: [ { teamname: '_testalone' }, { teamname: '_testteam' } ]});
+                                done();
+                            });
+                        });
+                    });
+                });
+            });
         });
         describe('Concurency', function() {
             it('requiring database twice should not change anything', function(done) {

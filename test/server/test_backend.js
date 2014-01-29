@@ -84,6 +84,27 @@
                 });
             });
         });
+
+        describe('retrieveAllTeams', function(){
+            it('should retrieve two teams', function(done) {
+                backend.retrieveAllTeams(null, function(data) {
+                    test_utils.assertJsonEqual(data, {"teams":[{"teamname":"_testalone"},{"teamname":"_testteam"}]});
+                    done();
+                });
+            });
+            it('should retrieve one person for _testalone', function(done) {
+                backend.retrieveTeamCheckpoints("_testalone", function(data) {
+                    test_utils.assertJsonEqual(data, _testalone);
+                    done();
+                });
+            });
+            it('should raise for _testwrong', function(done) {
+                backend.retrieveTeamCheckpoints("_testwrong", function(data) {
+                    test_utils.assertJsonEqual(data, { teamname: '_testwrong', persons: [] });
+                    done();
+                });
+            });
+        });
     });
 
     var _testteam = {
