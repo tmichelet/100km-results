@@ -12,8 +12,27 @@
     };
 
     var extractNewTeamName = function(element) {
-        return $(element).find('input').attr('value');
+        var value = $(element).find('input').attr('value');
+        if(value.length === 0) {
+            throw "Veuillez saisir un nom d'équipe";
+        }
+        if(value[0] === '_' || value.indexOf(';') !== -1) {
+            throw "Veuillez saisir un nom d'équipe ne contenant pas de _ ou de ;";
+        }
+        if($.inArray(value, extractExistingTeamName(element)) !== -1) {
+            throw "L'équipe existe déjà";
+        }
+        return value;
     };
     exports.extractNewTeamName = extractNewTeamName;
+
+    var extractExistingTeamName = function(element) {
+        var existingTeams = [];
+        $(element).parent().find('a').each(function(i, elt) {
+            existingTeams.push($(elt).text());
+        });
+        return existingTeams;
+    };
+    exports.extractExistingTeamName = extractExistingTeamName;
 
 }());

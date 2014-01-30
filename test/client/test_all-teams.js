@@ -24,6 +24,51 @@
             assert.equal(allTeams.extractNewTeamName('#new-team'), 'the target');
             done();
         });
+        it('extractNewTeamName should raise if non appropriate caracters', function(done) {
+            $("#content").html("<li id='new-team'><input value='_wrong'><a id='me' href='#'>créer</a></li>");
+            try {
+                allTeams.extractNewTeamName('#new-team');
+            }
+            catch(err) {
+                assert(err.indexOf("_") !== -1);
+                $("#content").html("<li id='new-team'><input value=''><a id='me' href='#'>créer</a></li>");
+                try {
+                    allTeams.extractNewTeamName('#new-team');
+                }
+                catch(err) {
+                    assert(err.indexOf("nom d'équipe") !== -1);
+                    $("#content").html("<li id='new-team'><input value='team;name'><a id='me' href='#'>créer</a></li>");
+                    try {
+                        allTeams.extractNewTeamName('#new-team');
+                    }
+                    catch(err) {
+                        done();
+                    }
+                }
+            }
+        });
+        it('extractNewTeamName should raise if team already exists', function(done) {
+            $("#content").html(
+                "<li id='new-team'><input value='existingTeam'><a id='me' href='#'>créer</a></li>\
+                <li><a href='existingTeam'>existingTeam</a></li>\
+            ");
+            try {
+                allTeams.extractNewTeamName('#new-team');
+            }
+            catch(err) {
+                assert(err.indexOf("existe") !== -1);
+                done();
+            }
+        });
+
+        it('extractExistingTeamName should retrieve the appropriate value', function(done) {
+            $("#content").html(
+                "<li id='new-team'><input value=''><a id='me' href='#'>créer</a></li>\
+                <li><a href='existingTeam'>existingTeam</a></li>\
+            ");
+            assert.deepEqual(allTeams.extractExistingTeamName('#new-team'), ["créer","existingTeam"]);
+            done();
+        });
 
         it('initNewTeam should add onClickListener to the a element, which triggers a redirection', function(done) {
             $("#content").html("<li id='new-team'><input value='theTarget'><a id='me' href='#'>créer</a></li>");
