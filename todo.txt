@@ -1,5 +1,4 @@
 user stories:
-- deploy script
 - edit update team: make it work + all bibs in memory -> search
 
 - I want to see real data
