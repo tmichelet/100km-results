@@ -72,7 +72,7 @@
 
         it("extractPersonData should drop '[', ']', '_' and ',' characters", function(done) {
             $("#content").html("<tr>    <td>1</td>  <td>n[a]m,e_ one</td>   <td>x</td>  </tr>");
-            test_utils.assertJsonEqual(editTeam.extractPersonData('tr'), {bib:'1', name:'name one'});
+            assert.deepEqual(editTeam.extractPersonData('tr'), {bib:'1', name:'name one'});
             done();
         });
 

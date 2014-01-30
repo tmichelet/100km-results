@@ -22,7 +22,7 @@
         describe('retrieveTeam', function(){
             it('should retrieve two persons for testteam', function(done) {
                 backend.retrieveTeam("testteam", function(data) {
-                    test_utils.assertJsonEqual(data,
+                    assert.deepEqual(data,
                         {"teamname":"testteam","persons":[{"bib":4,"name":"Emeline Landemaine"},
                         {"bib":100,"name":"Emeline Parizel"}]});
                     done();
@@ -30,14 +30,14 @@
             });
             it('should retrieve one person for testalone', function(done) {
                 backend.retrieveTeam("testalone", function(data) {
-                    test_utils.assertJsonEqual(data,
+                    assert.deepEqual(data,
                         {"teamname":"testalone","persons":[{"bib":4,"name":"Emeline Landemaine"}]});
                     done();
                 });
             });
             it('should retrieve 0 person for testwrong', function(done) {
                 backend.retrieveTeam("testwrong", function(data) {
-                    test_utils.assertJsonEqual(data, {"teamname":"testwrong","persons":[]});
+                    assert.deepEqual(data, {"teamname":"testwrong","persons":[]});
                     done();
                 });
             });
@@ -46,19 +46,19 @@
         describe('retrieveCheckpoints', function(){
             it('should retrieve three checkpoints for bib 100', function(done) {
                 backend.retrieveCheckpoints(100, function(data) {
-                    test_utils.assertJsonEqual(data.checkpoints, testteam.persons[1].checkpoints);
+                    assert.deepEqual(data.checkpoints, testteam.persons[1].checkpoints);
                     done();
                 });
             });
             it('should retrieve two checkpoints for bib 4', function(done) {
                 backend.retrieveCheckpoints(4, function(data) {
-                    test_utils.assertJsonEqual(data.checkpoints, testteam.persons[0].checkpoints);
+                    assert.deepEqual(data.checkpoints, testteam.persons[0].checkpoints);
                     done();
                 });
             });
             it('should retrieve 0 checkpoints for bib 0', function(done) {
                 backend.retrieveCheckpoints(0, function(data) {
-                    test_utils.assertJsonEqual(data.checkpoints, []);
+                    assert.deepEqual(data.checkpoints, []);
                     done();
                 });
             });
@@ -67,19 +67,19 @@
         describe('retrieveTeamCheckpoints', function(){
             it('should retrieve two persons for testteam', function(done) {
                 backend.retrieveTeamCheckpoints("testteam", function(data) {
-                    test_utils.assertJsonEqual(data, testteam);
+                    assert.deepEqual(data, testteam);
                     done();
                 });
             });
             it('should retrieve one person for testalone', function(done) {
                 backend.retrieveTeamCheckpoints("testalone", function(data) {
-                    test_utils.assertJsonEqual(data, testalone);
+                    assert.deepEqual(data, testalone);
                     done();
                 });
             });
             it('should raise for testwrong', function(done) {
                 backend.retrieveTeamCheckpoints("testwrong", function(data) {
-                    test_utils.assertJsonEqual(data, { teamname: 'testwrong', persons: [] });
+                    assert.deepEqual(data, { teamname: 'testwrong', persons: [] });
                     done();
                 });
             });
@@ -88,19 +88,19 @@
         describe('retrieveAllTeams', function(){
             it('should retrieve two teams', function(done) {
                 backend.retrieveAllTeams(null, function(data) {
-                    test_utils.assertJsonEqual(data, {"teams":[{"teamname":"testteam"},{"teamname":"testalone"}]});
+                    assert.deepEqual(data, {"teams":[{"teamname":"testteam"},{"teamname":"testalone"}]});
                     done();
                 });
             });
             it('should retrieve one person for testalone', function(done) {
                 backend.retrieveTeamCheckpoints("testalone", function(data) {
-                    test_utils.assertJsonEqual(data, testalone);
+                    assert.deepEqual(data, testalone);
                     done();
                 });
             });
             it('should raise for testwrong', function(done) {
                 backend.retrieveTeamCheckpoints("testwrong", function(data) {
-                    test_utils.assertJsonEqual(data, { teamname: 'testwrong', persons: [] });
+                    assert.deepEqual(data, { teamname: 'testwrong', persons: [] });
                     done();
                 });
             });

@@ -19,7 +19,7 @@
             it('should start and stop properly, linked to the right database', function(done) {
                 checkServerIs('down', function() {
                     server.start(test_utils.testOptions, function() {
-                        test_utils.assertJsonEqual(test_utils.testOptions.databasePath, database.DB.client.connectionSettings.filename);
+                        assert.deepEqual(test_utils.testOptions.databasePath, database.DB.client.connectionSettings.filename);
                         checkServerIs('up', function() {
                             server.stop(function() {
                                 checkServerIs('down', done);
@@ -107,7 +107,7 @@
                 it('/testteam/edit/[4]/[name one] should update the team bibs', function(done){
                     http.get(getOptions("/testteam/edit/[4]/[nameOne]"), function(res) {
                         database.getTeam("testteam", function(data) {
-                            test_utils.assertJsonEqual({ teamname: 'testteam', bibs: '[4]', names: '[nameOne]' }, data);
+                            assert.deepEqual({ teamname: 'testteam', bibs: '[4]', names: '[nameOne]' }, data);
                             done();
                         });
                     });

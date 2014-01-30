@@ -48,7 +48,7 @@
 
             it('getTeam should retrieve nothing if database is empty', function(done) {
                 database.getTeam("testteam", function(data) {
-                    test_utils.assertJsonEqual(data, {});
+                    assert.deepEqual(data, {});
                     done();
                 });
             });
@@ -56,7 +56,7 @@
             it('saveTeam should save correctly', function(done) {
                 database.saveTeam("testteam", "[4,100]", "[name one, name two]", function() {
                     database.getTeam("testteam", function(data) {
-                        test_utils.assertJsonEqual(data,
+                        assert.deepEqual(data,
                             { teamname: 'testteam', bibs: '[4,100]', names: "[name one, name two]" });
                         done();
                     });
@@ -67,7 +67,7 @@
                 database.saveTeam("testteam", "[4,100]", "[name one, name two]", function() {
                     database.saveTeam("testteam", "[40]", "[name one]", function() {
                         database.getTeam("testteam", function(data) {
-                            test_utils.assertJsonEqual(data,
+                            assert.deepEqual(data,
                                 { teamname: 'testteam', bibs: '[40]', names: "[name one]" });
                             done();
                         });
@@ -76,11 +76,11 @@
             });
             it('getTeamsNames should retrieve all the teams', function(done) {
                 database.getTeamsNames(function(emptyData) {
-                    test_utils.assertJsonEqual(emptyData, {teams: []});
+                    assert.deepEqual(emptyData, {teams: []});
                     database.saveTeam("testteam", "[4,100]", "[name one, name two]", function() {
                         database.saveTeam("testalone", "[40]", "[name one]", function() {
                             database.getTeamsNames(function(data) {
-                                test_utils.assertJsonEqual(data,
+                                assert.deepEqual(data,
                                     {teams: [ { teamname: 'testteam' }, { teamname: 'testalone' } ]});
                                 done();
                             });
@@ -90,10 +90,10 @@
             });
             it('getTeamsNames should not retrieve empty teams', function(done) {
                 database.getTeamsNames(function(emptyData) {
-                    test_utils.assertJsonEqual(emptyData, {teams: []});
+                    assert.deepEqual(emptyData, {teams: []});
                     database.saveTeam("testteam", "[]", "[]", function() {
                         database.getTeamsNames(function(data) {
-                            test_utils.assertJsonEqual(data,
+                            assert.deepEqual(data,
                                 {teams: []});
                             done();
                         });
@@ -108,7 +108,7 @@
                         database.getTeam("testteam", function(data1) {
                             var database2 = require(test_utils.SRC_PATH + '/server/database.js');
                             database2.getTeam("testteam", function(data2) {
-                                test_utils.assertJsonEqual(data1, data2);
+                                assert.deepEqual(data1, data2);
                                 database.dropDB(TEST_DB, function() {
                                     done();
                                 });
@@ -120,7 +120,7 @@
             it('initializing a database should set the connection parameters without droping the data', function(done) {
                 database.initDB("./test/server/100km-test-init.sqlite", function() {
                     database.getTeam("testteam", function(data) {
-                        test_utils.assertJsonEqual(data,
+                        assert.deepEqual(data,
                             { teamname: 'testteam', bibs: '[4,100]', names: '[name one, name two]' });
                         // use former database
                         database.initDB(TEST_DB, function() {
@@ -131,7 +131,7 @@
             });
             it('initDB should use the specified DB', function(done) {
                 database.initDB('./100km-tests.sqlite', function() {
-                    test_utils.assertJsonEqual({ filename: './100km-tests.sqlite' }, database.DB.client.connectionSettings);
+                    assert.deepEqual({ filename: './100km-tests.sqlite' }, database.DB.client.connectionSettings);
                     done();
                 });
             });

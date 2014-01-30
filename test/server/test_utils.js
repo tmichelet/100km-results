@@ -58,11 +58,6 @@
     };
     exports.checkFileExists = checkFileExists;
     
-    exports.assertJsonEqual = function (j1, j2) {
-        return assert.equal(JSON.stringify(j1), JSON.stringify(j2));
-    };
-
-    
     exports.SRC_PATH = SRC_PATH;
     var TEMPLATES_PATH = 'test/client/templates';
     exports.TEMPLATES_PATH = TEMPLATES_PATH;
