@@ -1,7 +1,9 @@
 user stories:
-- root create team / edit update team: make it work + all bibs in memory -> search
+- grunt clean build
+- root create team 
+- deploy script
+- edit update team: make it work + all bibs in memory -> search
 
-- investigate test bug
 - I want to see real data
 - better design
 

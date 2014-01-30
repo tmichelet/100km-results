@@ -103,10 +103,17 @@
                     });
                 });
 
-                it('/_build/module.js should return a 200', function(done){
-                    http.get(getOptions("/_build/module.js"), function(res) {
+                it('/_build/all-teams.js should return a 200', function(done){
+                    http.get(getOptions("/_build/all-teams.js"), function(res) {
                         assert.equal(200, res.statusCode);
-                        assert.equal('application/json', res.headers['content-type']);
+                        assert.equal('application/javascript', res.headers['content-type']);
+                        done();
+                    });
+                });
+                it('/_build/edit-team.js should return a 200', function(done){
+                    http.get(getOptions("/_build/edit-team.js"), function(res) {
+                        assert.equal(200, res.statusCode);
+                        assert.equal('application/javascript', res.headers['content-type']);
                         done();
                     });
                 });

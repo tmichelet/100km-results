@@ -18,15 +18,10 @@
             res.send('OK');
         });
 
+        app.use("/_build", express.static('src/client/build'));
+
         app.get('/', function(req, res){
             resultsViewsGenerator.generateHtml('root', null, function (data) {
-                res.send(data);
-            });
-        });
-
-        app.get('/_build/module.js', function(req, res){
-            utils.getContentOf('src/client/build/module.js', function(data) {
-                res.type('application/json');
                 res.send(data);
             });
         });
