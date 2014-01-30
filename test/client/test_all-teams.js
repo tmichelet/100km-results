@@ -71,6 +71,16 @@
         });
 
         it('initNewTeam should add onClickListener to the a element, which triggers a redirection', function(done) {
+            $("#content").html(
+                "<li id='new-team'><input value='existingTeam'><a id='me' href='#'>créer</a><span id='error'></span></li>\
+                <li><a href='existingTeam'>existingTeam</a></li>\
+            ");
+            allTeams.initNewTeam('#new-team');
+            $('#me').click();
+            assert.equal("L'équipe existe déjà", $('#error').text());
+            done();
+        });
+        it('initNewTeam should display error message when input is not valid', function(done) {
             $("#content").html("<li id='new-team'><input value='theTarget'><a id='me' href='#'>créer</a></li>");
             allTeams.initNewTeam('#new-team');
             $('#me').click();

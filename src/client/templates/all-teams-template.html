@@ -17,6 +17,10 @@
                 padding-right: 25px;
                 text-align: center;
             }
+            #error {
+                color: #ff388d;
+                font-size: 20;
+            }
         </style>
     </head>
 
@@ -24,7 +28,7 @@
         <div>
             <h2>Equipes enregistrées:</h2>
             <ul>
-                <li id="new-team"><input type="text" placeholder="créer une équipe"><a href="#">créer</a></li>
+                <li id="new-team"><input type="text" placeholder="créer une équipe"><a href="#">créer</a><span id="error"></span></li>
 {{#each teams}}
                 <li><a href='{{{teamname}}}'>{{{teamname}}}</a></li>
 {{/each}}

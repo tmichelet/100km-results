@@ -7,7 +7,13 @@
 
     exports.initNewTeam = function(element) {
         $(element).find('a').click(function(event) {
-            window.location.replace(extractNewTeamName(element) + '/edit');
+            try {
+                var teamname = extractNewTeamName(element);
+                window.location.replace(extractNewTeamName(element) + '/edit');
+            }
+            catch(err) {
+                $('#error').text(err);
+            }
         });
     };
 
