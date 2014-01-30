@@ -39,8 +39,15 @@ module.exports = function(grunt) {
     grunt.registerTask('clean', 'clean build folder', function() {
         var fs = require('fs');
         var path = 'src/client/build/';
-        fs.readdirSync(path).forEach(function(file,index){
-            fs.unlink(path + file);
+        fs.exists(path, function(exists) {
+            if(exists) {
+                fs.readdirSync(path).forEach(function(file,index) {
+                    fs.unlink(path + file);
+                });
+            }
+            else {
+                fs.mkdir(path);
+            }
         });
     });
 
