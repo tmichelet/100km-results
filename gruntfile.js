@@ -34,7 +34,15 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('default', ['jshint', 'mochaTest', 'browserify']);
+    grunt.registerTask('default', ['clean', 'browserify', 'jshint', 'mochaTest']);
+
+    grunt.registerTask('clean', 'clean build folder', function() {
+        var fs = require('fs');
+        var path = 'src/client/build/';
+        fs.readdirSync(path).forEach(function(file,index){
+            fs.unlink(path + file);
+        });
+    });
 
     grunt.registerTask('watch', 'starts the server', function() {
         var done = this.async();

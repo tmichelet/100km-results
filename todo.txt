@@ -1,5 +1,4 @@
 user stories:
-- grunt clean build
 - root create team 
 - deploy script
 - edit update team: make it work + all bibs in memory -> search
