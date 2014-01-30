@@ -63,10 +63,14 @@ module.exports = function(grunt) {
         var done = this.async();
         var database = require('./src/server/database.js');
         var utils = require('./src/server/utils.js');
-        database.dropDB(utils.defaultOptions.databasePath, function() {});
-        database.createDB(utils.defaultOptions.databasePath, function() {
-            grunt.log.write('database created');
-            done();
+        var fs = require('fs');
+        database.dropDB(utils.defaultOptions.databasePath, function() {
+            fs.writeFile(utils.defaultOptions.logfilePath, "", function() {
+                database.createDB(utils.defaultOptions.databasePath, function() {
+                    grunt.log.write('database created');
+                    done();
+                });
+            });
         });
     });
 
