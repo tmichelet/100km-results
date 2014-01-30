@@ -47,7 +47,11 @@
     }
 
     var log = function(path, req) {
-        utils.log(path, req.method + ' ' + req.url);
+        utils.log(path, [
+                req.method, req.url, req.connection.remoteAddress,
+                req.headers['user-agent'], req.headers.referer
+            ].join(' # ')
+        );
     };
 
     exports.start = function(options, callback) {
