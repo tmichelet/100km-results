@@ -16,31 +16,27 @@
     describe('Server', function(){
 
         describe('Lifecycle', function(){
-            /*
-                It seems that there is a limited number of call the server handles for the test suite.
-                commenting these tests makes all tests pass while I'm investigating...
-            */
-            // it('should start and stop properly, linked to the right database', function(done) {
-            //     checkServerIs('down', function() {
-            //         server.start(function() {
-            //             test_utils.assertJsonEqual(database.DEFAULT_DB_PATH, database.DB.client.connectionSettings.filename);
-            //             checkServerIs('up', function() {
-            //                 server.stop(function() {
-            //                     checkServerIs('down', done);
-            //                 });
-            //             });
-            //         });
-            //     });
-            // });
+            it('should start and stop properly, linked to the right database', function(done) {
+                checkServerIs('down', function() {
+                    server.start(function() {
+                        test_utils.assertJsonEqual(database.DEFAULT_DB_PATH, database.DB.client.connectionSettings.filename);
+                        checkServerIs('up', function() {
+                            server.stop(function() {
+                                checkServerIs('down', done);
+                            });
+                        });
+                    });
+                });
+            });
 
-            // it('should return CONNREFUSED when not started', function(done){
-            //     http.get("http://localhost:8080/_status", function(res) {
-            //         assert.ok(false, 'get should retrieve an error');
-            //     }).on('error', function(e) {
-            //         assert.equal("connect ECONNREFUSED", e.message);
-            //         done();
-            //     });
-            // });
+            it('should return CONNREFUSED when not started', function(done){
+                http.get("http://localhost:8080/_status", function(res) {
+                    assert.ok(false, 'get should retrieve an error');
+                }).on('error', function(e) {
+                    assert.equal("connect ECONNREFUSED", e.message);
+                    done();
+                });
+            });
         });
 
         describe('Serving', function() {
@@ -59,7 +55,7 @@
 
             describe('Get main view', function(){
                 it("/_testteam/ with a trailing '/' should return a 301", function(done){
-                    http.get("http://localhost:8080/_testteam/", function(res) {
+                    http.get(getOptions("/_testteam/"), function(res) {
                         assert.equal(301, res.statusCode);
                         done();
                     });
@@ -92,23 +88,23 @@
 
             describe('Get sub views', function() {
                 it('/_testteam/edit should return a 200', function(done){
-                    http.get("http://localhost:8080/_testteam/edit", function(res) {
+                    http.get(getOptions("/_testteam/edit"), function(res) {
                         assert.equal(200, res.statusCode);
                         //TODO some user actions here
                         done();
                     });
                 });
                 it('/_testteam/edit/[4]/[name one] should update the team bibs', function(done){
-                    http.get("http://localhost:8080/_testteam/edit/[4]/[name one]", function(res) {
+                    http.get(getOptions("/_testteam/edit/[4]/[nameOne]"), function(res) {
                         database.getTeam("_testteam", function(data) {
-                            test_utils.assertJsonEqual({ teamname: '_testteam', bibs: '[4]', names: '[name one]' }, data);
+                            test_utils.assertJsonEqual({ teamname: '_testteam', bibs: '[4]', names: '[nameOne]' }, data);
                             done();
                         });
                     });
                 });
 
                 it('/_build/module.js should return a 200', function(done){
-                    http.get("http://localhost:8080/_build/module.js", function(res) {
+                    http.get(getOptions("/_build/module.js"), function(res) {
                         assert.equal(200, res.statusCode);
                         assert.equal('application/json', res.headers['content-type']);
                         done();
@@ -116,7 +112,7 @@
                 });
 
                 it('/ should return a 200', function(done){
-                    http.get("http://localhost:8080", function(res) {
+                    http.get(getOptions(""), function(res) {
                         assert.equal(200, res.statusCode);
                         done();
                     });
@@ -124,6 +120,10 @@
             });
         });
     });
+
+    function getOptions(path) {
+        return {hostname:'localhost', port:8080, path:path, agent:false};
+    }
 
     function checkServerIs(status, callback) {
         http.get("http://localhost:8080/_status", function(res) {
