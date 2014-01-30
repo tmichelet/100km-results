@@ -1,0 +1,8 @@
+GET /_testteam
+GET /_testalone
+GET /_testwrong
+GET /_testteam/edit
+GET /_testteam/edit/[4]/[nameOne]
+GET /_build/all-teams.js
+GET /_build/edit-team.js
+GET /

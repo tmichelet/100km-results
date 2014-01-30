@@ -54,18 +54,28 @@
             });
 
             describe('Get main view', function(){
-                it("/_testteam/ with a trailing '/' should return a 301", function(done){
-                    http.get(getOptions("/_testteam/"), function(res) {
-                        assert.equal(301, res.statusCode);
-                        done();
+                it("/_testteam/ with a trailing '/' should return a 301 and not log", function(done){
+                    fs.writeFile(test_utils.testOptions.logfilePath, '', function() {
+                        http.get(getOptions("/_testteam/"), function(res) {
+                            assert.equal(301, res.statusCode);
+                            fs.readFile(test_utils.testOptions.logfilePath, 'utf8', function(err, data) {
+                                assert.equal("", data);
+                                done();
+                            });
+                        });
                     });
                 });
-                it('/_testteam should return a 200', function(done){
-                    var browser = new Browser();
-                    browser.visit("http://localhost:8080/_testteam", function() {
-                        assert.equal(200, browser.statusCode);
-                        assert.equal('http://localhost:8080/_testteam/edit', browser.document.querySelector("a").href);
-                        done();
+                it('/_testteam should return a 200 and log', function(done){
+                    fs.writeFile(test_utils.testOptions.logfilePath, '', function() {
+                        var browser = new Browser();
+                        browser.visit("http://localhost:8080/_testteam", function() {
+                            assert.equal(200, browser.statusCode);
+                            assert.equal('http://localhost:8080/_testteam/edit', browser.document.querySelector("a").href);
+                            fs.readFile(test_utils.testOptions.logfilePath, 'utf8', function(err, data) {
+                                assert.equal("GET /_testteam\n", data);
+                                done();
+                            });
+                        });
                     });
                 });
                 it('/_testalone should return a 200', function(done){

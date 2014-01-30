@@ -46,6 +46,10 @@
         callback();
     }
 
+    var log = function(path, req) {
+        utils.log(path, req.method + ' ' + req.url);
+    };
+
     exports.start = function(options, callback) {
         if(arguments.length === 1) {
             callback = arguments[0];
@@ -57,6 +61,7 @@
                 res.redirect(301, req.url.slice(0, -1));
             }
             else {
+                log(options.logfilePath ,req);
                 next();
             }
         });

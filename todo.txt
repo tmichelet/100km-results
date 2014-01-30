@@ -1,5 +1,4 @@
 user stories:
-* analytics
 - forbid some teamnames
 - edit update team: make it work + all bibs in memory -> search
 

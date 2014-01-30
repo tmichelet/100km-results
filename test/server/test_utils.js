@@ -18,6 +18,19 @@
             });
         });
 
+        it('log should write the expected data in the expected file', function(done) {
+            fs.writeFile(testOptions.logfilePath, "", function() {
+                utils.log(testOptions.logfilePath, "foo", function() {
+                    utils.log(testOptions.logfilePath, "bar", function() {
+                        utils.getContentOf(testOptions.logfilePath, function(content) {
+                            assert.equal("foo\nbar\n", content);
+                            done();
+                        });
+                    });
+                });
+            });
+        });
+
         describe('test_Utils', function(){
             it('checkFileExists should raise if existence of file is wrong', function(done) {
                 checkFileExists('./test/server/_wrongfile.txt', false, function() {

@@ -12,6 +12,10 @@
         });
     };
 
+    exports.log = function(filepath, data, callback) {
+        fs.appendFile(filepath, data + '\n', callback);
+    };
+
     exports.TEMPLATES_DIR = 'src/client/templates';
 
     var defaultOptions = {

@@ -2,3 +2,4 @@ node_modules
 .DS_Store
 100km.sqlite
 src/client/build
+logs.txt
