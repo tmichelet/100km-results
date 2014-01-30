@@ -22,17 +22,17 @@
         <tr>    <td>bib</td>  <td>name</td>   <td>x</td>  </tr>
     */
     var extractTeamData = function(element) {
-        var bibs = "";
-        var names = "";
+        var bibs = [];
+        var names = [];
         var separator = ',';
         $(element).find('tr').each(function(i, elt) {
             var data = extractPersonData(elt);
-            bibs += data.bib + separator;
-            names += data.name + separator;
+            bibs.push(data.bib);
+            names.push(data.name);
         });
-        bibs = '[' + bibs.slice(0, bibs.length-1) + ']';
-        names = '[' + names.slice(0, names.length-1) + ']';
-        return './edit/' + bibs + '/' + names;
+        bibs = '[' + bibs.join(separator) + ']';
+        names = '[' + names.join(separator) + ']';
+        return ['./edit', bibs, names].join('/');
     };
     exports.extractTeamData = extractTeamData;
 
