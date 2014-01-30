@@ -88,7 +88,7 @@
         describe('retrieveAllTeams', function(){
             it('should retrieve two teams', function(done) {
                 backend.retrieveAllTeams(null, function(data) {
-                    test_utils.assertJsonEqual(data, {"teams":[{"teamname":"testalone"},{"teamname":"testteam"}]});
+                    test_utils.assertJsonEqual(data, {"teams":[{"teamname":"testteam"},{"teamname":"testalone"}]});
                     done();
                 });
             });

@@ -81,9 +81,21 @@
                         database.saveTeam("testalone", "[40]", "[name one]", function() {
                             database.getTeamsNames(function(data) {
                                 test_utils.assertJsonEqual(data,
-                                    {teams: [ { teamname: 'testalone' }, { teamname: 'testteam' } ]});
+                                    {teams: [ { teamname: 'testteam' }, { teamname: 'testalone' } ]});
                                 done();
                             });
+                        });
+                    });
+                });
+            });
+            it('getTeamsNames should not retrieve empty teams', function(done) {
+                database.getTeamsNames(function(emptyData) {
+                    test_utils.assertJsonEqual(emptyData, {teams: []});
+                    database.saveTeam("testteam", "[]", "[]", function() {
+                        database.getTeamsNames(function(data) {
+                            test_utils.assertJsonEqual(data,
+                                {teams: []});
+                            done();
                         });
                     });
                 });
