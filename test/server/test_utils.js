@@ -66,4 +66,9 @@
         database.dropDB(TEST_DATABASE, function() {done();});
     };
 
+    exports.assertEndsWith = function(string, suffix) {
+        var result = string.indexOf(suffix, string.length - suffix.length) !== -1;
+        assert(result, suffix + ' vs ' + string);
+    };
+
 }());
