@@ -54,9 +54,9 @@
             });
 
             describe('Get main view', function(){
-                it("/_testteam/ with a trailing '/' should return a 301 and not log", function(done){
+                it("/testteam/ with a trailing '/' should return a 301 and not log", function(done){
                     fs.writeFile(test_utils.testOptions.logfilePath, '', function() {
-                        http.get(getOptions("/_testteam/"), function(res) {
+                        http.get(getOptions("/testteam/"), function(res) {
                             assert.equal(301, res.statusCode);
                             fs.readFile(test_utils.testOptions.logfilePath, 'utf8', function(err, data) {
                                 assert.equal("", data);
@@ -65,49 +65,49 @@
                         });
                     });
                 });
-                it('/_testteam should return a 200 and log', function(done){
+                it('/testteam should return a 200 and log', function(done){
                     fs.writeFile(test_utils.testOptions.logfilePath, '', function() {
                         var browser = new Browser();
-                        browser.visit("http://localhost:8080/_testteam", function() {
+                        browser.visit("http://localhost:8080/testteam", function() {
                             assert.equal(200, browser.statusCode);
-                            assert.equal('http://localhost:8080/_testteam/edit', browser.document.querySelector("a").href);
+                            assert.equal('http://localhost:8080/testteam/edit', browser.document.querySelector("a").href);
                             fs.readFile(test_utils.testOptions.logfilePath, 'utf8', function(err, data) {
-                                assert.equal("GET /_testteam\n", data);
+                                assert.equal("GET # /testteam", data.substring(0, 15));
                                 done();
                             });
                         });
                     });
                 });
-                it('/_testalone should return a 200', function(done){
+                it('/testalone should return a 200', function(done){
                     var browser = new Browser();
-                    browser.visit("http://localhost:8080/_testalone", function() {
+                    browser.visit("http://localhost:8080/testalone", function() {
                         assert.equal(200, browser.statusCode);
-                        assert.equal('http://localhost:8080/_testalone/edit', browser.document.querySelector("a").href);
+                        assert.equal('http://localhost:8080/testalone/edit', browser.document.querySelector("a").href);
                         done();
                     });
                 });
-                it('/_testwrong should link to team creation', function(done){
+                it('/testwrong should link to team creation', function(done){
                     var browser = new Browser();
-                    browser.visit("http://localhost:8080/_testwrong", function() {
+                    browser.visit("http://localhost:8080/testwrong", function() {
                         assert.equal(200, browser.statusCode);
-                        assert.equal('http://localhost:8080/_testwrong/edit', browser.document.querySelector("a").href);
+                        assert.equal('http://localhost:8080/testwrong/edit', browser.document.querySelector("a").href);
                         done();
                     });
                 });
             });
 
             describe('Get sub views', function() {
-                it('/_testteam/edit should return a 200', function(done){
-                    http.get(getOptions("/_testteam/edit"), function(res) {
+                it('/testteam/edit should return a 200', function(done){
+                    http.get(getOptions("/testteam/edit"), function(res) {
                         assert.equal(200, res.statusCode);
                         //TODO some user actions here
                         done();
                     });
                 });
-                it('/_testteam/edit/[4]/[name one] should update the team bibs', function(done){
-                    http.get(getOptions("/_testteam/edit/[4]/[nameOne]"), function(res) {
-                        database.getTeam("_testteam", function(data) {
-                            test_utils.assertJsonEqual({ teamname: '_testteam', bibs: '[4]', names: '[nameOne]' }, data);
+                it('/testteam/edit/[4]/[name one] should update the team bibs', function(done){
+                    http.get(getOptions("/testteam/edit/[4]/[nameOne]"), function(res) {
+                        database.getTeam("testteam", function(data) {
+                            test_utils.assertJsonEqual({ teamname: 'testteam', bibs: '[4]', names: '[nameOne]' }, data);
                             done();
                         });
                     });

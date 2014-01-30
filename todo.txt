@@ -1,5 +1,5 @@
 user stories:
-- forbid some teamnames
+- forbid some teamnames: ![azAZ09], existing
 - edit update team: make it work + all bibs in memory -> search
 
 - I want to see real data

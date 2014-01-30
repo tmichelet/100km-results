@@ -20,10 +20,10 @@
             test_utils.dropDatabase(done);
         });
 
-        describe('RESULTS: _testteam', function() {
+        describe('RESULTS: testteam', function() {
             it('should generate checkpoints html', function(done) {
                 utils.getContentOf(test_utils.TEMPLATES_PATH + '/last-checkpoints-expected.html', function (expected_html) {
-                    viewsGenerator.generateHtml('checkpoints', "_testteam", function(content) {
+                    viewsGenerator.generateHtml('checkpoints', "testteam", function(content) {
                         assert.equal(content, expected_html);
                         done();
                     });
@@ -32,7 +32,7 @@
 
             it('should generate results html', function(done) {
                 utils.getContentOf(test_utils.TEMPLATES_PATH + '/individual-results-expected.html', function (expected_html) {
-                    viewsGenerator.generateHtml('results', "_testteam", function(content) {
+                    viewsGenerator.generateHtml('results', "testteam", function(content) {
                         assert.equal(content, expected_html);
                         done();
                     });
@@ -41,7 +41,7 @@
 
             it('should generate index html', function(done) {
                 utils.getContentOf(test_utils.TEMPLATES_PATH + '/index-expected.html', function (expected_html) {
-                    viewsGenerator.generateIndexHtml("_testteam", function(content) {
+                    viewsGenerator.generateIndexHtml("testteam", function(content) {
                         assert.equal(content, expected_html);
                         done();
                     });
@@ -49,10 +49,10 @@
             });
         });
 
-        describe('RESULTS: _testalone', function(){
+        describe('RESULTS: testalone', function(){
             it('should generate results html', function(done) {
                 utils.getContentOf(test_utils.TEMPLATES_PATH + '/individual-results-expected-alone.html', function (expected_html) {
-                    viewsGenerator.generateHtml('results', "_testalone", function(content) {
+                    viewsGenerator.generateHtml('results', "testalone", function(content) {
                         assert.equal(content, expected_html);
                         done();
                     });
@@ -60,7 +60,7 @@
             });
             it('should generate index html', function(done) {
                 utils.getContentOf(test_utils.TEMPLATES_PATH + '/index-expected-alone.html', function (expected_html) {
-                    viewsGenerator.generateIndexHtml("_testalone", function(content) {
+                    viewsGenerator.generateIndexHtml("testalone", function(content) {
                         assert.equal(content, expected_html);
                         done();
                     });
@@ -68,10 +68,10 @@
             });
         });
 
-        describe('RESULTS: _testwrong', function(){
+        describe('RESULTS: testwrong', function(){
             it('generateIndexHtml should generate link to team creation html (error thrown)', function(done) {
                 utils.getContentOf(test_utils.TEMPLATES_PATH + '/team-not-found-expected.html', function (expected_html) {
-                    viewsGenerator.generateIndexHtml("_testwrong", function(content) {
+                    viewsGenerator.generateIndexHtml("testwrong", function(content) {
                         assert.equal(content, expected_html);
                         done();
                     });
@@ -79,10 +79,10 @@
             });
         });
 
-        describe('TEAM: _testteam/edit', function() {
+        describe('TEAM: testteam/edit', function() {
             it('should generate team edition html', function(done) {
                 utils.getContentOf(test_utils.TEMPLATES_PATH + '/team-edit-expected.html', function (expected_html) {
-                    viewsGenerator.generateHtml('teamEdit', "_testteam", function(content) {
+                    viewsGenerator.generateHtml('teamEdit', "testteam", function(content) {
                         // assert.equal(content, expected_html); //TODO
                         done();
                     });

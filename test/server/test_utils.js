@@ -76,8 +76,8 @@
 
     exports.initAndFillDatabase = function(done) {
         database.createDB(testOptions.databasePath, function() {
-            database.saveTeam('_testteam', '[4,100]', '[Emeline Landemaine,Emeline Parizel]', function() {
-                database.saveTeam('_testalone', '[4]', '[Emeline Landemaine]', function() {
+            database.saveTeam('testteam', '[4,100]', '[Emeline Landemaine,Emeline Parizel]', function() {
+                database.saveTeam('testalone', '[4]', '[Emeline Landemaine]', function() {
                     done();
                 });
             });

@@ -1,8 +1,8 @@
-GET /_testteam
-GET /_testalone
-GET /_testwrong
-GET /_testteam/edit
-GET /_testteam/edit/[4]/[nameOne]
-GET /_build/all-teams.js
-GET /_build/edit-team.js
-GET /
+GET # /testteam # 127.0.0.1 # Mozilla/5.0 Chrome/10.0.613.0 Safari/534.15 Zombie.js/2.0.0-alpha24 # 
+GET # /testalone # 127.0.0.1 # Mozilla/5.0 Chrome/10.0.613.0 Safari/534.15 Zombie.js/2.0.0-alpha24 # 
+GET # /testwrong # 127.0.0.1 # Mozilla/5.0 Chrome/10.0.613.0 Safari/534.15 Zombie.js/2.0.0-alpha24 # 
+GET # /testteam/edit # 127.0.0.1 #  # 
+GET # /testteam/edit/[4]/[nameOne] # 127.0.0.1 #  # 
+GET # /_build/all-teams.js # 127.0.0.1 #  # 
+GET # /_build/edit-team.js # 127.0.0.1 #  # 
+GET # / # 127.0.0.1 #  # 
