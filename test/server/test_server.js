@@ -18,8 +18,8 @@
         describe('Lifecycle', function(){
             it('should start and stop properly, linked to the right database', function(done) {
                 checkServerIs('down', function() {
-                    server.start(function() {
-                        test_utils.assertJsonEqual(database.DEFAULT_DB_PATH, database.DB.client.connectionSettings.filename);
+                    server.start(test_utils.testOptions, function() {
+                        test_utils.assertJsonEqual(test_utils.testOptions.databasePath, database.DB.client.connectionSettings.filename);
                         checkServerIs('up', function() {
                             server.stop(function() {
                                 checkServerIs('down', done);
@@ -41,7 +41,7 @@
 
         describe('Serving', function() {
             before(function(done) {
-                server.start(function() {
+                server.start(test_utils.testOptions, function() {
                     test_utils.initAndFillDatabase(function() {done();});
                 });
             });

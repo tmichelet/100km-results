@@ -29,6 +29,10 @@
         });
     });
 
+    /*
+        Utils exports
+    */
+
     var checkFileExists = function(path, expected, callback) {
         fs.exists(path, function(exists) {
             if ((exists && expected) || (!exists && !expected)) {
@@ -47,13 +51,18 @@
 
     
     exports.SRC_PATH = SRC_PATH;
-    var TEST_DATABASE = './100km-db-tests.sqlite';
-    exports.TEST_DATABASE = TEST_DATABASE;
     var TEMPLATES_PATH = 'test/client/templates';
     exports.TEMPLATES_PATH = TEMPLATES_PATH;
 
+    var testOptions = {
+        port: 8080,
+        databasePath: './100km-tests.sqlite',
+        logfilePath: 'test/server/_logs.txt'
+    };
+    exports.testOptions = testOptions;
+
     exports.initAndFillDatabase = function(done) {
-        database.createDB(TEST_DATABASE, function() {
+        database.createDB(testOptions.databasePath, function() {
             database.saveTeam('_testteam', '[4,100]', '[Emeline Landemaine,Emeline Parizel]', function() {
                 database.saveTeam('_testalone', '[4]', '[Emeline Landemaine]', function() {
                     done();
@@ -63,7 +72,7 @@
     };
 
     exports.dropDatabase = function(done) {
-        database.dropDB(TEST_DATABASE, function() {done();});
+        database.dropDB(testOptions.databasePath, function() {done();});
     };
 
     exports.assertEndsWith = function(string, suffix) {

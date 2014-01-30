@@ -11,7 +11,6 @@
     var utils = require('./utils.js');
     var resultsViewsGenerator = require('./views_generator.js');
     var database = require('./database.js');
-    
 
     function serveFiles(callback) {
         app.get('/_status', function(req, res){
@@ -47,11 +46,12 @@
         callback();
     }
 
-    exports.start = function(databasePath, callback) {
-        if(arguments.length === 1) { //TODO test this with a mock
+    exports.start = function(options, callback) {
+        if(arguments.length === 1) {
             callback = arguments[0];
-            databasePath = null;
+            options = utils.defaultOptions;
         }
+
         app.use(function(req, res, next) {
             if(req.url.substr(-1) === '/' && req.url.length > 1) {
                 res.redirect(301, req.url.slice(0, -1));
@@ -60,8 +60,8 @@
                 next();
             }
         });
-        server = app.listen(8080);
-        database.initDB(databasePath, function() {
+        server = app.listen(options.port);
+        database.initDB(options.databasePath, function() {
             serveFiles(callback);
         });
     };

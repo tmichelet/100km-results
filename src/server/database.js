@@ -6,8 +6,6 @@
     var Knex = require('knex');
     var fs = require('fs');
 
-    exports.DEFAULT_DB_PATH = './100km-tests.sqlite';
-
     var createDB = function(path, callback) {
         fs.writeFile(path, "", function(err) {
             if (err) throw err;
@@ -27,7 +25,6 @@
     };
 
     var initDB = function(path, callback) {
-        if(path === undefined || path === null) path = exports.DEFAULT_DB_PATH;
         exports.DB = Knex.initialize({
             client: 'sqlite3',
             connection: {

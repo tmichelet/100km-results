@@ -7,7 +7,7 @@
     var fs = require('fs');
 
     var test_utils = require('./test_utils.js');
-    var TEST_DB = test_utils.TEST_DATABASE;
+    var TEST_DB = test_utils.testOptions.databasePath;
     var database = require(test_utils.SRC_PATH + '/server/database.js');
 
     describe('test_database', function() {
@@ -117,8 +117,8 @@
                     });
                 });
             });
-            it('initDB should use the default DB', function(done) {
-                database.initDB(undefined, function() {
+            it('initDB should use the specified DB', function(done) {
+                database.initDB('./100km-tests.sqlite', function() {
                     test_utils.assertJsonEqual({ filename: './100km-tests.sqlite' }, database.DB.client.connectionSettings);
                     done();
                 });

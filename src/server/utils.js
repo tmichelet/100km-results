@@ -14,4 +14,11 @@
 
     exports.TEMPLATES_DIR = 'src/client/templates';
 
+    var defaultOptions = {
+        port: 8080,
+        databasePath: './100km.sqlite',
+        logfilePath: './logs.txt'
+    };
+    exports.defaultOptions = defaultOptions;
+
 }());
