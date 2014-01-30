@@ -1,10 +1,9 @@
 user stories:
-- make html tests smarter (viewgenerator) to avoid ducplication between tests and src
-- edit update team: make it work + all bibs in memory -> search
-
-- I want to see real data
+- make html tests smarter (viewgenerator) to avoid duplication between tests and src
+- edit update team with all bibs
+- real checkpoints data
 - better design
 
-- deploy
-- CI
-- on desktop : map of my friends
+future: (2015?)
+- [option] map of my friends, where they are currently + annimation on what they've done
+- Continuous Integration
