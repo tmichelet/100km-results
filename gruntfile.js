@@ -27,7 +27,8 @@ module.exports = function(grunt) {
         browserify: {
             dist: {
                 files: {
-                    'src/client/build/module.js': ['src/client/main-edit-team.js']
+                    'src/client/build/edit-team.js': ['src/client/main-edit-team.js'],
+                    'src/client/build/all-teams.js': ['src/client/main-all-teams.js']
                 }
             }
         }

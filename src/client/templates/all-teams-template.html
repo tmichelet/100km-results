@@ -24,11 +24,12 @@
         <div>
             <h2>Equipes enregistrées:</h2>
             <ul>
-                <li><input type="text" value="créer une équipe"></li>
+                <li id="new-team"><input type="text" placeholder="créer une équipe"><a href="#">créer</a></li>
 {{#each teams}}
                 <li><a href='{{{teamname}}}'>{{{teamname}}}</a></li>
 {{/each}}
             </ul>
         </div>
+        <script type="text/javascript" src="/_build/all-teams.js"></script>
     </body>
 </html>
