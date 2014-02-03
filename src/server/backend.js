@@ -49,7 +49,7 @@
                 var bibs = data.bibs.substring(1, data.bibs.length - 1).split(',');
                 var names = data.names.substring(1, data.names.length - 1).split(',');
                 for(var i=0; i<bibs.length; i++) {
-                    response.persons.push({'bib': parseInt(bibs[i]), 'name': names[i]});
+                    response.persons.push({'bib': parseInt(bibs[i], 10), 'name': names[i]});
                 }
                 callback(response);
             }
