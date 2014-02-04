@@ -17,6 +17,7 @@ To install on prod:
   * `npm install --production`
   * `./grunt.sh create-database`
   * `./grunt.sh watch`
+  * go to `http://localhost:8080`
 
 To install as a dev:
 
