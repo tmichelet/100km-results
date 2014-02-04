@@ -84,10 +84,11 @@
                 </tbody></table>\
                 <a id='submit'></a>"
             );
+            window.location.href = "../../foo/edit";
             editTeam.initSubmitNewTeam('#submit');
             var data = mock($, 'get', function() { $("#submit").click(); });
             assert.equal(data.args, './edit/[1,10]/[name one,second]');
-            //TODO can't test the window.location.href properly
+            assert(window.location.href.match("/foo/$"));
             done();
         });
     });
