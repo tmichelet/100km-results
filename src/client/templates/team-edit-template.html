@@ -4,24 +4,46 @@
         <title>100km - où sont mes amis ?</title>
         <style type="text/css">
             body {
-                color: #58ffbd;
-                background-color: #000000;
-                font-size: 50;
+                color: #333333;
+                background-color: #e9e9e9;
+                font-size: 70;
                 width: 100%;
+                text-align: center;
+            }
+            #logo_top img {
+                position: fixed;
+                top: 40px;
+                left: 40px;
+                z-index: 10;
+            }
+            a {
+                color: #0d6e82;
             }
             table {
+                padding-left: 15%;
+                padding-right: 15%;
                 width: 100%;
                 font-size: 30;
             }
             table td {
                 padding-right: 25px;
                 text-align: center;
+                color: #333333;
+                padding-top:5%;
+                font-size: 50;
             }
-            #bibs td {
-              padding-bottom: 5em;
+            input {
+                border: 2px solid #dadada;
+                border-radius: 7px;
+                height: 8%;
+                width: 50%;
+                font-size: 30;
             }
-            .x {
-                color: #ff388d;
+
+            input:focus { 
+                outline: none;
+                border-color: #9ecaed;
+                box-shadow: 0 0 10px #9ecaed;
             }
         </style>
     </head>
@@ -38,7 +60,7 @@
                 </tr>
             </tbody>
         </table>
-        <div>
+        <div></br>
             Ajouter un dossard ou un nom:</br>
             <input type="text" list="runners" value="">
             <datalist id="runners">
@@ -50,6 +72,10 @@
             </br>
             <a id="submit" href="#">enregistrer</a> cette nouvelle composition d'équipe</br>
             ou annuler et retourner aux <a href="./">résultats</a>
+        </div>
+        </br>
+        <div id="logo_top">
+            <img src="http://100kmsteenwerck.fr/static/images/logo_small.png" alt="Logo des 100 km de Steenwerck">
         </div>
         <script type="text/javascript" src="/_build/edit-team.js"></script>
     </body>

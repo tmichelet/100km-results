@@ -6,7 +6,7 @@
     var $ = require('jquery-browserify');
 
     exports.initNewTeam = function(element) {
-        $(element).find('a').click(function(event) {
+        var submit = function(event) {
             try {
                 var teamname = extractNewTeamName(element);
                 window.location.replace(extractNewTeamName(element) + '/edit');
@@ -14,7 +14,9 @@
             catch(err) {
                 $('#error').text(err);
             }
-        });
+        };
+        $(element).find('a').click(submit);
+        // $(element).find('input').submit(submit); //TODO on enter or on mobile next
     };
 
     var extractNewTeamName = function(element) {
