@@ -40,11 +40,12 @@
             });
 
             it('should generate index html', function(done) {
-                utils.getContentOf(test_utils.TEMPLATES_PATH + '/index-expected.html', function (expected_html) {
-                    viewsGenerator.generateIndexHtml("testteam", function(content) {
-                        assert.equal(content, expected_html);
-                        done();
-                    });
+                viewsGenerator.generateIndexHtml("testteam", function(content) {
+                    assert(content.indexOf('Emeline Landemaine') !== -1);
+                    assert(content.indexOf('Emeline Parizel') !== -1);
+                    assert(content.indexOf('<div id="individual-results">') !== -1);
+                    assert(content.indexOf('<div id="last-checkpoints">') !== -1);
+                    done();
                 });
             });
         });
@@ -59,11 +60,12 @@
                 });
             });
             it('should generate index html', function(done) {
-                utils.getContentOf(test_utils.TEMPLATES_PATH + '/index-expected-alone.html', function (expected_html) {
-                    viewsGenerator.generateIndexHtml("testalone", function(content) {
-                        assert.equal(content, expected_html);
-                        done();
-                    });
+                viewsGenerator.generateIndexHtml("testalone", function(content) {
+                    assert(content.indexOf('Emeline Landemaine') !== -1);
+                    assert(content.indexOf('Emeline Parizel') === -1);
+                    assert(content.indexOf('<div id="individual-results">') !== -1);
+                    assert(content.indexOf('<div id="last-checkpoints">') !== -1);
+                    done();
                 });
             });
         });
