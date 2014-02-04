@@ -23,3 +23,6 @@ To install as a dev:
   * `git clone git@github.com:tmichelet/100km-results.git && cd 100km-results`
   * `npm install`
   * `./grunt.sh`
+
+
+build with node version v0.10.25 and npm version 1.3.2
