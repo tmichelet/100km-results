@@ -10,11 +10,11 @@
     "knex": "~0.5.4",
     "browserify": "~3.24.1",
     "jquery-browserify": "~1.8.1",
-    "jsdom": "~0.8.11"
+    "jsdom": "~0.8.11",
+    "grunt": "~0.4.2",
+    "grunt-cli": "~0.1.12"
   },
   "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-cli": "~0.1.12",
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-mocha-test": "~0.8.2",
     "zombie": "2.0.0-alpha24",
