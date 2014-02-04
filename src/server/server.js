@@ -5,7 +5,7 @@
 
     var express = require('express');
     var app = express();
-    var Handlebars = require('Handlebars');
+    var Handlebars = require('handlebars');
     var server;
 
     var utils = require('./utils.js');

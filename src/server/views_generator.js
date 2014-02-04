@@ -3,7 +3,7 @@
 (function() {
     "use strict";
 
-    var Handlebars = require('Handlebars');
+    var Handlebars = require('handlebars');
     initHandlebars();
 
     var utils = require('./utils.js');
