@@ -30,6 +30,16 @@
                 });
             });
         });
+        it('log should handle concurency', function(done) {
+            fs.writeFile(testOptions.logfilePath, "", function() {
+                utils.log(testOptions.logfilePath, "foo");
+                utils.log(testOptions.logfilePath, "bar");
+                setTimeout(utils.getContentOf, 50, testOptions.logfilePath, function(content) {
+                    assert.equal("foo\nbar\n", content);
+                    done();
+                });
+            });
+        });
 
         describe('test_Utils', function(){
             it('checkFileExists should raise if existence of file is wrong', function(done) {
