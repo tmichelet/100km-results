@@ -185,6 +185,16 @@
                 });
             });
         });
+
+        describe('fillCheckpoint', function(){
+            it('should fill properly', function() {
+                assert.deepEqual(backend.fillCheckpoint({"key":[100,1,1],"value":1390337566986}), testteam2.persons[1].checkpoints[0]);
+                assert.deepEqual(backend.fillCheckpoint({"key":[100,1,2],"value":1390338757392}), testteam2.persons[1].checkpoints[1]);
+                assert.deepEqual(backend.fillCheckpoint({"key":[100,2,1],"value":1390337584343}), testteam2.persons[1].checkpoints[2]);
+                assert.deepEqual(backend.fillCheckpoint({"key":[100,1,1],"value":1390337566986}), testteam2.persons[0].checkpoints[0]);
+                assert.deepEqual(backend.fillCheckpoint({"key":[100,1,2],"value":1390338257392}), testteam2.persons[0].checkpoints[1]);
+            });
+        });
     });
 
     var mockedCallCouchDB = function(uri, callback) {
@@ -196,7 +206,7 @@
                 break;
 
             case "http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B40%2Cnull%5D&endkey=%5B40%2C4%5D&inclusive_end=false":
-                jsonResponse = {"rows":[{"key":[100,1,1],"value":1390337566986},{"key":[100,1,2],"value":1390338257392}]};
+                jsonResponse = {"rows":[{"key":[40,1,1],"value":1390337566986},{"key":[40,1,2],"value":1390338257392}]};
                 break;
 
             // bibs
@@ -213,6 +223,54 @@
                 break;
         }
         callback(jsonResponse);
+    };
+
+    var testteam2 = {
+        "teamname": "testteam",
+        "persons": [
+            {
+                "bib": 40,
+                "name": "Emeline Landemaine",
+                "checkpoints": [
+                    {
+                    "time": "21:52:46",
+                    "distance": 12.25,
+                    "name": "Le froid nid",
+                    "lap": 1
+                    },
+                    {
+                    "time": "22:04:17",
+                    "distance": 17.28,
+                    "name": "La Croix du Bac",
+                    "lap": 1
+                    }
+                ]
+            },
+            {
+                "bib": 100,
+                "name": "Emeline Parizel",
+                "checkpoints": [
+                    {
+                    "time": "21:52:46",
+                    "distance": 12.25,
+                    "name": "Le froid nid",
+                    "lap": 1
+                    },
+                    {
+                    "time": "22:12:37",
+                    "distance": 17.28,
+                    "name": "La Croix du Bac",
+                    "lap": 1
+                    },
+                    {
+                    "time": "21:53:04",
+                    "distance": 43.69,
+                    "name": "Le froid nid",
+                    "lap": 2
+                    }
+                ]
+            }
+        ]
     };
 
     var testteam = {

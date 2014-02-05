@@ -62,7 +62,38 @@
         });
     };
 
-    var retrieveCheckpoints = function(bib, callback) { //TODO mocked
+    var retrieveCheckpoints = function(bib, callback) {
+        /*
+            calling "http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B100%2Cnull%5D&endkey=%5B100%2C4%5D&inclusive_end=false":
+            returns {"rows":[{"key":[100,1,1],"value":1390337566986},{"key":[100,1,2],"value":1390338757392},{"key":[100,2,1],"value":1390337584343}]};
+            -> return {
+                "bib": 100,
+                "checkpoints": [
+                    {
+                    "time": "21:17:32",
+                    "distance": "15.00",
+                    "name": "La croix du Bac",
+                    "lap": 1
+                    },
+                    {
+                    "time": "04:17:32",
+                    "distance": "15.00",
+                    "name": "La croix du Bac",
+                    "lap": 2
+                    }
+                ]
+            };
+        */
+        // var url = "http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B"+bib+"%2Cnull%5D&endkey=%5B"+bib+"%2C4%5D&inclusive_end=false";
+        // exports.callCouchDB(url, function(data) {
+        //     var jsonResponse = {bib: bib, "checkpoints": []};
+        //     var max = data.rows.length;
+        //     for(var i=0; i<max; i++) {
+        //         var row = data.rows[i];
+        //         jsonResponse.checkpoints.push(fillCheckpoint(row));
+        //     }
+        //     callback(jsonResponse);
+        // });
         var data = {"checkpoints": []};
         if(bib === 4) {
             data = {
@@ -111,6 +142,35 @@
         callback(data);
     };
     exports.retrieveCheckpoints = retrieveCheckpoints;
+
+    var CHECKPOINTS = {
+        1: {name: "Le froid nid", kms: 12.25},
+        2: {name: "La Croix du Bac", kms: 17.28},
+        3: {name: "La salle des sports, boucle 1", kms: 21.41},
+        4: {name: "La menegatte", kms: 25.57},
+        5: {name: "La gare", kms: 28.18},
+        6: {name: "La blanche", kms: 33.04},
+        7: {name: "La salle des sports, boucle 2", kms: 37.12}
+    };
+    var LAP_DISTANCE = 31.44;
+
+    var fillCheckpoint = function(row) {
+        /*
+            row : {"key":[100,2,1],"value":1390337584343}
+            means bib 100, lap 2, checkpoint 1, "time": "21:52:46"
+        */
+        var checkpoint = {};
+
+        var date = new Date(row.value);
+        checkpoint.time = date.toTimeString().substring(0,8);
+
+        checkpoint.lap = row.key[1];
+        checkpoint.name = CHECKPOINTS[row.key[2]].name;
+        checkpoint.distance = CHECKPOINTS[row.key[2]].kms + (checkpoint.lap - 1) * LAP_DISTANCE;
+
+        return checkpoint;
+    };
+    exports.fillCheckpoint = fillCheckpoint;
 
     exports.retrievePerson = function(input, callback) {
         /*
@@ -173,7 +233,7 @@
                 break;
 
             case "http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B40%2Cnull%5D&endkey=%5B40%2C4%5D&inclusive_end=false":
-                jsonResponse = {"rows":[{"key":[100,1,1],"value":1390337566986},{"key":[100,1,2],"value":1390338257392}]};
+                jsonResponse = {"rows":[{"key":[40,1,1],"value":1390337566986},{"key":[40,1,2],"value":1390338257392}]};
                 break;
 
             // bibs
