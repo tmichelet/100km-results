@@ -64,20 +64,20 @@
 */
 
         describe('Person Addition', function() {
-            it('addPerson should add a new tr', function(done) {
-                $("#content").html(
-                    "<table id='bibs'><tbody>\
-                        <tr><td></td><td></td></tr>\
-                        <tr><td></td><td></td></tr>\
-                    </tbody></table>"
-                );
-                assert.equal(2, $("#bibs").children().children().length);
-                editTeam.addPerson('Emeline LANDEMAINE -- 40');
-                assert.equal(3, $("#bibs").children().children().length);
-                editTeam.addPerson('Emeline PARIZEL -- 100');
-                assert.equal(4, $("#bibs").children().children().length);
-                done();
-            });
+            // it('addPerson should add a new tr', function(done) {
+            //     $("#content").html(
+            //         "<table id='bibs'><tbody>\
+            //             <tr><td></td><td></td></tr>\
+            //             <tr><td></td><td></td></tr>\
+            //         </tbody></table>"
+            //     );
+            //     assert.equal(2, $("#bibs").children().children().length);
+            //     editTeam.addPerson('Emeline LANDEMAINE -- 40');
+            //     assert.equal(3, $("#bibs").children().children().length);
+            //     editTeam.addPerson('Emeline PARIZEL -- 100');
+            //     assert.equal(4, $("#bibs").children().children().length);
+            //     done();
+            // });
 
             it('extractAutocompleteTexts should generate appropriate options', function() {
                 assert.deepEqual(editTeam.extractAutocompleteTexts({}), []);
