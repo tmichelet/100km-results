@@ -127,6 +127,13 @@
                         done();
                     });
                 });
+                it('/_lib/common.css should return a 200', function(done){
+                    http.get(getOptions("/_lib/common.css"), function(res) {
+                        assert.equal(200, res.statusCode);
+                        assert.equal('text/css; charset=UTF-8', res.headers['content-type']);
+                        done();
+                    });
+                });
 
                 it('/ should return a 200', function(done){
                     http.get(getOptions(""), function(res) {

@@ -5,4 +5,5 @@ GET # /testteam/edit # 127.0.0.1 #  #
 GET # /testteam/edit/[4]/[nameOne] # 127.0.0.1 #  # 
 GET # /_build/all-teams.js # 127.0.0.1 #  # 
 GET # /_build/edit-team.js # 127.0.0.1 #  # 
+GET # /_lib/common.css # 127.0.0.1 #  # 
 GET # / # 127.0.0.1 #  # 

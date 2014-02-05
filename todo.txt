@@ -1,6 +1,4 @@
 user stories:
-- make links appear as buttons + change buttons color depending on action importance
-- split css
 - refactor frontend
 - update main views design
 - real couchDB data

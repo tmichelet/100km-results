@@ -18,6 +18,7 @@
         });
 
         app.use("/_build", express.static('src/client/build'));
+        app.use("/_lib", express.static('src/client/lib'));
 
         app.get('/', function(req, res){
             resultsViewsGenerator.generateHtml('root', null, function (data) {
