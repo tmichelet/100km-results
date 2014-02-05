@@ -109,9 +109,9 @@
         describe('retrievePerson', function(){
             it('should retrieve one person with a bib number', function(done) {
                 backend.retrievePerson("40", function(data) {
-                    assert.deepEqual(data, {"bib":40,"first_name":"Emeline","name":"LANDEMAINE"});
+                    assert.deepEqual(data, {"rows":[{"bib":40,"first_name":"Emeline","name":"LANDEMAINE"}]});
                     backend.retrievePerson(40, function(data) {
-                        assert.deepEqual(data, {"bib":40,"first_name":"Emeline","name":"LANDEMAINE"});
+                        assert.deepEqual(data, {"rows":[{"bib":40,"first_name":"Emeline","name":"LANDEMAINE"}]});
                         done();
                     });
                 });
@@ -128,17 +128,15 @@
                     done();
                 });
             });
-            it('should raise an error if called with empty input', function(done) {
-                try {
-                    backend.retrievePerson("", function() {});
-                }
-                catch(err) {
+            it('should raise an error if called with wrong integer input', function(done) {
+                backend.retrievePerson("", function(data) {
+                    assert.deepEqual(data, {"rows":[]});
                     done();
-                }
+                });
             });
             it('should raise an error if called with wrong integer input', function(done) {
                 backend.retrievePerson("4", function(data) {
-                    assert.deepEqual(data, {});
+                    assert.deepEqual(data, {"rows":[]});
                     done();
                 });
             });

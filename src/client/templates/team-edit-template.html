@@ -11,7 +11,7 @@
                 text-align: center;
             }
             #logo_top img {
-                position: fixed;
+                position: absolute;
                 top: 40px;
                 left: 40px;
                 z-index: 10;
@@ -47,24 +47,37 @@
             .deleteLine {
                 cursor:pointer
             }
+            #datalist {
+                width: 50%;
+                padding-left: 25%;
+            }
+            .option {
+                background: white;
+                border:1px solid;
+                border-radius:5px;
+                font-size: 30;
+            }
+            .option:hover {
+                background: #9ecaed;
+            }
         </style>
     </head>
 
     <body>
-        <p>Equipe <i><b>{{{teamname}}}</b></i>.</p>
+        <p>Equipe <i><b>{{teamname}}</b></i>.</p>
         <table id="bibs">
             <tbody>
+{{#each persons}}
                 <tr>
-                    <td>40</td><td>Emeline Landemaine</td><td class="deleteLine">&times;</td>
+                    <td>{{bib}}</td><td>{{name}}</td><td class="deleteLine">&times;</td>
                 </tr>
-                <tr>
-                    <td>100</td><td>Emeline Parizel</td><td class="deleteLine">&times;</td>
-                </tr>
+{{/each}}
             </tbody>
         </table>
         <div></br>
             Ajouter un dossard ou un nom:</br>
-            <input type="text" placeholder="dossard ou nom" value="">
+            <input type="text" placeholder="dossard ou nom" value="" list="runners">
+            <div id="datalist"></div>
         </div>
         <div>
             </br>

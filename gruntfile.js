@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         jshint: {
             browser: {
                 options: browserLintOptions(),
-                src: "src/client/**/*.js"
+                src: "src/client/*.js"
             },
             node: {
                 options: nodeLintOptions(),
@@ -34,7 +34,7 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('default', ['clean', 'browserify', 'jshint', 'mochaTest']);
+    grunt.registerTask('default', ['clean', 'jshint', 'browserify', 'mochaTest']);
 
     grunt.registerTask('clean', 'clean build folder', function() {
         var fs = require('fs');
@@ -51,7 +51,9 @@ module.exports = function(grunt) {
         });
     });
 
-    grunt.registerTask('watch', 'starts the server', function() {
+    grunt.registerTask('watch', ['browserify', 'start-server']);
+
+    grunt.registerTask('start-server', 'starts the server', function() {
         var done = this.async();
         var server = require('./src/server/server.js');
         server.start(function() {

@@ -144,46 +144,50 @@
                 same output
         */
         if(input.length === 0) {
-            throw "Shouldn't be called without input";
+            callback({rows: []});
         }
-        var inputAsInt = parseInt(input, 10);
+        else {
+            var inputAsInt = parseInt(input, 10);
 
-        if(isNaN(inputAsInt)) { // names
-            var first_name = input.split(" ")[0] || "";
-            var last_name = input.split(" ")[1] || "";
-            var nameUrl = "http://localhost:5984/steenwerck100km/_design/search/_list/intersect-search/contestants-search?my_limit=10&startkey=%22"+first_name+"%22&endkey=%22"+first_name+"%EF%BF%B0%22";
-            if(last_name.length > 0) {
-                nameUrl = nameUrl + "&term=" + last_name;
+            if(isNaN(inputAsInt)) { // names
+                var first_name = input.split(" ")[0] || "";
+                var last_name = input.split(" ")[1] || "";
+                var nameUrl = "http://localhost:5984/steenwerck100km/_design/search/_list/intersect-search/contestants-search?my_limit=10&startkey=%22"+first_name+"%22&endkey=%22"+first_name+"%EF%BF%B0%22";
+                if(last_name.length > 0) {
+                    nameUrl = nameUrl + "&term=" + last_name;
+                }
+                exports.callCouchDB(nameUrl, function(data) {
+                    var jsonResponse = {rows: []};
+                    try {
+                        var max = data.rows.length;
+                        for(var i=0; i<max; i++) {
+                            var row = {};
+                            row.bib = data.rows[i].value.bib;
+                            row.first_name = data.rows[i].value.first_name;
+                            row.name = data.rows[i].value.name;
+                            jsonResponse.rows.push(row);
+                        }
+                    }
+                    catch(err) {}
+                    callback(jsonResponse);
+                });
+
             }
-            exports.callCouchDB(nameUrl, function(data) {
-                var jsonResponse = {rows: []};
-                try {
-                    var max = data.rows.length;
-                    for(var i=0; i<max; i++) {
+            else { // bibs
+                var bibUrl = "http://localhost:5984/steenwerck100km/contestant-" + inputAsInt;
+                exports.callCouchDB(bibUrl, function(data) {
+                    var jsonResponse = {rows:[]};
+                    try {
                         var row = {};
-                        row.bib = data.rows[i].value.bib;
-                        row.first_name = data.rows[i].value.first_name;
-                        row.name = data.rows[i].value.name;
+                        row.bib = data._id.replace("contestant-", "");
+                        row.first_name = data.first_name;
+                        row.name = data.name;
                         jsonResponse.rows.push(row);
                     }
-                }
-                catch(err) {}
-                callback(jsonResponse);
-            });
-
-        }
-        else { // bibs
-            var bibUrl = "http://localhost:5984/steenwerck100km/contestant-" + inputAsInt;
-            exports.callCouchDB(bibUrl, function(data) {
-                var jsonResponse = {};
-                try {
-                    jsonResponse.bib = data._id.replace("contestant-", "");
-                    jsonResponse.first_name = data.first_name;
-                    jsonResponse.name = data.name;
-                }
-                catch(err) {}
-                callback(jsonResponse);
-            });
+                    catch(err) {}
+                    callback(jsonResponse);
+                });
+            }
         }
     };
 
