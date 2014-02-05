@@ -21,24 +21,24 @@
         });
 
         it('extractNewTeamName should retrieve the appropriate value', function(done) {
-            $("#content").html("<li id='new-team'><input value='the target'><a id='me' href='#'>créer</a></li>");
+            $("#content").html("<li id='new-team'><input value='the target'><button id='me' href='#'>créer</button></li>");
             assert.equal(allTeams.extractNewTeamName('#new-team'), 'the target');
             done();
         });
         it('extractNewTeamName should raise if non appropriate caracters', function(done) {
-            $("#content").html("<li id='new-team'><input value='_wrong'><a id='me' href='#'>créer</a></li>");
+            $("#content").html("<li id='new-team'><input value='_wrong'><button id='me' href='#'>créer</button></li>");
             try {
                 allTeams.extractNewTeamName('#new-team');
             }
             catch(err) {
                 assert(err.indexOf("_") !== -1);
-                $("#content").html("<li id='new-team'><input value=''><a id='me' href='#'>créer</a></li>");
+                $("#content").html("<li id='new-team'><input value=''><button id='me' href='#'>créer</button></li>");
                 try {
                     allTeams.extractNewTeamName('#new-team');
                 }
                 catch(err) {
                     assert(err.indexOf("nom d'équipe") !== -1);
-                    $("#content").html("<li id='new-team'><input value='team;name'><a id='me' href='#'>créer</a></li>");
+                    $("#content").html("<li id='new-team'><input value='team;name'><button id='me' href='#'>créer</button></li>");
                     try {
                         allTeams.extractNewTeamName('#new-team');
                     }
@@ -50,8 +50,8 @@
         });
         it('extractNewTeamName should raise if team already exists', function(done) {
             $("#content").html(
-                "<li id='new-team'><input value='existingTeam'><a id='me' href='#'>créer</a></li>\
-                <li><a href='existingTeam'>existingTeam</a></li>\
+                "<li id='new-team'><input value='existingTeam'><button id='me' href='#'>créer</button></li>\
+                <li><a href='existingTeam'>existingTeam</button></li>\
             ");
             try {
                 allTeams.extractNewTeamName('#new-team');
@@ -64,17 +64,17 @@
 
         it('extractExistingTeamName should retrieve the appropriate value', function(done) {
             $("#content").html(
-                "<li id='new-team'><input value=''><a id='me' href='#'>créer</a></li>\
-                <li><a href='existingTeam'>existingTeam</a></li>\
+                "<li id='new-team'><input value=''><button id='me' href='#'>créer</button></li>\
+                <li><a href='existingTeam'>existingTeam</button></li>\
             ");
-            assert.deepEqual(allTeams.extractExistingTeamName('#new-team'), ["créer","existingTeam"]);
+            assert.deepEqual(allTeams.extractExistingTeamName('#new-team'), ["existingTeam"]);
             done();
         });
 
         it('initNewTeam should display error message when input is not valid', function(done) {
             $("#content").html(
-                "<li id='new-team'><input value='existingTeam'><a id='me' href='#'>créer</a><span id='error'></span></li>\
-                <li><a href='existingTeam'>existingTeam</a></li>\
+                "<li id='new-team'><input value='existingTeam'><button id='me' class='createButton' href='#'>créer</button><span id='error'></span></li>\
+                <li><a href='existingTeam'>existingTeam</button></li>\
             ");
             allTeams.initNewTeam('#new-team');
             $('#me').click();
@@ -82,7 +82,7 @@
             done();
         });
         it('initNewTeam should add onClickListener to the a element, which triggers a redirection', function(done) {
-            $("#content").html("<li id='new-team'><input value='theTarget'><a id='me' href='#'>créer</a></li>");
+            $("#content").html("<li id='new-team'><input value='theTarget'><button id='me' class='createButton' href='#'>créer</button></li>");
             allTeams.initNewTeam('#new-team');
             window.location.href = "../../foo/";
             $('#me').click();
@@ -91,8 +91,8 @@
         });
         it('initNewTeam should add onClickListener to the input element, which triggers the submit if enter is pressed', function(done) {
             $("#content").html(
-                "<li id='new-team'><input value='theTarget' id='me'><a href='#'>créer</a><span id='error'></span></li>\
-                <li><a href='existingTeam'>existingTeam</a></li>\
+                "<li id='new-team'><input value='theTarget' id='me'><button href='#'>créer</button><span id='error'></span></li>\
+                <li><a href='existingTeam'>existingTeam</button></li>\
             ");
             allTeams.initNewTeam('#new-team');
             var press = $.Event("keypress");

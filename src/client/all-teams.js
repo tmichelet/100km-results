@@ -15,7 +15,7 @@
                 $('#error').text(err);
             }
         };
-        $(element).find('a').click(submit);
+        $(element).find('.createButton').click(submit);
         $(element).find('input').keypress(function (e) {
             if (e.which === 13) {
                 window.history.pushState({}, "root", "/");

@@ -1,5 +1,4 @@
 user stories:
-- edit update team with all bibs
 - make links appear as buttons + change buttons color depending on action importance
 - split css
 - refactor frontend
