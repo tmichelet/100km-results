@@ -84,63 +84,19 @@
                 ]
             };
         */
-        // var url = "http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B"+bib+"%2Cnull%5D&endkey=%5B"+bib+"%2C4%5D&inclusive_end=false";
-        // exports.callCouchDB(url, function(data) {
-        //     var jsonResponse = {bib: bib, "checkpoints": []};
-        //     var max = data.rows.length;
-        //     for(var i=0; i<max; i++) {
-        //         var row = data.rows[i];
-        //         jsonResponse.checkpoints.push(fillCheckpoint(row));
-        //     }
-        //     callback(jsonResponse);
-        // });
-        var data = {"checkpoints": []};
-        if(bib === 40) {
-            data = {
-                "bib": 40,
-                "name": "Emeline Landemaine",
-                "checkpoints": [
-                    {
-                    "time": "21:52:46",
-                    "distance": 12.25,
-                    "name": "Le froid nid",
-                    "lap": 1
-                    },
-                    {
-                    "time": "22:04:17",
-                    "distance": 17.28,
-                    "name": "La Croix du Bac",
-                    "lap": 1
-                    }
-                ]
-            };
-        }
-        if(bib === 100) {
-            data = {
-                "bib": 100,
-                "checkpoints": [
-                    {
-                    "time": "21:52:46",
-                    "distance": 12.25,
-                    "name": "Le froid nid",
-                    "lap": 1
-                    },
-                    {
-                    "time": "22:12:37",
-                    "distance": 17.28,
-                    "name": "La Croix du Bac",
-                    "lap": 1
-                    },
-                    {
-                    "time": "21:53:04",
-                    "distance": 43.69,
-                    "name": "Le froid nid",
-                    "lap": 2
-                    }
-                ]
-            };
-        }
-        callback(data);
+        var url = "http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B"+bib+"%2Cnull%5D&endkey=%5B"+bib+"%2C4%5D&inclusive_end=false";
+        exports.callCouchDB(url, function(data) {
+            var jsonResponse = {bib: bib, "checkpoints": []};
+            try {
+                var max = data.rows.length;
+                for(var i=0; i<max; i++) {
+                    var row = data.rows[i];
+                    jsonResponse.checkpoints.push(fillCheckpoint(row));
+                }
+            }
+            catch(err) {}
+            callback(jsonResponse);
+        });
     };
     exports.retrieveCheckpoints = retrieveCheckpoints;
 
