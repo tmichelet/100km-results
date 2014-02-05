@@ -1,5 +1,4 @@
 user stories:
-- mobile zoom bug
 - edit update team with all bibs
 - real couchDB data
 - test user actions with zombie
