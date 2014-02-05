@@ -23,7 +23,7 @@
             it('should retrieve two persons for testteam', function(done) {
                 backend.retrieveTeam("testteam", function(data) {
                     assert.deepEqual(data,
-                        {"teamname":"testteam","persons":[{"bib":4,"name":"Emeline Landemaine"},
+                        {"teamname":"testteam","persons":[{"bib":40,"name":"Emeline Landemaine"},
                         {"bib":100,"name":"Emeline Parizel"}]});
                     done();
                 });
@@ -31,7 +31,7 @@
             it('should retrieve one person for testalone', function(done) {
                 backend.retrieveTeam("testalone", function(data) {
                     assert.deepEqual(data,
-                        {"teamname":"testalone","persons":[{"bib":4,"name":"Emeline Landemaine"}]});
+                        {"teamname":"testalone","persons":[{"bib":40,"name":"Emeline Landemaine"}]});
                     done();
                 });
             });
@@ -51,7 +51,7 @@
                 });
             });
             it('should retrieve two checkpoints for bib 4', function(done) {
-                backend.retrieveCheckpoints(4, function(data) {
+                backend.retrieveCheckpoints(40, function(data) {
                     assert.deepEqual(data.checkpoints, testteam.persons[0].checkpoints);
                     done();
                 });
@@ -188,11 +188,11 @@
 
         describe('fillCheckpoint', function(){
             it('should fill properly', function() {
-                assert.deepEqual(backend.fillCheckpoint({"key":[100,1,1],"value":1390337566986}), testteam2.persons[1].checkpoints[0]);
-                assert.deepEqual(backend.fillCheckpoint({"key":[100,1,2],"value":1390338757392}), testteam2.persons[1].checkpoints[1]);
-                assert.deepEqual(backend.fillCheckpoint({"key":[100,2,1],"value":1390337584343}), testteam2.persons[1].checkpoints[2]);
-                assert.deepEqual(backend.fillCheckpoint({"key":[100,1,1],"value":1390337566986}), testteam2.persons[0].checkpoints[0]);
-                assert.deepEqual(backend.fillCheckpoint({"key":[100,1,2],"value":1390338257392}), testteam2.persons[0].checkpoints[1]);
+                assert.deepEqual(backend.fillCheckpoint({"key":[100,1,1],"value":1390337566986}), testteam.persons[1].checkpoints[0]);
+                assert.deepEqual(backend.fillCheckpoint({"key":[100,1,2],"value":1390338757392}), testteam.persons[1].checkpoints[1]);
+                assert.deepEqual(backend.fillCheckpoint({"key":[100,2,1],"value":1390337584343}), testteam.persons[1].checkpoints[2]);
+                assert.deepEqual(backend.fillCheckpoint({"key":[100,1,1],"value":1390337566986}), testteam.persons[0].checkpoints[0]);
+                assert.deepEqual(backend.fillCheckpoint({"key":[100,1,2],"value":1390338257392}), testteam.persons[0].checkpoints[1]);
             });
         });
     });
@@ -225,7 +225,7 @@
         callback(jsonResponse);
     };
 
-    var testteam2 = {
+    var testteam = {
         "teamname": "testteam",
         "persons": [
             {
@@ -273,72 +273,25 @@
         ]
     };
 
-    var testteam = {
-        "teamname": "testteam",
-        "persons": [
-            {
-                "bib": 4,
-                "name": "Emeline Landemaine",
-                "checkpoints": [
-                    {
-                    "time": "21:17:32",
-                    "distance": "15.00",
-                    "name": "La croix du Bac",
-                    "lap": 1
-                    },
-                    {
-                    "time": "04:17:32",
-                    "distance": "15.00",
-                    "name": "La croix du Bac",
-                    "lap": 2
-                    }
-                ]
-            },
-            {
-                "bib": 100,
-                "name": "Emeline Parizel",
-                "checkpoints": [
-                    {
-                    "time": "21:17:32",
-                    "distance": "15.00",
-                    "name": "La croix du Bac",
-                    "lap": 1
-                    },
-                    {
-                    "time": "04:17:32",
-                    "distance": "55.00",
-                    "name": "La croix du Bac",
-                    "lap": 2
-                    },
-                    {
-                    "time": "14:17:32",
-                    "distance": "75.00",
-                    "name": "La croix du Bac",
-                    "lap": 3
-                    }
-                ]
-            }
-        ]
-    };
 
     var testalone = {
         "teamname": "testalone",
         "persons": [
             {
-                "bib": 4,
+                "bib": 40,
                 "name": "Emeline Landemaine",
                 "checkpoints": [
                     {
-                    "time": "21:17:32",
-                    "distance": "15.00",
-                    "name": "La croix du Bac",
+                    "time": "21:52:46",
+                    "distance": 12.25,
+                    "name": "Le froid nid",
                     "lap": 1
                     },
                     {
-                    "time": "04:17:32",
-                    "distance": "15.00",
-                    "name": "La croix du Bac",
-                    "lap": 2
+                    "time": "22:04:17",
+                    "distance": 17.28,
+                    "name": "La Croix du Bac",
+                    "lap": 1
                     }
                 ]
             }

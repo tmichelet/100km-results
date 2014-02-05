@@ -95,21 +95,22 @@
         //     callback(jsonResponse);
         // });
         var data = {"checkpoints": []};
-        if(bib === 4) {
+        if(bib === 40) {
             data = {
-                "bib": 4,
+                "bib": 40,
+                "name": "Emeline Landemaine",
                 "checkpoints": [
                     {
-                    "time": "21:17:32",
-                    "distance": "15.00",
-                    "name": "La croix du Bac",
+                    "time": "21:52:46",
+                    "distance": 12.25,
+                    "name": "Le froid nid",
                     "lap": 1
                     },
                     {
-                    "time": "04:17:32",
-                    "distance": "15.00",
-                    "name": "La croix du Bac",
-                    "lap": 2
+                    "time": "22:04:17",
+                    "distance": 17.28,
+                    "name": "La Croix du Bac",
+                    "lap": 1
                     }
                 ]
             };
@@ -119,22 +120,22 @@
                 "bib": 100,
                 "checkpoints": [
                     {
-                    "time": "21:17:32",
-                    "distance": "15.00",
-                    "name": "La croix du Bac",
+                    "time": "21:52:46",
+                    "distance": 12.25,
+                    "name": "Le froid nid",
                     "lap": 1
                     },
                     {
-                    "time": "04:17:32",
-                    "distance": "55.00",
-                    "name": "La croix du Bac",
-                    "lap": 2
+                    "time": "22:12:37",
+                    "distance": 17.28,
+                    "name": "La Croix du Bac",
+                    "lap": 1
                     },
                     {
-                    "time": "14:17:32",
-                    "distance": "75.00",
-                    "name": "La croix du Bac",
-                    "lap": 3
+                    "time": "21:53:04",
+                    "distance": 43.69,
+                    "name": "Le froid nid",
+                    "lap": 2
                     }
                 ]
             };
