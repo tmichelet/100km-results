@@ -157,14 +157,17 @@
             }
             exports.callCouchDB(nameUrl, function(data) {
                 var jsonResponse = {rows: []};
-                var max = data.rows.length;
-                for(var i=0; i<max; i++) {
-                    var row = {};
-                    row.bib = data.rows[i].value.bib;
-                    row.first_name = data.rows[i].value.first_name;
-                    row.name = data.rows[i].value.name;
-                    jsonResponse.rows.push(row);
+                try {
+                    var max = data.rows.length;
+                    for(var i=0; i<max; i++) {
+                        var row = {};
+                        row.bib = data.rows[i].value.bib;
+                        row.first_name = data.rows[i].value.first_name;
+                        row.name = data.rows[i].value.name;
+                        jsonResponse.rows.push(row);
+                    }
                 }
+                catch(err) {}
                 callback(jsonResponse);
             });
 
@@ -173,9 +176,12 @@
             var bibUrl = "http://localhost:5984/steenwerck100km/contestant-" + inputAsInt;
             exports.callCouchDB(bibUrl, function(data) {
                 var jsonResponse = {};
-                jsonResponse.bib = data._id.replace("contestant-", "");
-                jsonResponse.first_name = data.first_name;
-                jsonResponse.name = data.name;
+                try {
+                    jsonResponse.bib = data._id.replace("contestant-", "");
+                    jsonResponse.first_name = data.first_name;
+                    jsonResponse.name = data.name;
+                }
+                catch(err) {}
                 callback(jsonResponse);
             });
         }

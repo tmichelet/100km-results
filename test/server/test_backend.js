@@ -136,6 +136,18 @@
                     done();
                 }
             });
+            it('should raise an error if called with wrong integer input', function(done) {
+                backend.retrievePerson("4", function(data) {
+                    assert.deepEqual(data, {});
+                    done();
+                });
+            });
+            it('should raise an error if called with wrong string input', function(done) {
+                backend.retrievePerson("emdazdasq", function(data) {
+                    assert.deepEqual(data, {"rows":[]});
+                    done();
+                });
+            });
         });
 
         describe('callCouchDB', function(){
