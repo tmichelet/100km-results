@@ -189,8 +189,8 @@
         describe('fillCheckpoint', function(){
             it('should fill properly', function() {
                 assert.deepEqual(backend.fillCheckpoint({"key":[100,1,1],"value":1390337566986}), testteam.persons[1].checkpoints[0]);
-                assert.deepEqual(backend.fillCheckpoint({"key":[100,1,2],"value":1390338757392}), testteam.persons[1].checkpoints[1]);
-                assert.deepEqual(backend.fillCheckpoint({"key":[100,2,1],"value":1390337584343}), testteam.persons[1].checkpoints[2]);
+                assert.deepEqual(backend.fillCheckpoint({"key":[100,1,2],"value":1390337584343}), testteam.persons[1].checkpoints[1]);
+                assert.deepEqual(backend.fillCheckpoint({"key":[100,2,1],"value":1390338757392}), testteam.persons[1].checkpoints[2]);
                 assert.deepEqual(backend.fillCheckpoint({"key":[100,1,1],"value":1390337566986}), testteam.persons[0].checkpoints[0]);
                 assert.deepEqual(backend.fillCheckpoint({"key":[100,1,2],"value":1390338257392}), testteam.persons[0].checkpoints[1]);
             });
@@ -202,7 +202,7 @@
         switch (uri) {
             // checkpoints
             case "http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B100%2Cnull%5D&endkey=%5B100%2C4%5D&inclusive_end=false":
-                jsonResponse = {"rows":[{"key":[100,1,1],"value":1390337566986},{"key":[100,1,2],"value":1390338757392},{"key":[100,2,1],"value":1390337584343}]};
+                jsonResponse = {"rows":[{"key":[100,1,1],"value":1390337566986},{"key":[100,1,2],"value":1390337584343},{"key":[100,2,1],"value":1390338757392}]};
                 break;
 
             case "http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B40%2Cnull%5D&endkey=%5B40%2C4%5D&inclusive_end=false":
@@ -257,13 +257,13 @@
                     "lap": 1
                     },
                     {
-                    "time": "22:12:37",
+                    "time": "21:53:04",
                     "distance": 17.28,
                     "name": "La Croix du Bac",
                     "lap": 1
                     },
                     {
-                    "time": "21:53:04",
+                    "time": "22:12:37",
                     "distance": 43.69,
                     "name": "Le froid nid",
                     "lap": 2
