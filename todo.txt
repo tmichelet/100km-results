@@ -1,7 +1,8 @@
 user stories:
 - test user actions with zombie
+- use promises instead of callbacks
 - edit update team with all bibs
-- real checkpoints data
+- real couchDB data
 
 future: (2015?)
 - [option] map of my friends, where they are currently + annimation on what they've done
