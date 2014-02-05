@@ -105,6 +105,27 @@
                 });
             });
         });
+
+        describe('retrievePerson', function(){
+            it('should retrieve one person with a bib number', function(done) {
+                backend.retrievePerson("40", function(data) {
+                    assert.deepEqual(data, {"rows":{"bib":40,"first_name":"Emeline","name":"LANDEMAINE"}});
+                    done();
+                });
+            });
+            it('should retrieve several persons with a first_name', function(done) {
+                backend.retrievePerson("emeline", function(data) {
+                    assert.deepEqual(data, {"rows":[{"first_name":"Emeline","name":"PARIZEL","bib":100},{"first_name":"Emeline","name":"LANDEMAINE","bib":40}]});
+                    done();
+                });
+            });
+            it('should retrieve one person with a full name', function(done) {
+                backend.retrievePerson("emeline l", function(data) {
+                    assert.deepEqual(data, {"rows":[{"first_name":"Emeline","name":"LANDEMAINE","bib":40}]});
+                    done();
+                });
+            });
+        });
     });
 
     var testteam = {

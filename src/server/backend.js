@@ -4,7 +4,6 @@
     "use strict";
 
     var utils = require('./utils.js');
-    var data = require('../../test/server/_mocked-data.js'); //TODO mocked data here
     var database = require('./database.js');
 
     var retrieveTeamCheckpoints = function(teamname, callback) {
@@ -57,7 +56,13 @@
     };
     exports.retrieveTeam = retrieveTeam;
 
-    var retrieveCheckpoints = function(bib, callback) {
+    exports.retrieveAllTeams = function(_, callback) {
+        database.getTeamsNames(function(data) {
+            callback(data);
+        });
+    };
+
+    var retrieveCheckpoints = function(bib, callback) { //TODO mocked
         var data = {"checkpoints": []};
         if(bib === 4) {
             data = {
@@ -107,10 +112,59 @@
     };
     exports.retrieveCheckpoints = retrieveCheckpoints;
 
-    exports.retrieveAllTeams = function(_, callback) {
-        database.getTeamsNames(function(data) {
-            callback(data);
-        });
+    exports.retrievePerson = function(input, callback) { //TODO mocked
+        /*
+            if the input is a number
+                http://localhost:5984/steenwerck100km/contestant-4
+                {"_id":"contestant-4","first_name":"Hubert","name":"LECLERCQ",...}
+
+            if the input is a string without spaces
+                http://localhost:5984/steenwerck100km/_design/search/_list/intersect-search/contestants-search?my_limit=10&startkey=%22emel%22&endkey=%22emel%EF%BF%B0%22
+                {"rows":[{"value":{"first_name":"Emeline","name":"PARIZEL","bib":100}},{"value":{"first_name":"Emeline","name":"LANDEMAINE","bib":40}}]}
+
+            if the input is a string containing spaces
+                http://localhost:5984/steenwerck100km/_design/search/_list/intersect-search/contestants-search?my_limit=10&startkey=%22emeline%22&endkey=%22emeline%EF%BF%B0%22&term=land
+                same output
+        */
+        callback({});
+    };
+
+    var mockedCouchDBCheckpoints = function(uri, callback) {
+        var jsonResponse = {};
+        switch (uri) {
+            case "http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B100%2Cnull%5D&endkey=%5B100%2C4%5D&inclusive_end=false":
+                jsonResponse = {"rows":[{"key":[100,1,1],"value":1390337566986},{"key":[100,1,2],"value":1390338757392},{"key":[100,2,1],"value":1390337584343}]};
+                break;
+
+            case "http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B40%2Cnull%5D&endkey=%5B40%2C4%5D&inclusive_end=false":
+                jsonResponse = {"rows":[{"key":[100,1,1],"value":1390337566986},{"key":[100,1,2],"value":1390338257392}]};
+                break;
+        }
+        callback(jsonResponse);
+    };
+
+    var mockedCouchDBBib = function(uri, callback) {
+        var jsonResponse = {};
+        switch (uri) {
+            case "http://localhost:5984/steenwerck100km/contestant-4":
+                jsonResponse = {"_id":"contestant-4","first_name":"Hubert","name":"LECLERCQ","wrong":"wrong"};
+                break;
+        }
+        callback(jsonResponse);
+    };
+
+    var mockedCouchDBName = function(uri, callback) {
+        var jsonResponse = {};
+        switch (uri) {
+            case "http://localhost:5984/steenwerck100km/_design/search/_list/intersect-search/contestants-search?my_limit=10&startkey=%22emel%22&endkey=%22emel%EF%BF%B0%22":
+                jsonResponse = {"rows":[{"value":{"first_name":"Emeline","name":"PARIZEL","bib":100}},{"value":{"first_name":"Emeline","name":"LANDEMAINE","bib":40}}]};
+                break;
+
+            case "http://localhost:5984/steenwerck100km/_design/search/_list/intersect-search/contestants-search?my_limit=10&startkey=%22emeline%22&endkey=%22emeline%EF%BF%B0%22&term=land":
+                jsonResponse = {"rows":[{"value":{"first_name":"Emeline","name":"LANDEMAINE","bib":40, "wrong":"wrong"}}]};
+                break;
+        }
+        callback(jsonResponse);
     };
 
 }());
