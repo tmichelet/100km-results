@@ -1,9 +1,7 @@
 user stories:
-- make html tests smarter (viewgenerator) to avoid duplication between tests and src
 - test user actions with zombie
 - edit update team with all bibs
 - real checkpoints data
-- better design
 
 future: (2015?)
 - [option] map of my friends, where they are currently + annimation on what they've done

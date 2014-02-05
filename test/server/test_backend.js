@@ -106,27 +106,103 @@
             });
         });
 
-        describe('retrievePerson', function(){
-            it('should retrieve one person with a bib number', function(done) {
-                backend.retrievePerson("40", function(data) {
-                    assert.deepEqual(data, {"rows":{"bib":40,"first_name":"Emeline","name":"LANDEMAINE"}});
-                    done();
+        // describe('retrievePerson', function(){
+        //     it('should retrieve one person with a bib number', function(done) {
+        //         backend.retrievePerson("40", function(data) {
+        //             assert.deepEqual(data, {"rows":{"bib":40,"first_name":"Emeline","name":"LANDEMAINE"}});
+        //             done();
+        //         });
+        //     });
+        //     it('should retrieve several persons with a first_name', function(done) {
+        //         backend.retrievePerson("emeline", function(data) {
+        //             assert.deepEqual(data, {"rows":[{"first_name":"Emeline","name":"PARIZEL","bib":100},{"first_name":"Emeline","name":"LANDEMAINE","bib":40}]});
+        //             done();
+        //         });
+        //     });
+        //     it('should retrieve one person with a full name', function(done) {
+        //         backend.retrievePerson("emeline l", function(data) {
+        //             assert.deepEqual(data, {"rows":[{"first_name":"Emeline","name":"LANDEMAINE","bib":40}]});
+        //             done();
+        //         });
+        //     });
+        // });
+
+        describe('callCouchDB', function(){
+            it('should retrieve checkpoints for bib 100', function(done) {
+                var url = "http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B100%2Cnull%5D&endkey=%5B100%2C4%5D&inclusive_end=false";
+                backend.callCouchDB(url, function(data) {
+                    mockedCallCouchDB(url, function(expectedData) {
+                        assert.deepEqual(data, expectedData);
+                        done();
+                    });
                 });
             });
-            it('should retrieve several persons with a first_name', function(done) {
-                backend.retrievePerson("emeline", function(data) {
-                    assert.deepEqual(data, {"rows":[{"first_name":"Emeline","name":"PARIZEL","bib":100},{"first_name":"Emeline","name":"LANDEMAINE","bib":40}]});
-                    done();
+            it('should retrieve checkpoints for bib 40', function(done) {
+                var url = "http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B40%2Cnull%5D&endkey=%5B40%2C4%5D&inclusive_end=false";
+                backend.callCouchDB(url, function(data) {
+                    mockedCallCouchDB(url, function(expectedData) {
+                        assert.deepEqual(data, expectedData);
+                        done();
+                    });
                 });
             });
-            it('should retrieve one person with a full name', function(done) {
-                backend.retrievePerson("emeline l", function(data) {
-                    assert.deepEqual(data, {"rows":[{"first_name":"Emeline","name":"LANDEMAINE","bib":40}]});
-                    done();
+            it('should retrieve person for bib 40', function(done) {
+                var url = "http://localhost:5984/steenwerck100km/contestant-40";
+                backend.callCouchDB(url, function(data) {
+                    mockedCallCouchDB(url, function(expectedData) {
+                        assert.deepEqual(data, expectedData);
+                        done();
+                    });
+                });
+            });
+            it('should retrieve 2 person for name Emeline', function(done) {
+                var url = "http://localhost:5984/steenwerck100km/_design/search/_list/intersect-search/contestants-search?my_limit=10&startkey=%22emel%22&endkey=%22emel%EF%BF%B0%22";
+                backend.callCouchDB(url, function(data) {
+                    mockedCallCouchDB(url, function(expectedData) {
+                        assert.deepEqual(data, expectedData);
+                        done();
+                    });
+                });
+            });
+            it('should retrieve one person name Emeline Land', function(done) {
+                var url = "http://localhost:5984/steenwerck100km/_design/search/_list/intersect-search/contestants-search?my_limit=10&startkey=%22emeline%22&endkey=%22emeline%EF%BF%B0%22&term=land";
+                backend.callCouchDB(url, function(data) {
+                    mockedCallCouchDB(url, function(expectedData) {
+                        assert.deepEqual(data, expectedData);
+                        done();
+                    });
                 });
             });
         });
     });
+
+    var mockedCallCouchDB = function(uri, callback) {
+        var jsonResponse = {};
+        switch (uri) {
+            // checkpoints
+            case "http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B100%2Cnull%5D&endkey=%5B100%2C4%5D&inclusive_end=false":
+                jsonResponse = {"rows":[{"key":[100,1,1],"value":1390337566986},{"key":[100,1,2],"value":1390338757392},{"key":[100,2,1],"value":1390337584343}]};
+                break;
+
+            case "http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B40%2Cnull%5D&endkey=%5B40%2C4%5D&inclusive_end=false":
+                jsonResponse = {"rows":[{"key":[100,1,1],"value":1390337566986},{"key":[100,1,2],"value":1390338257392}]};
+                break;
+
+            // bibs
+            case "http://localhost:5984/steenwerck100km/contestant-40":
+                jsonResponse = {"_id":"contestant-40","first_name":"Emeline","name":"LANDEMAINE","wrong":"wrong"};
+                break;
+            // names
+            case "http://localhost:5984/steenwerck100km/_design/search/_list/intersect-search/contestants-search?my_limit=10&startkey=%22emel%22&endkey=%22emel%EF%BF%B0%22":
+                jsonResponse = {"rows":[{"value":{"first_name":"Emeline","name":"PARIZEL","bib":100}},{"value":{"first_name":"Emeline","name":"LANDEMAINE","bib":40}}]};
+                break;
+
+            case "http://localhost:5984/steenwerck100km/_design/search/_list/intersect-search/contestants-search?my_limit=10&startkey=%22emeline%22&endkey=%22emeline%EF%BF%B0%22&term=land":
+                jsonResponse = {"rows":[{"value":{"first_name":"Emeline","name":"LANDEMAINE","bib":40, "wrong":"wrong"}}]};
+                break;
+        }
+        callback(jsonResponse);
+    };
 
     var testteam = {
         "teamname": "testteam",

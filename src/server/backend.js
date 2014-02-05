@@ -19,7 +19,7 @@
                 retrieveCheckpoints(team.persons[i].bib, updateTeam(i));
             }
             // here the callback might happen before updateTeam is done, but that's all right since
-            // it returns a JSON object
+            // it returns a reference to a JSON object that can be updated asynchronously
             callback(team);
         });
     };
@@ -112,7 +112,7 @@
     };
     exports.retrieveCheckpoints = retrieveCheckpoints;
 
-    exports.retrievePerson = function(input, callback) { //TODO mocked
+    exports.retrievePerson = function(input, callback) {
         /*
             if the input is a number
                 http://localhost:5984/steenwerck100km/contestant-4
@@ -129,9 +129,10 @@
         callback({});
     };
 
-    var mockedCouchDBCheckpoints = function(uri, callback) {
+    exports.callCouchDB = function(uri, callback) { //TODO mocked here
         var jsonResponse = {};
         switch (uri) {
+            // checkpoints
             case "http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B100%2Cnull%5D&endkey=%5B100%2C4%5D&inclusive_end=false":
                 jsonResponse = {"rows":[{"key":[100,1,1],"value":1390337566986},{"key":[100,1,2],"value":1390338757392},{"key":[100,2,1],"value":1390337584343}]};
                 break;
@@ -139,23 +140,12 @@
             case "http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B40%2Cnull%5D&endkey=%5B40%2C4%5D&inclusive_end=false":
                 jsonResponse = {"rows":[{"key":[100,1,1],"value":1390337566986},{"key":[100,1,2],"value":1390338257392}]};
                 break;
-        }
-        callback(jsonResponse);
-    };
 
-    var mockedCouchDBBib = function(uri, callback) {
-        var jsonResponse = {};
-        switch (uri) {
-            case "http://localhost:5984/steenwerck100km/contestant-4":
-                jsonResponse = {"_id":"contestant-4","first_name":"Hubert","name":"LECLERCQ","wrong":"wrong"};
+            // bibs
+            case "http://localhost:5984/steenwerck100km/contestant-40":
+                jsonResponse = {"_id":"contestant-40","first_name":"Emeline","name":"LANDEMAINE","wrong":"wrong"};
                 break;
-        }
-        callback(jsonResponse);
-    };
-
-    var mockedCouchDBName = function(uri, callback) {
-        var jsonResponse = {};
-        switch (uri) {
+            // names
             case "http://localhost:5984/steenwerck100km/_design/search/_list/intersect-search/contestants-search?my_limit=10&startkey=%22emel%22&endkey=%22emel%EF%BF%B0%22":
                 jsonResponse = {"rows":[{"value":{"first_name":"Emeline","name":"PARIZEL","bib":100}},{"value":{"first_name":"Emeline","name":"LANDEMAINE","bib":40}}]};
                 break;
