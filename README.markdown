@@ -27,3 +27,9 @@ To install as a dev:
 
 
 build with node version v0.10.25 and npm version 1.3.2
+On Ubuntu 12.04, the node version is too old. Use the following commands to install a more recent version:
+```
+apt-add-repository ppa:chris-lea/node.js
+apt-get update
+apt-get install nodejs
+```
