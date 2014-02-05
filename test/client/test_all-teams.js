@@ -71,7 +71,7 @@
             done();
         });
 
-        it('initNewTeam should add onClickListener to the a element, which triggers a redirection', function(done) {
+        it('initNewTeam should display error message when input is not valid', function(done) {
             $("#content").html(
                 "<li id='new-team'><input value='existingTeam'><a id='me' href='#'>créer</a><span id='error'></span></li>\
                 <li><a href='existingTeam'>existingTeam</a></li>\
@@ -81,11 +81,26 @@
             assert.equal("L'équipe existe déjà", $('#error').text());
             done();
         });
-        it('initNewTeam should display error message when input is not valid', function(done) {
+        it('initNewTeam should add onClickListener to the a element, which triggers a redirection', function(done) {
             $("#content").html("<li id='new-team'><input value='theTarget'><a id='me' href='#'>créer</a></li>");
             allTeams.initNewTeam('#new-team');
             window.location.href = "../../foo/";
             $('#me').click();
+            assert(window.location.href.match("/foo/theTarget/edit$"));
+            done();
+        });
+        it('initNewTeam should add onClickListener to the input element, which triggers the submit if enter is pressed', function(done) {
+            $("#content").html(
+                "<li id='new-team'><input value='theTarget' id='me'><a href='#'>créer</a><span id='error'></span></li>\
+                <li><a href='existingTeam'>existingTeam</a></li>\
+            ");
+            allTeams.initNewTeam('#new-team');
+            var press = $.Event("keypress");
+            press.which = 13;
+            var beforeLength = window.history.length;
+            window.location.href = "../../foo/";
+            $('#me').trigger(press);
+            assert.equal(window.history.length, beforeLength+1);
             assert(window.location.href.match("/foo/theTarget/edit$"));
             done();
         });

@@ -1,8 +1,9 @@
 user stories:
-- test user actions with zombie
-- use promises instead of callbacks
+- mobile zoom bug
 - edit update team with all bibs
 - real couchDB data
+- test user actions with zombie
+- use promises instead of callbacks
 
 future: (2015?)
 - [option] map of my friends, where they are currently + annimation on what they've done
