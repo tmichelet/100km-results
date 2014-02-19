@@ -1,10 +1,9 @@
 user stories:
 - refactor frontend
-- update main views design
-- real couchDB data
-- test user actions with zombie
 - use promises instead of callbacks
+- test user actions with zombie / casper
 
-future: (2015?)
+future:
+- real couchDB data
 - [option] map of my friends, where they are currently + annimation on what they've done
 - Continuous Integration
