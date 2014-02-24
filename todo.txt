@@ -2,6 +2,7 @@ user stories:
 - refactor frontend
 - use promises instead of callbacks
 - test user actions with zombie / casper
+- update tests to start fake 100km server
 
 future:
 - real couchDB data
