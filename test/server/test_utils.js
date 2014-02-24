@@ -75,7 +75,8 @@
     var testOptions = {
         port: 8080,
         databasePath: './100km-tests.sqlite',
-        logfilePath: 'test/server/_logs.txt'
+        logfilePath: 'test/server/_logs.txt',
+        '100kmUrl': 'http://localhost:5984'
     };
     exports.testOptions = testOptions;
 

@@ -21,7 +21,8 @@
     var defaultOptions = {
         port: 8080,
         databasePath: './100km.sqlite',
-        logfilePath: './logs.txt'
+        logfilePath: './logs.txt',
+        '100kmUrl': 'http://localhost:5984'
     };
     exports.defaultOptions = defaultOptions;
 

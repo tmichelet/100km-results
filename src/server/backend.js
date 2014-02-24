@@ -5,6 +5,9 @@
 
     var utils = require('./utils.js');
     var database = require('./database.js');
+    var http = require('http');
+
+    exports.url100km = utils.defaultOptions['100kmUrl'];
 
     var retrieveTeamCheckpoints = function(teamname, callback) {
         retrieveTeam(teamname, function(team) {
@@ -12,15 +15,18 @@
             var updateTeam = function(i) {
                 return function(data) {
                     team.persons[i].checkpoints = data.checkpoints;
+                    //TODO find better way to wait for async calls
+                    if(i === teamSize-1) {
+                        callback(team);
+                    }
                 };
             };
-
             for(var i=0; i<teamSize; i++) {
                 retrieveCheckpoints(team.persons[i].bib, updateTeam(i));
             }
-            // here the callback might happen before updateTeam is done, but that's all right since
-            // it returns a reference to a JSON object that can be updated asynchronously
-            callback(team);
+            if(teamSize === 0) {
+                callback(team);
+            }
         });
     };
     exports.retrieveTeamCheckpoints = retrieveTeamCheckpoints;
@@ -84,7 +90,7 @@
                 ]
             };
         */
-        var url = "http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B"+bib+"%2Cnull%5D&endkey=%5B"+bib+"%2C4%5D&inclusive_end=false";
+        var url = "/_design/search/_view/all-times-per-bib?startkey=%5B"+bib+"%2Cnull%5D&endkey=%5B"+bib+"%2C4%5D&inclusive_end=false";
         exports.callCouchDB(url, function(data) {
             var jsonResponse = {bib: bib, "checkpoints": []};
             try {
@@ -152,7 +158,7 @@
             if(isNaN(inputAsInt)) { // names
                 var first_name = input.split(" ")[0] || "";
                 var last_name = input.split(" ")[1] || "";
-                var nameUrl = "http://localhost:5984/steenwerck100km/_design/search/_list/intersect-search/contestants-search?my_limit=10&startkey=%22"+first_name+"%22&endkey=%22"+first_name+"%EF%BF%B0%22";
+                var nameUrl = "/_design/search/_list/intersect-search/contestants-search?my_limit=10&startkey=%22"+first_name+"%22&endkey=%22"+first_name+"%EF%BF%B0%22";
                 if(last_name.length > 0) {
                     nameUrl = nameUrl + "&term=" + last_name;
                 }
@@ -174,7 +180,7 @@
 
             }
             else { // bibs
-                var bibUrl = "http://localhost:5984/steenwerck100km/contestant-" + inputAsInt;
+                var bibUrl = "/contestant-" + inputAsInt;
                 exports.callCouchDB(bibUrl, function(data) {
                     var jsonResponse = {rows:[]};
                     try {
@@ -191,32 +197,16 @@
         }
     };
 
-    exports.callCouchDB = function(uri, callback) { //TODO mocked here
-        var jsonResponse = {};
-        switch (uri) {
-            // checkpoints
-            case "http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B100%2Cnull%5D&endkey=%5B100%2C4%5D&inclusive_end=false":
-                jsonResponse = {"rows":[{"key":[100,1,1],"value":1390337566986},{"key":[100,1,2],"value":1390337584343},{"key":[100,2,1],"value":1390338757392}]};
-                break;
-
-            case "http://localhost:5984/steenwerck100km/_design/search/_view/all-times-per-bib?startkey=%5B40%2Cnull%5D&endkey=%5B40%2C4%5D&inclusive_end=false":
-                jsonResponse = {"rows":[{"key":[40,1,1],"value":1390337566986},{"key":[40,1,2],"value":1390338257392}]};
-                break;
-
-            // bibs
-            case "http://localhost:5984/steenwerck100km/contestant-40":
-                jsonResponse = {"_id":"contestant-40","first_name":"Emeline","name":"LANDEMAINE","wrong":"wrong"};
-                break;
-            // names
-            case "http://localhost:5984/steenwerck100km/_design/search/_list/intersect-search/contestants-search?my_limit=10&startkey=%22emel%22&endkey=%22emel%EF%BF%B0%22":
-                jsonResponse = {"rows":[{"value":{"first_name":"Emeline","name":"PARIZEL","bib":100}},{"value":{"first_name":"Emeline","name":"LANDEMAINE","bib":40}}]};
-                break;
-
-            case "http://localhost:5984/steenwerck100km/_design/search/_list/intersect-search/contestants-search?my_limit=10&startkey=%22emeline%22&endkey=%22emeline%EF%BF%B0%22&term=land":
-                jsonResponse = {"rows":[{"value":{"first_name":"Emeline","name":"LANDEMAINE","bib":40, "wrong":"wrong"}}]};
-                break;
-        }
-        callback(jsonResponse);
+    exports.callCouchDB = function(uri, callback) {
+        http.get(exports.url100km + uri, function(response) {
+            var body = "";
+            response.on('data', function (chunk) {
+                body += chunk;
+            });
+            response.on('end', function () {
+                callback(JSON.parse(body));
+            });
+        });
     };
 
 }());

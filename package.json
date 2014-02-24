@@ -12,7 +12,9 @@
     "jquery-browserify": "~1.8.1",
     "jsdom": "~0.8.11",
     "grunt": "~0.4.2",
-    "grunt-cli": "~0.1.12"
+    "grunt-cli": "~0.1.12",
+    "request": "~2.34.0",
+    "tls": "0.0.1"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.8.0",

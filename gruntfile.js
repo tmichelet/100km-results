@@ -61,6 +61,12 @@ module.exports = function(grunt) {
         });
     });
 
+    grunt.registerTask('fake-100km', 'starts a fake 100km server', function() {
+        var done = this.async();
+        var fake_server = require('./test/fake_server.js');
+        grunt.log.write('server started');
+    });
+
     grunt.registerTask('create-database', 'creates the database. WARNING: will drop all the data', function() {
         var done = this.async();
         var database = require('./src/server/database.js');

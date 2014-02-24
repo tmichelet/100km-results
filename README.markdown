@@ -27,6 +27,7 @@ git clone git@github.com:tmichelet/100km-results.git && cd 100km-results
 npm install
 ./grunt.sh
 ```
+To simulate 100km CouchDB server, one can use ```./grunt.sh fake-100km```
 
 
 build with node version v0.10.25 and npm version 1.3.2
