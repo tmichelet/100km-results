@@ -19,7 +19,8 @@
   "devDependencies": {
     "grunt-contrib-jshint": "0.8.0",
     "grunt-mocha-test": "0.8.2",
-    "zombie": "2.0.0-alpha24"
+    "zombie": "2.0.0-alpha24",
+    "request": "2.34.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
