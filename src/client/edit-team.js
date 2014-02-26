@@ -36,7 +36,6 @@
     };
 
     exports.autocomplete = function(submit) {
-        console.log($(submit).attr("value"));
         backend.retrievePerson($(submit).attr("value"), function(data) {
             $("#datalist").html(generateOptionsHtml(extractAutocompleteTexts(data)));
             $("#datalist").children().click(addPerson);
