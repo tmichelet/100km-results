@@ -8,3 +8,8 @@ future:
 - real couchDB data
 - [option] map of my friends, where they are currently + annimation on what they've done
 - Continuous Integration
+
+
+- re checker l'install
+- option pour le port en ligne de commande grunt
+- http://localhost:8080/hello direct -> crash
