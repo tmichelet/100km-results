@@ -1,7 +1,7 @@
 100km results
 =======
 
-See in real time where are all your friends attenting the 100km Steenwerck walking race 
+See in real time where are all your friends attending the 100km Steenwerck walking race 
 -----------
 
 
