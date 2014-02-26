@@ -22,7 +22,7 @@
         port: 8080,
         databasePath: './100km.sqlite',
         logfilePath: './logs.txt',
-        '100kmUrl': 'http://localhost:5984'
+        '100kmUrl': 'http://localhost:5984/steenwerck100km'
     };
     exports.defaultOptions = defaultOptions;
 

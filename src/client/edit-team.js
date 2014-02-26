@@ -36,10 +36,11 @@
     };
 
     exports.autocomplete = function(submit) {
-            backend.retrievePerson($(submit).attr("value"), function(data) {
-                $("#datalist").html(generateOptionsHtml(extractAutocompleteTexts(data)));
-                $("#datalist").children().click(addPerson);
-            });
+        console.log($(submit).attr("value"));
+        backend.retrievePerson($(submit).attr("value"), function(data) {
+            $("#datalist").html(generateOptionsHtml(extractAutocompleteTexts(data)));
+            $("#datalist").children().click(addPerson);
+        });
     };
 
     var addPerson = function(event) {
