@@ -76,7 +76,7 @@
         port: 8080,
         databasePath: './100km-tests.sqlite',
         logfilePath: 'test/server/_logs.txt',
-        '100kmUrl': 'http://localhost:5985'
+        '100kmUrl': 'http://localhost:5984/steenwerck100km'
     };
     exports.testOptions = testOptions;
 

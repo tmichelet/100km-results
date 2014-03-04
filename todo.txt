@@ -14,4 +14,3 @@ future:
 - option pour le port en ligne de commande grunt
 - http://localhost:8080/hello direct -> crash
 - http://localhost:8080/hello et couchDB down -> crash
-- image et titres pas oufs
