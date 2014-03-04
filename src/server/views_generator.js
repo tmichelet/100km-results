@@ -34,7 +34,7 @@
 
     exports.generateIndexHtml = function(teamname, callback) {
         backend.retrieveTeam(teamname, function(team) {
-            if(team.persons.length !== 0) {
+            if(team.persons && team.persons.length !== 0) {
                 generateHtml('results', teamname, function(generatedResultsHtml) {
                     generateHtml('checkpoints', teamname, function(generatedCheckpointsHtml) {
                         var indexData = {
