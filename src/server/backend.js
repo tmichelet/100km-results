@@ -11,7 +11,7 @@
 
     var retrieveTeamCheckpoints = function(teamname, callback) {
         retrieveTeam(teamname, function(team) {
-            var teamSize = team.persons.length;
+            var teamSize = team.persons && team.persons.length || 0;
             var updateTeam = function(i) {
                 return function(data) {
                     team.persons[i].checkpoints = data.checkpoints;
@@ -94,7 +94,7 @@
         exports.callCouchDB(url, function(data) {
             var jsonResponse = {bib: bib, "checkpoints": []};
             try {
-                var max = data.rows.length;
+                var max = data.rows && data.rows.length || 0;
                 for(var i=0; i<max; i++) {
                     var row = data.rows[i];
                     jsonResponse.checkpoints.push(fillCheckpoint(row));
@@ -165,7 +165,7 @@
                 exports.callCouchDB(nameUrl, function(data) {
                     var jsonResponse = {rows: []};
                     try {
-                        var max = data.rows.length;
+                        var max = data.rows && data.rows.length || 0;
                         for(var i=0; i<max; i++) {
                             var row = {};
                             row.bib = data.rows[i].value.bib;
