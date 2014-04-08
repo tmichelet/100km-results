@@ -76,6 +76,9 @@
 
     function initHandlebars() {
         Handlebars.registerHelper("last", function(array, options) {
+            if (!array) {
+                return {};
+            }
             return options.fn(array[array.length-1]);
         });
     }
