@@ -6,27 +6,31 @@
     var utils = require('./utils.js');
     var database = require('./database.js');
     var http = require('http');
+    var async = require('async');
 
     exports.url100km = utils.defaultOptions['100kmUrl'];
 
     var retrieveTeamCheckpoints = function(teamname, callback) {
         retrieveTeam(teamname, function(team) {
-            var teamSize = team.persons && team.persons.length || 0;
-            var updateTeam = function(i) {
-                return function(data) {
-                    team.persons[i].checkpoints = data.checkpoints;
-                    //TODO find better way to wait for async calls
-                    if(i === teamSize-1) {
-                        callback(team);
-                    }
+
+            function callfunc(i) {
+                return function(cb) {
+                    retrieveCheckpoints(team.persons[i].bib, function(data) {
+                        team.persons[i].checkpoints = data.checkpoints;
+                        cb(null);
+                    });
                 };
-            };
+            }
+
+            var calls = [];
+            var teamSize = team.persons && team.persons.length || 0;
             for(var i=0; i<teamSize; i++) {
-                retrieveCheckpoints(team.persons[i].bib, updateTeam(i));
+                calls.push(callfunc(i));
             }
-            if(teamSize === 0) {
-                callback(team);
-            }
+            async.parallel(calls, function(err, results) {
+                    callback(team);
+                }
+            );
         });
     };
     exports.retrieveTeamCheckpoints = retrieveTeamCheckpoints;
