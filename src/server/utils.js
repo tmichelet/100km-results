@@ -22,7 +22,9 @@
         port: 8080,
         databasePath: './100km.sqlite',
         logfilePath: './logs.txt',
-        '100kmUrl': 'http://localhost:5984/steenwerck100km'
+        // '100kmUrl': 'http://localhost:5984/steenwerck100km',
+        // '100kmUrl': 'http://live.100km.fr/steenwerck100km'
+        '100kmUrl': 'http://coinchoid.tomobox.fr/steenwerck100km'
     };
     exports.defaultOptions = defaultOptions;
 
