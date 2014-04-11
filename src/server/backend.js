@@ -111,15 +111,14 @@
     exports.retrieveCheckpoints = retrieveCheckpoints;
 
     var CHECKPOINTS = {
-        1: {name: "Le froid nid", kms: 12.25},
-        2: {name: "La Croix du Bac", kms: 17.28},
-        3: {name: "La salle des sports, boucle 1", kms: 21.41},
-        4: {name: "La menegatte", kms: 25.57},
-        5: {name: "La gare", kms: 28.18},
-        6: {name: "La blanche", kms: 33.04},
-        7: {name: "La salle des sports, boucle 2", kms: 37.12}
+        1: {name: "La blanche", kms: [10.01, 41.50, 72.94]},
+        2: {name: "La gare", kms: [14.96, 46.39, 77.83]},
+        3: {name: "La menegatte", kms: [17.57, 49.00, 80.43]},
+        4: {name: "La salle des sports, boucle 1", kms: [21.70, 53.13, 84.56]},
+        5: {name: "La Croix du Bac", kms: [25.82, 57.25, 88.68]},
+        6: {name: "Le froid nid", kms: [30.92, 62.35, 93.78]},
+        7: {name: "La salle des sports, boucle 2", kms: [37.14, 68.57, 100.00]}
     };
-    var LAP_DISTANCE = 31.44;
 
     var fillCheckpoint = function(row) {
         /*
@@ -127,13 +126,13 @@
             means bib 100, lap 2, checkpoint 1, "time": "21:52:46"
         */
         var checkpoint = {};
+        var cp = CHECKPOINTS[row.key[2]];
 
         var date = new Date(row.value);
         checkpoint.time = date.toTimeString().substring(0,8);
-
         checkpoint.lap = row.key[1];
-        checkpoint.name = CHECKPOINTS[row.key[2]].name;
-        checkpoint.distance = CHECKPOINTS[row.key[2]].kms + (checkpoint.lap - 1) * LAP_DISTANCE;
+        checkpoint.name = cp.name;
+        checkpoint.distance = cp.kms[checkpoint.lap - 1];
 
         return checkpoint;
     };

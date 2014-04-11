@@ -257,16 +257,16 @@
                 "name": "Emeline Landemaine",
                 "checkpoints": [
                     {
-                    "time": "21:52:46",
-                    "distance": 12.25,
-                    "name": "Le froid nid",
-                    "lap": 1
+                        "time":"21:52:46",
+                        "lap":1,
+                        "name":"La blanche",
+                        "distance":10.01
                     },
                     {
-                    "time": "22:04:17",
-                    "distance": 17.28,
-                    "name": "La Croix du Bac",
-                    "lap": 1
+                        "time":"22:04:17",
+                        "lap":1,
+                        "name":"La gare",
+                        "distance":14.96
                     }
                 ]
             },
@@ -275,22 +275,22 @@
                 "name": "Emeline Parizel",
                 "checkpoints": [
                     {
-                    "time": "21:52:46",
-                    "distance": 12.25,
-                    "name": "Le froid nid",
-                    "lap": 1
+                        "time":"21:52:46",
+                        "lap":1,
+                        "name":"La blanche",
+                        "distance":10.01
                     },
                     {
-                    "time": "21:53:04",
-                    "distance": 17.28,
-                    "name": "La Croix du Bac",
-                    "lap": 1
+                        "time":"21:53:04",
+                        "lap":1,
+                        "name":"La gare",
+                        "distance":14.96
                     },
                     {
-                    "time": "22:12:37",
-                    "distance": 43.69,
-                    "name": "Le froid nid",
-                    "lap": 2
+                        "time":"22:12:37",
+                        "lap":2,
+                        "name":"La blanche",
+                        "distance":41.5
                     }
                 ]
             }
@@ -305,18 +305,7 @@
                 "bib": 40,
                 "name": "Emeline Landemaine",
                 "checkpoints": [
-                    {
-                    "time": "21:52:46",
-                    "distance": 12.25,
-                    "name": "Le froid nid",
-                    "lap": 1
-                    },
-                    {
-                    "time": "22:04:17",
-                    "distance": 17.28,
-                    "name": "La Croix du Bac",
-                    "lap": 1
-                    }
+                    {"time":"21:52:46","lap":1,"name":"La blanche","distance":10.01},{"time":"22:04:17","lap":1,"name":"La gare","distance":14.96}
                 ]
             }
         ]
