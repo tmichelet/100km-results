@@ -70,7 +70,7 @@
                 next();
             }
         });
-        server = app.listen(options.port);
+        server = app.listen(options.port, options.host);
         database.initDB(options.databasePath, function() {
             serveFiles(callback);
         });
