@@ -23,7 +23,7 @@
         host: 'localhost',
         databasePath: './100km.sqlite',
         logfilePath: './logs.txt',
-        '100kmUrl': 'http://live.100kmsteenwerck.fr//steenwerck100km'
+        '100kmUrl': 'http://live.100kmsteenwerck.fr/steenwerck100km'
     };
     exports.defaultOptions = defaultOptions;
 
