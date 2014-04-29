@@ -2,6 +2,7 @@
     "use strict";
 
     var fs = require('fs');
+    var local_utils = require('./local_utils');
 
     exports.getContentOf = function (filepath, callback) {
         fs.readFile(filepath, function (err, buffer) {
@@ -23,7 +24,7 @@
         host: 'localhost',
         databasePath: './100km.sqlite',
         logfilePath: './logs.txt',
-        '100kmUrl': 'http://live.100kmsteenwerck.fr/steenwerck100km'
+        '100kmUrl': local_utils.localOptions['100kmUrl']
     };
     exports.defaultOptions = defaultOptions;
 

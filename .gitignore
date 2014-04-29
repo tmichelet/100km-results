@@ -3,3 +3,4 @@ node_modules
 100km.sqlite
 src/client/build
 logs.txt
+src/server/local_utils.js
