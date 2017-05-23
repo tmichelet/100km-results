@@ -5,7 +5,7 @@ See in real time where are all your friends attending the 100km Steenwerck walki
 -----------
 
 
-Each year, there's a 100km walk race in steenwerck (http://100kmsteenwerck.fr).
+Each year, there's a 100km walk race in steenwerck (https://100kmsteenwerck.fr).
 
 This project provides a website to check in real time where your friends are in the race.
 
