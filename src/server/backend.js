@@ -113,10 +113,10 @@
     exports.retrieveCheckpoints = retrieveCheckpoints;
 
     var CHECKPOINTS = {
-        0: {name: "La blanche", kms: [10.01, 41.50, 72.94]},
-        1: {name: "La gare", kms: [14.96, 46.39, 77.83]},
-        2: {name: "La menegatte", kms: [17.57, 49.00, 80.43]},
-        3: {name: "La salle des sports, boucle 1", kms: [21.70, 53.13, 84.56]},
+        0: {name: "La blanche", kms: [10.01, 41.50, 72.94, 104.36]},
+        1: {name: "La gare", kms: [14.96, 46.39, 77.83, 109.25]},
+        2: {name: "La menegatte", kms: [17.57, 49.00, 80.43, 111.86]},
+        3: {name: "La salle des sports, boucle 1", kms: [21.70, 53.13, 84.56, 116]},
         4: {name: "La Croix du Bac", kms: [25.82, 57.25, 88.68]},
         5: {name: "Le froid nid", kms: [30.92, 62.35, 93.78]},
         6: {name: "La salle des sports, boucle 2", kms: [37.14, 68.57, 100.00]}
